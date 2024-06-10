@@ -1,0 +1,337 @@
+#home {
+    background: linear-gradient(to right, #3a7bd5, #3a6073);
+    width: 100%;
+    height: auto;
+  }
+
+
+  .table th,
+  .table td {
+    font-size: 16px;
+    /* Adjust the font size as needed */
+    border-radius: 5px 5px 0 0;
+  }
+
+
+  /* Decrease table width */
+  .table {
+    width: 70%;
+    /* Adjust the width as needed */
+    margin: 0 auto;
+    /* Center the table horizontally */
+    border-radius: 5px;
+    
+  }
+
+  .table button {
+    background-color: #47a386;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    padding: 10px 25px;
+
+  }
+
+  .table td button:hover {
+    background-color: #0056b3;
+  }
+
+  .table td button:active {
+    background-color: #003366;
+  }
+
+  .categoryHeader h1 {
+    text-align: center;
+    /* Center the text horizontally */
+    margin-top: 20px;
+    font-size: 36px;
+    /* Adjust font size as needed */
+    color: #333;
+  }
+
+  
+
+  .addCategory {
+    position: absolute;
+    top: -150%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.25);
+    width: 380px;
+    padding: 20px 30px;
+    background: #fff;
+    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    z-index: 1000;
+    transition: top 0ms ease-in-out 200ms,
+      opacity 200ms ease-in-out 0ms,
+      transform 20ms ease-in-out 0ms,
+
+
+  }
+
+  .addCategory.active {
+    top: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .addCategory .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 15px;
+    height: 15px;
+    background: #888;
+    color: #eee;
+    text-align: center;
+    line-height: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  .addCategory .form h2 {
+    text-align: center;
+    color: #222;
+    margin: 10px 0px 20px;
+    font-size: 25px;
+  }
+
+  .addCategory .form .form-element {
+    margin: 15px 0px;
+
+  }
+
+  .addCategory .form .form-element label {
+    font-size: 14px;
+    color: #222;
+  }
+
+  .addCategory .form .form-element input[type="text"] {
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+  }
+
+  .addCategory .form .form-element button {
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background: #222;
+    color: #f5f5f5;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+    
+  .editButton {
+    position: absolute;
+    top: -150%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.25);
+    width: 380px;
+    padding: 20px 30px;
+    background: #fff;
+    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    z-index: 1000;
+    transition: top 0ms ease-in-out 200ms,
+      opacity 200ms ease-in-out 0ms,
+      transform 20ms ease-in-out 0ms,
+
+  }
+
+  .editButton.active {
+    top: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .editButton .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 15px;
+    height: 15px;
+    background: #888;
+    color: #eee;
+    text-align: center;
+    line-height: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  .editButton .form h2 {
+    text-align: center;
+    color: #222;
+    margin: 10px 0px 20px;
+    font-size: 25px;
+  }
+
+  .editButton .form .form-element {
+    margin: 15px 0px;
+
+  }
+
+  .editButton .form .form-element label {
+    font-size: 14px;
+    color: #222;
+  }
+
+  .editButton .form .form-element input[type="text"] {
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+  }
+  .editButton .form .form-element input[type="file"] {
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+  }
+  .editButton .form .form-element button {
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background: #222;
+    color: #f5f5f5;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .categoryHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #add {
+    background-color: #47a386;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    padding: 10px 25px;
+    margin-right: 20px;
+    /* Adjust margin as needed */
+    margin-left: 30px;
+    
+  }
+
+  #add:hover {
+    background-color: #0056b3;
+  }
+
+  #add:active {
+    background-color: #003366;
+  }
+  #imagePreviewClose {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 90px;
+  }
+  .editButton #image-container{
+    margin-top: 10px;
+    height: 80px; 
+    width: 80px;
+
+  }
+  .editButton #edit_image{
+    width: 100%;
+     height: 100%
+  }
+  .editButton.hidden{
+    display: none;
+  }
+
+  .imagePreview.hidden {
+display: none;
+}
+
+.imagePreview {
+display: flex;
+flex-direction: column; /* Arrange children in a column */
+align-items: center; /* Center align the children */
+position: relative;
+width: 320px; /* Adjust the width as needed */
+margin-top: 10px; /* Adjust the margin as needed */
+border: 1px solid #ccc;
+background-color: #fff;
+padding: 0px;
+box-sizing: border-box;
+}
+
+.imagePreview img {
+width: 100%; /* Make the image width 100% of the parent */
+height: auto; /* Maintain the aspect ratio */
+object-fit: cover; /* Ensures the image covers the entire container */
+}
+
+.imagePreview #addImagePreviewClose {
+position: absolute;
+top: 10px;
+right: 10px;
+width: 20px;
+height: 20px;
+background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background color */
+color: #fff; /* Text color */
+border: none;
+border-radius: 50%; /* Creates a circular button */
+font-size: 14px;
+cursor: pointer;
+}
+
+/* Style for the close button on hover */
+.imagePreview #addImagePreviewClose:hover {
+background-color: rgba(0, 0, 0, 0.8); /* Darker background color */
+}
+
+#imageCropButtons {
+display: flex;
+flex-direction: column; /* Arranges the controls vertically */
+align-items: center; /* Center align the controls */
+margin-top: 0px; /* Adds space between the image and the controls */
+width: 100%; /* Make the control's width 100% of the parent */
+}
+
+#imageCropButtons label {
+margin-top: 0px; /* Adds space between the labels and inputs */
+}
+
+#imageCropButtons input {
+margin-bottom: 10px; /* Adds space below the input */
+width: 80%; /* Adjust width of the input controls */
+}
+
+.error{
+color: red;
+}
+
+#modalBackground {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+/* Adjust the background color and opacity as needed */
+z-index: 999; /* Ensure it appears above other content */
+display: none;
+}

@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/favicon.png" type="">
+  <title>Famms - Fashion HTML Template</title>
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="/user/css/bootstrap.css" />
+  <!-- font awesome style -->
+  <link href="/user/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="/user/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="/user/css/responsive.css" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+  .box {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 10px 0;
+      text-align: center;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+   }
+   .box .img-box img {
+      max-width: 100%;
+      height: auto;
+   }
+   .box .detail-box {
+      margin-top: 10px;
+   }
+   .box .option_container {
+      display: none;
+   }
+   .box:hover .option_container {
+      display: block;
+   }
+   .filters {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      margin-left: 15px;
+   }
+   .filters .list-group-item {
+      border: none;
+      padding: 10px 0;
+   }
+   .filters .dropdown-toggle {
+      width: 100%;
+   }
+   /* .product_section .box {
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin: 10px;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+      flex: 1 1 auto;
+   }
+   .product_section .box:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+   }
+   .product_section .img-box {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+   }
+   .product_section .img-box img {
+      max-height: 100%;
+      max-width: 100%;
+   }
+   .product_section .detail-box {
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+   }
+   .product_section .detail-box h5 {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0;
+   }
+   .product_section .detail-box h6 {
+      font-size: 16px;
+      color: #555;
+      margin: 0;
+   } */
+  
+</style>
+
+</head>
+   <body class="sub_page">
+      <div class="hero_area">
+         <!-- header section strats -->
+         <header class="header_section">
+            <div class="container">
+               <nav class="navbar navbar-expand-lg custom_nav-container ">
+                  <a class="navbar-brand" href="index.html"><h4>NUTROMAX</h4></a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class=""> </span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                     <ul class="navbar-nav">
+                        <li class="nav-item">
+                           <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Pages <span class="caret"></span></a>
+                           <ul class="dropdown-menu">
+                              <li><a href="about.html">About</a></li>
+                              <li><a href="testimonial.html">Testimonial</a></li>
+                           </ul>
+                        </li>
+                        <li class="nav-item active">
+                           <a class="nav-link" href="product.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="blog_list.html">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="#">
+                              <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                                 <g>
+                                    <g>
+                                       <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                                          c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                                    </g>
+                                 </g>
+                                 <g>
+                                    <g>
+                                       <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                                          C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                                          c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                                          C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                                    </g>
+                                 </g>
+                                 <g>
+                                    <g>
+                                       <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                                          c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                                    </g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                              </svg>
+                           </a>
+                        </li>
+                        <form class="form-inline">
+                           <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                           <i class="fa fa-search" aria-hidden="true"></i>
+                           </button>
+                        </form>
+                     </ul>
+                  </div>
+               </nav>
+            </div>
+         </header>
+         <!-- end header section -->
+      </div>
+      <!-- inner page section -->
+      <section class="inner_page_head">
+         <div class="container_fuild">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <h3>Product Grid</h3>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end inner page section -->
+      <!-- product section -->
+    
+      <!-- end inner page section -->
+      <!-- product section -->
+    
+      <!-- end inner page section -->
+      <!-- product section -->
+      <section class="product_section layout_padding">
+         <div class="container-fluid">
+            <div class="row">
+               <!-- Filters section -->
+               <div class="col-lg-2 col-md-3 col-sm-12">
+                  <div class="filters">
+                     <ul class="list-group mb-4">
+                        <li class="list-group-item list-group-item-dark">CATEGORIES</li>
+                        <div class="dropdown mb-2">
+                           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
+                              <% if (category) { %>
+                              <%= categories.find(cat => cat._id.toString() === category.toString()).name %>
+                              <% } else { %>
+                              Select category
+                              <% } %>
+                           </button>
+                           <ul class="dropdown-menu category-list">
+                              <% categories.forEach(cat => { %>
+                              <% if (cat._id.toString() === category) { %>
+                              <li><span class="dropdown-item-text text-muted"><%= cat.name %></span></li>
+                              <% } else { %>
+                              <li><a class="dropdown-item" href="/product-list/list?category=<%= cat._id %><% if(search){ %>&search=<%= search %><% } %>"><%= cat.name %></a></li>
+                              <% } %>
+                              <% }) %>
+                           </ul>
+                        </div>
+                        <li class="list-group-item"><a href="/product-list/lowToHigh<% if (category || search) { %>?<% } %><% if (category) { %>category=<%= category %><% } %><% if (category && search) { %>&<% } %><% if (search) { %>search=<%= search %><% } %>">Price: low to high</a></li>
+                        <li class="list-group-item"><a href="/product-list/highToLow<% if (category || search) { %>?<% } %><% if (category) { %>category=<%= category %><% } %><% if (category && search) { %>&<% } %><% if (search) { %>search=<%= search %><% } %>">Price: high to low</a></li>
+                        <li class="list-group-item"><a href="/product-list/newArrivals<% if (category || search) { %>?<% } %><% if (category) { %>category=<%= category %><% } %><% if (category && search) { %>&<% } %><% if (search) { %>search=<%= search %><% } %>">New Arrivals</a></li>
+                        <li class="list-group-item"><a href="/product-list/aA-Zz<% if (category || search) { %>?<% } %><% if (category) { %>category=<%= category %><% } %><% if (category && search) { %>&<% } %><% if (search) { %>search=<%= search %><% } %>">aA-Zz</a></li>
+                        <li class="list-group-item"><a href="/product-list/Zz-aA<% if (category || search) { %>?<% } %><% if (category) { %>category=<%= category %><% } %><% if (category && search) { %>&<% } %><% if (search) { %>search=<%= search %><% } %>">Zz-aA</a></li>
+                        <li class="list-group-item"><a href="/product-list/stock<% if (category || search) { %>?<% } %><% if (category) { %>category=<%= category %><% } %><% if (category && search) { %>&<% } %><% if (search) { %>search=<%= search %><% } %>">Stock</a></li>
+                     </ul>
+                  </div>
+               </div>
+               <!-- Products section -->
+               <div class="col-lg-10 col-md-9 col-sm-12">
+                  <div class="row" >
+                     <% products.forEach(product => { %>
+                     <div class="col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch "  style="margin-top: 30px;">
+                        <a href="/getProductDetail/<%= product._id %>">
+                           <div class="box" style="width: 300px;">
+                              <div class="img-box">
+                                 <img src="/<%= product.image[0] %>" alt="<%= product.productName %>">
+                              </div>
+                              <div class="detail-box">
+                                 <h5><%= product.productName %></h5>
+                                 <h6>₹<%= product.price %>/-</h6>
+                              </div>
+                           </div>
+                        </a>
+                     </div>
+                     <% }); %>
+                  </div>
+                  
+                  <div class="btn-box text-center mt-4">
+                     <a href="">View All products</a>
+                  </div>
+                  <div class="pagination mt-4">
+                     <ul class="pagination justify-content-center">
+                        <% if(currentPage!==1 && previousPage!=1){ %>
+                        <li class="page-item"><a class="page-link" href="/product-list/<%= action %>?<% if (category && search) { %>category=<%= category %>&search=<%= search %>&<% } else if(category) { %>category=<%= category %>&<% } else if(search) { %>search=<%= search %>&<% } %>page=1">1</a></li>
+                        <% } %>
+                        <% if(hasPreviousPage){ %>
+                        <li class="page-item"><a class="page-link" href="/product-list/<%= action %>?<% if (category && search) { %>category=<%= category %>&search=<%= search %>&<% } else if(category) { %>category=<%= category %>&<% } else if(search) { %>search=<%= search %>&<% } %>page=<%= previousPage %>"><%= previousPage %></a></li>
+                        <% } %>
+                        <li class="page-item active"><a class="page-link" href="/product-list/<%= action %>?<% if (category && search) { %>category=<%= category %>&search=<%= search %>&<% } else if(category) { %>category=<%= category %>&<% } else if(search) { %>search=<%= search %>&<% } %>page=<%= currentPage %>"><%= currentPage %></a></li>
+                        <% if(hasNextPage){ %>
+                        <li class="page-item"><a class="page-link" href="/product-list/<%= action %>?<% if (category && search) { %>category=<%= category %>&search=<%= search %>&<% } else if(category) { %>category=<%= category %>&<% } else if(search) { %>search=<%= search %>&<% } %>page=<%= nextPage %>"><%= nextPage %></a></li>
+                        <% } %>
+                        <% if(lastPage!==currentPage && nextPage!==lastPage){ %>
+                        <li class="page-item"><a class="page-link" href="/product-list/<%= action %>?<% if (category && search) { %>category=<%= category %>&search=<%= search %>&<% } else if(category) { %>category=<%= category %>&<% } else if(search) { %>search=<%= search %>&<% } %>page=<%= lastPage %>"><%= lastPage %></a></li>
+                        <% } %>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      
+   
+      
+       
+      <!-- end product section -->
+      <!-- footer section -->
+      <footer class="footer_section">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-4 footer-col">
+                  <div class="footer_contact">
+                     <h4>
+                        Reach at..
+                     </h4>
+                     <div class="contact_link_box">
+                        <a href="">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <span>
+                        Location
+                        </span>
+                        </a>
+                        <a href="">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <span>
+                        Call +91 9544381407
+                        </span>
+                        </a>
+                        <a href="">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <span>
+                        nutromax@gmail.com
+                        </span>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4 footer-col">
+                  <div class="footer_detail">
+                     <a href="index.html" class="footer-logo">
+                     NUTROMAX
+                     </a>
+                     <p>
+                        "Empowering Every Rep, Every Set, Every Goal: Your Ultimate Gym Supplement Companion."
+                     </p>
+                     <div class="footer_social">
+                        <a href="">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        </a>
+                        <a href="">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </a>
+                        <a href="">
+                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                        </a>
+                        <a href="">
+                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="">
+                        <i class="fa fa-pinterest" aria-hidden="true"></i>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4 footer-col">
+                  <div class="map_container">
+                     <div class="map">
+                        <div id="googleMap"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="footer-info">
+               <div class="col-lg-7 mx-auto px-0">
+                  <p>
+                     &copy; <span id="displayYear"></span> All Rights Reserved By Nutromax india pvt ltd
+                  </p>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- footer section -->
+       <!-- bootstrap -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+      <!-- jQery -->
+
+      <script src="/user/js/jquery-3.4.1.min.js"></script>
+      <!-- popper js -->
+      <script src="/user/js/popper.min.js"></script>
+      <!-- bootstrap js -->
+      <script src="/user/js/bootstrap.js"></script>
+      <!-- custom js -->
+      <script src="/user/js/custom.js"></script>
+   </body>
+</html>

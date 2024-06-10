@@ -1,0 +1,242 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+    
+}
+
+.container {
+    display: flex;
+    min-height: 100%;
+    min-width: 100%;
+    background-color: #f5f5f5;
+}
+
+.sidebar {
+    width: 25%;
+    height: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-info {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-info img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.profile-info h2 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+    color: #444;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.sidebar-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0 0;
+    height: 100vh;
+}
+
+.sidebar-menu li {
+    margin: 15px 0;
+}
+
+.sidebar-menu li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.sidebar-menu li a:hover,
+.sidebar-menu li.active a {
+    background-color: #0056b3;;
+    color: #fff;
+}
+
+.main-content {
+    width: 100%;
+    padding: 20px;
+    background-color: #fbfafa;
+    height: 100vh;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #444;
+}
+
+.profile-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #666;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: calc(40% - 30px);
+    padding: 8px 5px;
+    font-size: 14px;
+    border: 3px solid  #666;
+    border-radius: 4px;
+}
+
+.form-inline {
+    display: flex;
+    align-items: center;
+    width: calc(40% - 30px);
+   
+}
+
+.form-inline input {
+    flex: 1;
+}
+
+.form-inline a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #0066cc;
+    font-size: 14px;
+}
+
+
+.addresses h2 {
+    font-size: 20px;
+    color: #444;
+    margin-top: 0;
+}
+
+.add-address-btn {
+    display: inline-block;
+    background-color:#47a386;;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.add-address-btn:hover {
+    background-color: #0056b3;;
+}
+.address-cards {
+    display: flex;
+    flex-direction: column;
+}
+
+.address-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.address-info {
+    margin-bottom: 10px;
+}
+
+.address-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-button, .delete-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-button:hover, .delete-button:hover {
+    background-color: #0056b3;
+}
+
+
+
+/* modal css */
+/* Modal Header */
+.modal-header {
+    background-color: #ffffff;
+    color: #000000;
+
+    
+}
+
+
+/* Modal Body */
+.modal-body {
+    padding: 20px;
+}
+
+/* Input Fields */
+.modal-body input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Submit Button */
+.modal-body input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Submit Button Hover Effect */
+.modal-body input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/admin/css/admin-login.css">
+    
+</head>
+<body>
+    <div class="login-box">
+        <h2>Admin Login</h2>
+        <form action="/admin/adminLogin"  method="post">
+          <%if(error!=undefined){%>
+            <p style="color: red;">
+              <%= error %>
+            </p>
+    
+          <%}%>
+          <div class="user-box">
+            <input type="email" name="email" required="">
+            <label>Email</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="password" required="">
+            <label>Password</label>
+          </div>
+        
+          <button type="submit" id="submitButton">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Submit
+          </button>
+      
+        
+        </form>
+      </div>
+</body>
+</html>

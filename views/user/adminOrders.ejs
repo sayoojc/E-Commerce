@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Accounts - Product Admin Template</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="/admin/css/fontawesome.min.css" />
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="/admin/css/bootstrap.min.css" />
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="/admin/css/templatemo-style.css">
+    <!--
+	Product Admin CSS Template
+	https://templatemo.com/tm-524-product-admin
+	-->
+  <link rel="stylesheet" href="/admin/css/accounts.css">
+  <style>
+     body {
+      background-color: #fff; /* Set background color to white */
+    }
+    .bd-placeholder-img { 
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+
+      
+  .custom-card {
+    border-radius: 10px; /* Corner radius */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light grey box shadow */
+    background-color: #f8f9fa; /* Light grey background */
+    padding: 15px; /* Padding inside the card */
+  }
+  .custom-div {
+      border: 1px solid #ced4da; /* Grey border */
+      border-radius: 8px; /* Rounded corners */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light grey box shadow */
+      padding: 15px; /* Padding inside the div */
+    }
+
+
+    .custom-div button.btn-secondary:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 255, 0.5); /* Blue box shadow on hover */
+      color: blue; /* Blue text on hover */
+    }
+    .custom-card .form-control {
+  width: 50px; /* Adjust the width here */
+}
+.minus-btn{
+  margin-left:10px ;
+}
+.plus-btn{
+  margin-left: 10px;
+}
+button {
+         background-color: #ff8c00;
+         color: white;
+         border: none;
+         padding: 5px 10px;
+         cursor: pointer;
+         text-transform: uppercase;
+         font-size: 0.8rem;
+         margin-left: 20px;
+         border-radius: 5px;
+      }
+
+      button:hover {
+         background-color: #ff7c00;
+         
+      }
+      .normal-case {
+    text-transform: none;
+  }
+  .addressChangeBtn{
+    border-color: #6c757d;
+   
+  }
+  .addressChangeBtn:hover{
+    border-color: #6c757d;
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.5); /* Adjust the shadow as needed */
+    
+  }
+  #orderConfirmDiv {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    width: auto; /* Adjusted to auto to fit the text */
+    height: 50px;
+  }
+
+  #orderConfirmDiv:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+
+  #orderConfirmDiv:active {
+    background-color: #004085;
+    border-color: #004085;
+  }
+  .order {
+  margin-bottom: 20px; /* Adjust the value as needed */
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+}
+
+.order-item-image {
+  width: 100px;
+  height: 100px;
+}
+
+.order-item-details {
+  margin-left: 20px;
+}
+
+.order-item-details p {
+  margin: 0;
+}
+
+  </style>
+  </head>
+
+  <body id="reportsPage">
+    <header>
+      <div class="" id="home">
+        <nav class="navbar navbar-expand-xl">
+          <div class="container h-100">
+            <a class="navbar-brand" href="index.html">
+              <h1 class="tm-site-title mb-0">Product Admin</h1>
+            </a>
+            <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+              data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <i class="fas fa-bars tm-nav-icon"></i>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mx-auto h-100">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                    <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item dropdown">
+    
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="far fa-file-alt"></i>
+                    <span>
+                      Reports <i class="fas fa-angle-down"></i>
+                    </span>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Daily Report</a>
+                    <a class="dropdown-item" href="#">Weekly Report</a>
+                    <a class="dropdown-item" href="#">Yearly Report</a>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/getProducts">
+                    <i class="fas fa-shopping-cart"></i>
+                    Products
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/getCategory">
+                    <i class="fas fa-list-alt"></i>
+                    Categories
+                  </a>
+                </li>
+    
+    
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/getUserDetail">
+                    <i class="far fa-user"></i>
+                    Accounts
+                  </a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-cog"></i>
+                    <span>
+                      Settings <i class="fas fa-angle-down"></i>
+                    </span>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="#">Billing</a>
+                    <a class="dropdown-item" href="#">Customize</a>
+                  </div>
+                </li>
+              </ul>
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                 <form action="/admin/postAdminLogout" method="post">
+                  <button type="submit" style="border: none; background-color: transparent;color: white; margin-top: 25px;margin-left: 20px; font-size: 18px;">Logout</button>
+                 </form>
+                    
+                
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+      </header>
+      <main>
+        <div class="container-fluid" style="padding-left: 170px; padding-right: 170px;">
+          <div class="col-md-10 col-lg-12 border border-dark p-3 custom-div">
+            <h1>Order History</h1>
+            <% if (orders && orders.length > 0) { %>
+              <% orders.forEach(order => { %>
+                <div class="order col-md-10 col-lg-12 border border-dark p-3 custom-div mb-3">
+                  <h2>Order Date: <%= new Date(order.orders[0].orderDate).toDateString() %></h2>
+                  <ul>
+                    <% order.orders.forEach(item => { %>
+                      <li class="order-item d-flex align-items-center mb-3">
+                        <img src="/<%= item.product_id.image[0] %>" alt="<%= item.product_id.name %>" class="order-item-image">
+                        <div class="order-item-details ml-3">
+                          <p><strong>Product:</strong> <%= item.product_id.productName %></p>
+                          <p><strong>Quantity:</strong> <%= item.count %></p>
+                          <p><strong>Price:</strong> $<%= item.price %></p>
+                          <p><strong>Status:</strong> <%= item.orderStatus %></p>
+                          <p><strong>Payment Method:</strong> <%= item.payment %></p>
+                        </div>
+                      </li>
+                      <li>
+                        <button id="cancelOrderButton" 
+                          data-count="<%= item.count %>"
+                          data-orderId="<%= order._id %>" 
+                          data-productId="<%= item.product_id._id %>">Cancel</button>
+                      </li>
+                    <% }) %>
+                  </ul>
+                  
+                  <!-- Display User's Name and Address -->
+                  <div class="order-user-details">
+                    <p><strong>User Name:</strong> <%= order.user.name %></p>
+                    <% order.orders.forEach(item => { %>
+                      <p><strong>Address:</strong> <%= item.address.name %>, <%= item.address.address1 %>, <%= item.address.city %>, <%= item.address.state %>, <%= item.address.pincode %></p>
+                    <% }) %>
+                  </div>
+                </div>
+              <% }) %>
+            <% } else { %>
+              <p>You have no order history.</p>
+            <% } %>
+          </div>
+        </div>
+      </main>
+      
+      
+         </div>
+</div>
+
+
+
+
+<script>
+  
+
+
+</script>
+
+
+
+      </main>
+      
+    </div>
+<script>
+  //////////fetch to cancel order//////////////////
+  document.addEventListener('DOMContentLoaded', function () {
+  const cancelOrderButtons = document.querySelectorAll('#cancelOrderButton');
+
+  cancelOrderButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const orderId = this.getAttribute('data-orderId');
+      const productId = this.getAttribute('data-productId');
+      const count = this.getAttribute('data-count'); // Get the product ID
+
+      fetch('/cancelOrder', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ orderId, productId,count })  // Send both orderId and productId
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message.includes('successfully')) {
+            console.log(data.message);
+            window.location.replace('/admin/getAdminOrdersPage');  // Redirect to order history
+          } else {
+            console.error('Failed to remove product from order');
+            document.getElementById('backend-error').textContent = 'Failed to remove product from order.';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          document.getElementById('backend-error').textContent = 'An error occurred.';
+        });
+    });
+  });
+});
+
+</script>
+    <script src="/public/admin/js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="/public/admin/js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script src="/admin/js/account.js"></script>
+      
+    
+  </body>
+</html>

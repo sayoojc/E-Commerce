@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="../assets/js/color-modes.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.122.0">
+    <title>Checkout example · Bootstrap v5.3</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/checkout/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+<link href="/user/css/bootstrap.min.css.map" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="user/css/bootstrap.css" />
+<!-- font awesome style -->
+<link href="user/css/font-awesome.min.css" rel="stylesheet" />
+<!-- Custom styles for this template -->
+<link href="user/css/style.css" rel="stylesheet" />
+<!-- responsive style -->
+<link href="user/css/responsive.css" rel="stylesheet" />
+
+    <style>
+      /* .container {
+  max-width: 960px;
+}*/
+      .bd-placeholder-img { 
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+
+      
+  .custom-card {
+    border-radius: 10px; /* Corner radius */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light grey box shadow */
+    background-color: #f8f9fa; /* Light grey background */
+    padding: 15px; /* Padding inside the card */
+  }
+  .custom-div {
+      border: 1px solid #ced4da; /* Grey border */
+      border-radius: 8px; /* Rounded corners */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light grey box shadow */
+      padding: 15px; /* Padding inside the div */
+    }
+
+
+    .custom-div button.btn-secondary:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 255, 0.5); /* Blue box shadow on hover */
+      color: blue; /* Blue text on hover */
+    }
+    .custom-card .form-control {
+  width: 50px; /* Adjust the width here */
+}
+.minus-btn{
+  margin-left:10px ;
+}
+.plus-btn{
+  margin-left: 10px;
+}
+button {
+         background-color: #ff8c00;
+         color: white;
+         border: none;
+         padding: 5px 10px;
+         cursor: pointer;
+         text-transform: uppercase;
+         font-size: 0.8rem;
+         margin-left: 20px;
+         border-radius: 5px;
+      }
+
+      button:hover {
+         background-color: #ff7c00;
+         
+      }
+      .normal-case {
+    text-transform: none;
+  }
+  .addressChangeBtn{
+    border-color: #6c757d;
+   
+  }
+  .addressChangeBtn:hover{
+    border-color: #6c757d;
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.5); /* Adjust the shadow as needed */
+    
+  }
+  #orderConfirmDiv {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    width: auto; /* Adjusted to auto to fit the text */
+    height: 50px;
+  }
+
+  #orderConfirmDiv:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+
+  #orderConfirmDiv:active {
+    background-color: #004085;
+    border-color: #004085;
+  }
+  #backend-error{
+    color: red;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="checkout.css" rel="stylesheet">
+  </head>
+  <body class="bg-body-tertiary">
+   
+    <%- include('./header.ejs') %>
+  
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+      <symbol id="check2" viewBox="0 0 16 16">
+        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+      </symbol>
+      <symbol id="circle-half" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+      </symbol>
+      <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+      </symbol>
+      <symbol id="sun-fill" viewBox="0 0 16 16">
+        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+      </symbol>
+    </svg>
+
+    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
+      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+              id="bd-theme"
+              type="button"
+              aria-expanded="false"
+              data-bs-toggle="dropdown"
+              aria-label="Toggle theme (auto)">
+        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
+        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
+        <li>
+          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>
+            Light
+            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
+            Dark
+            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#circle-half"></use></svg>
+            Auto
+            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+    
+    
+    <main>
+    
+    <div class="container-fluid" style="padding-left: 170px; padding-right: 170px; ">
+     
+        
+    
+        <div class="row g-5">
+          <div class="col-md-5 col-lg-4 order-md-last" style="position: fixed; margin-left: 860px; width: 400px;">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-primary">Your cart</span>
+              <span class="badge bg-primary rounded-pill">3</span>
+            </h4>
+            <ul class="list-group mb-3">
+              <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <h6 class="my-0">Product name</h6>
+                  <small class="text-body-secondary">Brief description</small>
+                </div>
+                <span class="text-body-secondary">$12</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <h6 class="my-0">Second product</h6>
+                  <small class="text-body-secondary">Brief description</small>
+                </div>
+                <span class="text-body-secondary">$8</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <h6 class="my-0">Third item</h6>
+                  <small class="text-body-secondary">Brief description</small>
+                </div>
+                <span class="text-body-secondary">$5</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
+                <div class="text-success">
+                  <h6 class="my-0">Promo code</h6>
+                  <small>EXAMPLECODE</small>
+                </div>
+                <span class="text-success">−$5</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Total (USD)</span>
+                <strong>$20</strong>
+              </li>
+            </ul>
+    
+            <form class="card p-2">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Promo code">
+                <button type="submit" class="btn btn-secondary">Redeem</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-md-7 col-lg-8 border border-dark p-3 custom-div">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <div class="form-check me-3">
+                        <input class="form-check-input" type="checkbox" id="loginCheckbox" checked disabled>
+                       <strong> <label class="form-check-label" for="loginCheckbox">
+                            Login
+                        </label></strong>
+                    </div>
+                    <div>
+                        <%= user.name %>, <%= user.email %>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+
+        <div class="col-md-7 col-lg-8 border border-dark p-3 custom-div">
+          <% if (addresses.length > 0) { %>
+              <div class="d-flex justify-content-between align-items-center">
+                  <div class="form-check me-3">
+                      <input class="form-check-input" type="checkbox" id="loginCheckbox" checked disabled>
+                      <strong>
+                          <label class="form-check-label" for="loginCheckbox">
+                              Deliver here
+                          </label>
+                      </strong>
+                  </div>
+                  <div class="d-flex align-items-center">
+                      <% addresses.forEach(address => { %>
+                          <% if (address.default) { %>
+                              
+                              <div>
+                                  <span><strong><%= address.name %></strong></span>
+                                  <%= address.address1 %>, <%= address.address2 %>, <%= address.locality %>, <%= address.city %>, <%= address.pincode %>, <%= address.phone %>
+                              </div>
+                              <div class="me-3">
+                                <button type="button" class="btn normal-case addressChangeBtn btn-primary" data-bs-toggle="modal" data-bs-target="#changeAddressModal">Change</button>
+                            </div>
+                          <% } %>
+                      <% }) %>
+                  </div>
+              </div>
+          <% } else { %>
+              <div class="text-center">There is no address to select</div>
+          <% } %>
+      </div>
+
+
+        <div class="col-md-7 col-lg-8 border border-dark p-3 custom-div  " id="orderSummaryDiv">
+          
+            <% items.forEach(item => { %>
+              <div class="row mb-3 custom-card">
+                <div class="col-md-4"  >
+                  <% if (item.image && item.image.length > 0) { %>
+                    <img src="<%= item.image[0] %>" class="img-fluid" style="max-width: 100px; max-height: 100px;" alt="<%= item.name %>">
+                  <% } else { %>
+                    <img src="/path/to/default-image.jpg" alt="<%= item.name %>">
+                  <% } %>
+                </div>
+                <div class="col-md-8 text-right">
+                  <p><strong><%= item.name %></strong></p>
+                  <p><%= item.description %></p>
+                  <p>Price: $<%= item.price %></p>
+                  <p>Total: $<%= item.price * item.quantity %></p>
+                  <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-secondary minus-btn" type="button">-</button>
+                    <input type="text" class="form-control product-count mx-2" value="<%= item.quantity %>" readonly>
+                    <button class="btn btn-outline-secondary plus-btn" type="button">+</button>
+                    
+                   
+
+                      <button type="button" class="btn btn-outline-danger" id="productRemoveButton" data-productId="<%=item.productId%>">Remove</button>
+                    
+                  </div>
+                </div>
+              </div>
+            <% }); %>
+            <div class="cart-summary">
+            <button id="checkoutContinueButton" style="width: 730px; height: 60px; position: static;">Continue</button>
+            </div>
+        
+
+          
+
+        
+        </div>
+
+         <!-- The order summary finish div -->
+         <div class="col-md-7 col-lg-8 border border-dark p-3 custom-div " id="orderSummaryFinishDiv" style="height: 80px;">
+          <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                  <div class="form-check me-3">
+                      <input class="form-check-input" type="checkbox" id="loginCheckbox" checked disabled>
+                     <strong> <label class="form-check-label" for="loginCheckbox">
+                          Order Summary
+                      </label></strong>
+                  </div>
+                  <div class="me-3"  style="padding-left: 500px;"> 
+                    <button type="button"  class="btn normal-case btn-primary" id="orderSummaryChangeButton" >Change</button>
+                  </div>
+                  
+              </div>
+              
+          </div>
+        </div>
+    
+<!-- payment options finish div -->
+
+        <div class="col-md-7 col-lg-8 border border-dark p-3 custom-div " id="paymentOptionsFinishDiv" style="height: 80px;">
+          <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                  <div class="form-check me-3">
+                      <input class="form-check-input" type="checkbox" id="loginCheckbox" checked disabled>
+                     <strong> <label class="form-check-label" for="loginCheckbox">
+                          Payment Options
+                      </label></strong>
+                  </div>
+                  <div class=""  > 
+                    <button type="button"  class="btn normal-case btn-primary" id="orderSummaryChangeButton">Change</button>
+                  </div>
+                  
+              </div>
+              
+          </div>
+        </div>
+
+
+
+        <div class="col-md-7 col-lg-8 border border-dark p-3 custom-div" id="paymentOptionsDiv" style="width:100px; display: none;" >
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <div class="form-check me-3">
+                <input class="form-check-input" type="checkbox" id="loginCheckbox" checked disabled>
+                <strong>
+                  <label class="form-check-label" for="loginCheckbox">
+                    Payment Options
+                  </label>
+                </strong>
+                <div id="paymentOptions">
+                  <div class="form-check" id="razorPayDiv">
+                    <input class="form-check-input" type="radio" name="paymentOption" id="razorPayOption" value="razorPay" checked>
+                    <label class="form-check-label" for="razorPayOption">
+                      Razor Pay
+                    </label>
+                  </div>
+                  <div class="form-check" id="codDiv">
+                    <input class="form-check-input" type="radio" name="paymentOption" id="codOption" value="cod">
+                    <label class="form-check-label" for="codOption">
+                      Cash On Delivery
+                    </label>
+                  </div>
+                </div>
+                <button class="btn btn-primary normal-case"  id="changePaymentOptionsBtn">Change</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div class="col-md-7 col-lg-8 border border-dark p-3 custom-div" id="orderConfirmDiv" style="width: auto;">
+          Confirm Order
+        </div>
+
+        <div id="backend-error" ></div>
+       
+    
+      
+      
+      </main>
+    </div>
+
+
+
+<!-- The address selector modal -->
+<div class="modal fade" id="changeAddressModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Select Delivery Address</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="changeAddressForm">
+                  <div id="addressList">
+                      <!-- Dynamic address list goes here -->
+                      <% addresses.forEach(address => { %>
+                      <div class="address-item border p-2 mb-2 d-flex align-items-start">
+                         
+                          <label for="address-<%= address._id %>" class="w-100">
+                              <p class="mb-1"><strong><%= address.name %></strong></p>
+                              <p class="mb-1"><%= address.address1 %>, <%= address.address2 %></p>
+                              <p class="mb-1"><%= address.locality %>, <%= address.city %>, <%= address.state %> - <%= address.pincode %></p>
+                              <p class="mb-1">Phone: <%= address.phone %></p>
+                          </label>
+                          <button type="button" class="btn  select-address-btn" data-id="<%= address._id %>">Select</button>
+                      </div>
+                      <% }) %>
+                  </div>
+                  <p id="currentPasswordError" class="text-danger"></p>
+                  <p id="backend-error" class="text-danger"></p>
+                  <input type="hidden" id="selectedAddressId" name="selectedAddressId">
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+<footer>
+
+</footer>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const paymentOptionsDiv = document.getElementById('paymentOptionsDiv');
+  const paymentOptions = document.getElementById('paymentOptions');
+  const razorPayDiv = document.getElementById('razorPayDiv');
+  const codDiv = document.getElementById('codDiv');
+  const changePaymentOptionsBtn = document.getElementById('changePaymentOptionsBtn');
+
+  // Initially show only the checked radio button and checkbox
+  function showSelectedPaymentOption() {
+    const selectedOption = document.querySelector('input[name="paymentOption"]:checked');
+    if (selectedOption && selectedOption.id === 'razorPayOption') {
+      razorPayDiv.style.display = 'block';
+      codDiv.style.display = 'none';
+    } else if (selectedOption && selectedOption.id === 'codOption') {
+      razorPayDiv.style.display = 'none';
+      codDiv.style.display = 'block';
+    }
+    changePaymentOptionsBtn.style.display = 'block';
+  }
+
+  // Event listener for the Change Payment Options button
+  changePaymentOptionsBtn.addEventListener('click', function() {
+    razorPayDiv.style.display = 'block';
+    codDiv.style.display = 'block';
+    changePaymentOptionsBtn.style.display = 'none';
+  });
+
+  // Event listener for the radio buttons to show only the selected option
+  paymentOptions.addEventListener('change', function() {
+    showSelectedPaymentOption();
+  });
+
+  // Initial call to set the correct display
+  showSelectedPaymentOption();
+});
+
+
+
+
+////////////method to remove order summary detail page//////////////////////
+const orderSummaryDiv = document.getElementById('orderSummaryDiv');
+const checkoutContinueButton = document.getElementById('checkoutContinueButton');
+const orderSummaryFinishDiv = document.getElementById('orderSummaryFinishDiv');
+const orderConfirmDiv = document.getElementById('orderConfirmDiv');
+
+orderSummaryFinishDiv.style.display = 'none';
+const paymentOptionsDiv = document.getElementById('paymentOptionsDiv');
+paymentOptionsFinishDiv.style.display = 'none';
+orderConfirmDiv.style.display = 'none';
+
+
+checkoutContinueButton.addEventListener('click', function() {
+  orderSummaryDiv.style.display = 'none';
+  orderSummaryFinishDiv.style.display = 'block';
+  paymentOptionsDiv.style.display = 'block';
+  orderConfirmDiv.style.display = 'block';
+
+});
+
+const orderSummaryChangeButton = document.getElementById('orderSummaryChangeButton');
+
+orderSummaryChangeButton.addEventListener('click',function(){
+  orderSummaryDiv.style.display = 'block';
+  orderSummaryFinishDiv.style.display = 'none';
+  paymentOptionsDiv.style.display = 'none';
+})
+  // Get all the plus and minus buttons
+  const plusBtns = document.querySelectorAll('.plus-btn');
+  const minusBtns = document.querySelectorAll('.minus-btn');
+  
+  // Add click event listeners to each button
+  plusBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Get the input field associated with the button
+      const input = btn.parentElement.querySelector('.product-count');
+      // Increment the value
+      input.value = parseInt(input.value) + 1;
+    });
+  });
+
+  minusBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Get the input field associated with the button
+      const input = btn.parentElement.querySelector('.product-count');
+      // Ensure the value doesn't go below 1
+      if (parseInt(input.value) > 1) {
+        // Decrement the value
+        input.value = parseInt(input.value) - 1;
+      }
+    });
+  });
+
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+      const selectButtons = document.querySelectorAll('.select-address-btn');
+
+      selectButtons.forEach(button => {
+          button.addEventListener('click', function() {
+              const addressId = this.getAttribute('data-id');
+              document.getElementById('selectedAddressId').value = addressId;
+              
+              // Send the selected address ID via an AJAX request
+              submitAddressSelection(addressId);
+          });
+      });
+  });
+
+  function submitAddressSelection(addressId) {
+      fetch('/changeAddress', {
+          method: 'PATCH',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ selectedAddressId: addressId })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              // Handle success, perhaps close the modal and update the UI
+              console.log('Address selected successfully');
+              // Close the modal
+              document.querySelector('.btn-close').click();
+             
+              window.location.href ='/getCheckout';
+          } else {
+              document.getElementById('backend-error').textContent = data.error || 'An error occurred.';
+          }
+          
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          document.getElementById('backend-error').textContent = 'An error occurred.';
+      });
+  }
+
+
+  ///////////////////////fetch for confirm order//////////////////////
+  let selectedOption;
+  function getSelectedPaymentOption() {
+      const paymentOptions = document.getElementsByName('paymentOption');
+      
+      for (const option of paymentOptions) {
+        if (option.checked) {
+          selectedOption = option.value;
+          break;
+        }
+      }
+      return selectedOption;
+    }
+
+    // Event listener for radio button change
+    document.getElementById('paymentOptions').addEventListener('change', function () {
+      const selectedOption = getSelectedPaymentOption();
+      console.log('Selected Payment Option:', selectedOption);
+    });
+
+    
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+     const orderConfirmDiv = document.getElementById('orderConfirmDiv');
+     orderConfirmDiv.addEventListener('click',function(){
+      fetch('/confirmOrder',{
+        method:'post',
+        headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({paymentMethod:selectedOption})
+      })
+      .then(response => response.json())
+      .then(data => {
+           if (data.success) {
+            
+             
+              window.location.href ='/getCart';
+           } else {
+               document.getElementById('backend-error').textContent = data.message || 'An error occurred.';
+           }
+          
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          document.getElementById('backend-error').textContent = 'An error occurred.';
+      });
+     })
+  })
+
+
+  ///////////////fetch to remove product from cart//////////////////
+
+const productRemoveButton = document.querySelectorAll('#productRemoveButton');
+
+productRemoveButton.forEach(button =>{
+  const productId = button.getAttribute('data-productId');
+  button.addEventListener('click',function(){
+    fetch(`/removeFromCart/${productId}`,{
+      method:'DELETE',
+    })
+    .then(response => response.json())
+      .then(data => {
+          if (data.message) {
+              // Handle success, perhaps close the modal and update the UI
+              console.log('product removed successfully');
+              
+             
+             
+              window.location.href ='/getCheckout';
+          } else {
+              document.getElementById('backend-error').textContent = data.error || 'An error occurred when deleting the product from the cart.';
+          }
+          
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          document.getElementById('backend-error').textContent = 'An error occurred.';
+      });
+  })
+})
+</script>
+
+<script src="/user/js/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script src="/user/js/checkout.js"></script>
+  </body>
+</html>

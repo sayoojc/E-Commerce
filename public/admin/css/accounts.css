@@ -1,0 +1,35 @@
+.table th,
+.table td {
+  font-size: 16px;
+  /* Adjust the font size as needed */
+  border-radius: 5px 5px 0 0;
+}
+
+
+/* Decrease table width */
+.table {
+  width: 70%;
+  /* Adjust the width as needed */
+  margin: 0 auto;
+  /* Center the table horizontally */
+  border-radius: 5px;
+  
+}
+
+.table button {
+  background-color: #47a386;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  padding: 10px 25px;
+
+}
+
+.table td button:hover {
+  background-color: #0056b3;
+}
+
+.table td button:active {
+  background-color: #003366;
+}

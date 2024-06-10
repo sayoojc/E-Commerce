@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autofocus Field</title>
+  <link rel="stylesheet" type="text/css" href="otp.css">
+  <link rel="stylesheet" href="/user/css/otp.css">
+  <script>
+    function clickEvent(first,last){
+      if(first.value.length){
+        document.getElementById(last).focus();
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>ENTER OTP</h1>
+    <div class="userInput">
+      <%if(error!=undefined){%>
+        <p style="color: red;">
+          <%= error %>
+        </p>
+
+      <%}%>
+      <form action="/postOtp"  method="post">
+      <input type="text" name='first' maxlength="1" onkeyup="clickEvent(this,'sec')">
+      <input type="text" name="sec" maxlength="1" onkeyup="clickEvent(this,'third')">
+      <input type="text" name="third" maxlength="1" onkeyup="clickEvent(this,'fourth')">
+      <input type="text" name="fourth" maxlength="1" onkeyup="clickEvent(this,'fifth')">
+      <input type="text" name="fifth" maxlength="1" onkeyup="clickEvent(this,'sixth')">
+      <input type="text" name="sixth" maxlength="1">
+      
+    </div>
+    
+      <button>CONFIRM</button>
+    </form>
+    <div id="timer"></div>
+    <form action="/resendOtp" method="post">
+    <button id="resendOtp" type="submit">Resend OTP</button>
+  </form>
+  </div>
+  <script src="/admin/js/otp.js"></script>
+</body>
+</html>
