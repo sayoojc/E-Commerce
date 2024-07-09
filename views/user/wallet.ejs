@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="/user/css/profile.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>NUTROMAX</title>
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="/user/css/bootstrap.css" />
+    <!-- font awesome style -->
+    <link href="/user/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- responsive style -->
+    <link href="/user/css/responsive.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/user/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/user/css/my-style.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+
+<style>
+    .product-card {
+    position: relative; /* Make the container position relative */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: transform 0.2s;
+    overflow: hidden;
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.product-name {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.product-category {
+    color: #888;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.product-price {
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.product-description {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+
+.input-group {
+        width: 100%;
+        
+    }
+
+    .input-group .btn {
+        width: 30px;
+        height: 30px;
+        line-height: 0.8;
+    }
+
+    .product-count {
+    width: calc(100% - 68px); /* Adjust width according to button width */
+    text-align: center;
+   
+   height:30px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+}
+footer {
+    background: #f8f8f8;
+    padding: 45px 0 1px;
+    
+}
+</style>
+
+</head>
+
+<%-include('./header.ejs')%>
+
+<body>
+    <div class="bodyContainer">
+        <div class="sidebar"  >
+            <div class="profile-info">
+                <img src="/admin/images/uniSexProfileLogo.jpeg" alt="Profile Picture">
+                <h2>
+                    <%=user.name%>
+                </h2>
+                <p>
+                    <%=user.email%>
+                </p>
+
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#">My Orders</a></li>
+                <li><a href="#">My Cart</a></li>
+                <li ><a href="#">My Profile</a></li>
+                <li ><a href="#">Wishlist</a></li>
+                <li class="active"><a href="#">Wallet</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </div>
+       
+            
+
+        <div class="container mt-5">
+            <!-- Wallet Balance Section -->
+            <div class="wallet-balance mb-4">
+                <h2>Wallet Balance</h2>
+                <p id="walletBalance">$<%= walletBalance.toFixed(2) %></p> <!-- Display dynamic wallet balance -->
+            </div>
+            <!-- Wallet History Section -->
+            <div class="wallet-history">
+                <h2>Wallet History</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="walletHistory">
+                        <% if (wallets.length > 0) { %>
+                            <% wallets.forEach(wallet => { %>
+                                <tr>
+                                    <td><%= new Date(wallet.createdAt).toISOString().split('T')[0] %></td>
+                                    <td><%= wallet.description %></td>
+                                    <td>₹<%= wallet.amount.toFixed(2) %></td>
+                                </tr>
+                            <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="3">No transactions found.</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <% if (page > 1) { %>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=<%= page - 1 %>&limit=<%= limit %>" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        <% } %>
+                        <% for (let i = 1; i <= totalPages; i++) { %>
+                            <li class="page-item <%= page === i ? 'active' : '' %>">
+                                <a class="page-link" href="?page=<%= i %>&limit=<%= limit %>"><%= i %></a>
+                            </li>
+                        <% } %>
+                        <% if (page < totalPages) { %>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=<%= page + 1 %>&limit=<%= limit %>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+        
+        
+        
+        
+        
+                
+            
+      
+      </div>
+    
+  <%-include('./footer.ejs')%>
+
+    <!-- jQery -->
+    <script src="/user/js/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script src="/user/js/popper.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/user/js/bootstrap.js"></script>
+    <!-- custom js -->
+    <script src="/user/js/custom.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

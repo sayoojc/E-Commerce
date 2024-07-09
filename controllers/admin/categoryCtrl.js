@@ -6,12 +6,12 @@ const path = require('path');
 const fs = require('fs');
 const productModel = require('../../models/productModel');
 ////////Get the category page  /////
-exports.getCategory = async (req, res) => {
+exports.getCategory = async (req, res,next) => {
     try {
-        if(req.session.admin){
-            const categories = await categoryModel.find({});
-    
 
+        if(req.session.admin){
+            console.log(req.session.admin);
+            const categories = await categoryModel.find({});
             res.render('user/adminCategory', {data: categories,error: req.flash("error")} );
         }
       else{
@@ -21,8 +21,8 @@ exports.getCategory = async (req, res) => {
        
         
     } catch (error) {
-        console.error("Error:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        console.error('Error in getCategory:', error);
+        res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 };
 
@@ -33,7 +33,7 @@ exports.getCategory = async (req, res) => {
 
 
 
-exports.previewResizeAddCategory = async (req, res) => {
+exports.previewResizeAddCategory = async (req, res,next) => {
     try {
         if (!req.file) {
             throw new Error('No file uploaded');
@@ -46,8 +46,8 @@ exports.previewResizeAddCategory = async (req, res) => {
         res.set('Content-Type', req.file.mimetype);
         res.send(resizedImageBuffer);
     } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send("Error resizing image for preview");
+        console.error('Error in previewResizeAddCategory:', error);
+        res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 };
 
@@ -57,7 +57,7 @@ exports.previewResizeAddCategory = async (req, res) => {
 
 
 
-exports.postCategory = async (req, res) => {
+exports.postCategory = async (req, res,next) => {
     try {
         console.log('post category hits');
         if (req.session.admin) {
@@ -107,8 +107,8 @@ exports.postCategory = async (req, res) => {
             return res.status(201).json({ message: "Category added successfully" });
         }
     } catch (error) {
-        console.error("Error:", error);
-        res.status(500).json({ errorMessage: "Internal Server Error" });
+        console.error('Error in postCategory:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 };
 
@@ -117,7 +117,7 @@ exports.postCategory = async (req, res) => {
 
 //////////Edit Category//////////////
 
-exports.postEditCategory = async (req, res) => {
+exports.postEditCategory = async (req, res,next) => {
  
     try {
         const categoryId=req.body.categoryId;
@@ -148,8 +148,8 @@ exports.postEditCategory = async (req, res) => {
             res.status(201).json({message:'success'});
         }
     } catch (error) {
-        console.log("Error in the post edit category controller",error);
-        res.status(500).send('internal server error');
+        console.error('Error in postEditCategory:', error);
+        res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 }
 
@@ -157,7 +157,7 @@ exports.postEditCategory = async (req, res) => {
 
 ///////Block Category////////
 
-exports.postblockUnblock = async(req,res) => {
+exports.postblockUnblock = async(req,res,next) => {
     try {
         console.log('postblockUnblock category hits');
        const categoryId = req.body.id
@@ -173,10 +173,12 @@ exports.postblockUnblock = async(req,res) => {
        }
        res.status(201).json({message:'success'});
     } catch (error) {
-        console.log(error);
-        res.status(500).send('internal server error')
+        console.error('Error in postblockUnblock:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 }
+
+
 
 
 

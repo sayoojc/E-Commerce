@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Product Admin - Dashboard HTML Template</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/checkout/">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+  <!-- https://fonts.google.com/specimen/Roboto -->
+  <link rel="stylesheet" href="/admin/css/fontawesome.min.css">
+  <!-- https://fontawesome.com/ -->
+  <link rel="stylesheet" href="/admin/css/bootstrap.min.css">
+  <!-- https://getbootstrap.com/ -->
+  <link rel="stylesheet" href="/admin/css/templatemo-style.css">
+
+  <!-- Style -->
+
+
+  <style>
+    .form_sub {
+      position: relative;
+    }
+
+    .form_sub input[type="email"]+input[type="submit"] {
+      position: absolute;
+      right: 0;
+      background: #f7444e;
+      color: #fff;
+      border: none;
+      top: 0px;
+      font-size: 14px;
+      height: 48px;
+      font-weight: 600;
+      padding: 0 15px;
+    }
+
+    form input {
+      background: #fff;
+      border: solid #ccc 1px;
+      padding: 15px 15px;
+      width: 100%;
+      font-size: 14px;
+      margin-bottom: 20px;
+      text-transform: capitalize;
+      line-height: normal;
+    }
+
+
+
+    form input[type="submit"] {
+      border: none;
+      padding: 15px 45px;
+      width: auto;
+      font-size: 16px;
+      text-transform: capitalize;
+      line-height: normal;
+      margin: 0 auto;
+      display: flex;
+      background: #333;
+      color: #fff;
+      font-weight: 600;
+      transition: ease all 0.1s;
+    }
+     .custom-modal {
+      display: none;
+      position: absolute;
+      top: 0px;
+      /* Initially position at the top */
+      left: 0;
+      margin-top: 80px;
+      z-index: 1050;
+      width: 170px;
+      position: fixed;
+    }
+
+    .modal .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 15px;
+      height: 15px;
+      background: black;
+      color: #eee;
+      text-align: center;
+      line-height: 15px;
+      border-radius: 15px;
+      cursor: pointer;
+    }
+    .custom-checkbox {
+      display: none;
+    }
+
+    /* Style the label to look like a checkbox */
+    .custom-checkbox-label {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 20px;
+      padding-left: 30px;
+      user-select: none;
+    }
+
+    /* Create the custom checkbox using the ::before pseudo-element */
+    .custom-checkbox-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 2px solid #007bff;
+      border-radius: 4px;
+      background-color: white;
+    }
+
+    /* Create the checkmark using the ::after pseudo-element */
+    .custom-checkbox-label::after {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%) scale(0);
+      background-color: #007bff;
+      border-radius: 2px;
+      transition: transform 0.2s ease;
+    }
+
+    /* When the checkbox is checked, show the checkmark */
+    .custom-checkbox:checked+.custom-checkbox-label::after {
+      transform: translateY(-50%) scale(1);
+    }
+
+    label {
+      font-size: 16px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* Style the select element */
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #fff;
+      font-size: 16px;
+      appearance: none;
+      /* Remove default arrow in some browsers */
+      -webkit-appearance: none;
+      /* Remove default arrow in Safari */
+      -moz-appearance: none;
+      /* Remove default arrow in Firefox */
+      background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23cccccc" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+      /* Custom arrow */
+      background-repeat: no-repeat;
+      background-position: right 10px top 50%;
+      background-size: 10px 10px;
+    }
+
+    /* Adjusting the select element's focus state */
+    select:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    /* Add some margin between the form elements */
+    input,
+    select {
+      margin-bottom: 16px;
+    }
+
+    /* Style the submit button */
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+
+    /* Button style */
+    .add-coupon-btn {
+      margin-top: 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      margin-left: 40px;
+    }
+
+    .add-coupon-btn:hover {
+      background-color: #0056b3;
+    }
+
+   
+
+    /* Modal style */
+    .modal-content {
+      border-radius: 10px;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+
+   /* Coupons container style */
+.coupons-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Adjust width as needed */
+  gap: 20px;
+  width: 100%;
+  margin: 15px auto; /* Centered with auto margins */
+}
+
+/* Individual coupon styling */
+.coupon {
+  border: 2px solid #0066cc; /* Border color */
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #ffffff; /* Coupon background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+}
+
+.coupon h3 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #0066cc; /* Header color */
+}
+
+.coupon p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #333; /* Text color */
+}
+
+.coupon .edit-btn {
+  background-color: #0066cc; /* Button background color */
+  color: #fff; /* Button text color */
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px; /* Top margin for separation */
+}
+
+.coupon .edit-btn:hover {
+  background-color: #0052a3; /* Darker background color on hover */
+}
+
+  </style>
+
+</head>
+
+<body>
+  <header>
+    <div class="" id="home">
+      <nav class="navbar navbar-expand-xl">
+        <div class="container h-100">
+          <a class="navbar-brand" href="#">
+            <h1 class="tm-site-title mb-0">Product Admin</h1>
+          </a>
+          <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars tm-nav-icon"></i>
+          </button>
+  
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto h-100">
+              <li class="nav-item">
+                <a class="nav-link active" href="/admin/Dashboard">
+                  <i class="fas fa-tachometer-alt"></i>
+                  Dashboard
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                 <a class="nav-link dropdown-toggle" href="/admin/getSalesReport">
+                  <i class="far fa-file-alt"></i>
+                  Sales Report
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/getOrderManagement">
+                  <i class="fas fa-tasks"></i>
+                  Order Management
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/getProducts">
+                  <i class="fas fa-shopping-cart"></i>
+                  Products
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/getCategory">
+                  <i class="fas fa-list-alt"></i>
+                  Categories
+                </a>
+              </li>
+  
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/getAdminCoupons">
+                  <i class="fas fa-ticket-alt"></i>
+                  Coupons
+                </a>
+              </li>
+  
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/getUserDetail">
+                  <i class="far fa-user"></i>
+                  Accounts
+                </a>
+              </li>
+          
+            </ul>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <form action="/admin/postAdminLogout" method="post">
+                  <button type="submit"
+                    style="border: none; background-color: transparent;color: white; margin-top: 25px;margin-left: 20px; font-size: 18px;">Logout</button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+  
+      </nav>
+    </div>
+  </header>
+  <main>
+    <!-- Add coupon button -->
+    <button type="button" class="add-coupon-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+      style="margin-bottom: 20px;">Add Coupon</button>
+    <!-- Coupons container -->
+    <div class="coupons-container">
+      <% coupons.forEach(coupon=> { %>
+        <div class="coupon">
+          <h3>Coupon Code: <%= coupon.code %>
+          </h3>
+          <p>Type: <%= coupon.discountType %>
+          </p>
+          <p>Discount Value: <%= coupon.discountValue %>
+              <%= coupon.discountType==='percentage' ? '%' : '' %>
+          </p>
+          <p>Expiration Date: <%= new Date(coupon.expirationDate).toDateString() %>
+          </p>
+          <p>Minimum Purchase Amount: $<%= coupon.minimumPurchaseAmount %>
+          </p>
+          <p>Max Discount Amount: $<%= coupon.maxDiscountAmount ? coupon.maxDiscountAmount : 'N/A' %>
+          </p>
+          <p>Usage Limit: <%= coupon.usageLimit ? coupon.usageLimit : 'N/A' %>
+          </p>
+          <p>Usage Count: <%= coupon.usageCount %>
+          </p>
+          <p>Status: <%= coupon.isActive ? 'Active' : 'Inactive' %>
+          </p>
+          <p>Updated At: <%= new Date(coupon.updatedAt).toDateString() %>
+          </p>
+          <button class="edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editStaticBackdrop"
+          data-code="<%= coupon.code %>"
+          data-discount-type="<%= coupon.discountType %>"
+          data-discount-value="<%= coupon.discountValue %>"
+          data-expiration-date="<%= new Date(coupon.expirationDate).toISOString().split('T')[0] %>"
+          data-minimum-purchase-amount="<%= coupon.minimumPurchaseAmount %>"
+          data-max-discount-amount="<%= coupon.maxDiscountAmount %>"
+          data-usage-limit="<%= coupon.usageLimit %>"
+          data-is-active="<%= coupon.isActive %>">Edit</button>
+        </div>
+        <% }); %>
+
+    </div>
+
+
+    <!-- Add Coupon modal -->
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog-scrollable modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Coupon</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addCouponForm">
+              <label for="couponCode">Coupon Code:</label><br>
+              <input type="text" id="couponCode" name="couponCode"><br>
+              <p id="couponCodeError" class="text-danger"></p>
+
+              <label for="discountType">Discount Type:</label><br>
+              <select id="discountType" name="discountType">
+                <option value="percentage">Percentage</option>
+                <option value="fixed">Fixed</option>
+              </select><br>
+              <p id="discountTypeError" class="text-danger"></p>
+
+              <label for="discountValue">Discount Value:</label><br>
+              <input type="number" id="discountValue" name="discountValue"><br>
+              <p id="discountValueError" class="text-danger"></p>
+
+              <label for="expirationDate">Expiration Date:</label><br>
+              <input type="date" id="expirationDate" name="expirationDate"><br>
+              <p id="expirationDateError" class="text-danger"></p>
+
+              <label for="minimumPurchaseAmount">Minimum Purchase Amount:</label><br>
+              <input type="number" id="minimumPurchaseAmount" name="minimumPurchaseAmount"><br>
+              <p id="minimumPurchaseAmountError" class="text-danger"></p>
+
+              <label for="maxDiscountAmount">Max Discount Amount:</label><br>
+              <input type="number" id="maxDiscountAmount" name="maxDiscountAmount"><br>
+              <p id="maxDiscountAmountError" class="text-danger"></p>
+
+              <label for="usageLimit">Usage Limit:</label><br>
+              <input type="number" id="usageLimit" name="usageLimit"><br>
+              <p id="usageLimitError" class="text-danger"></p>
+
+              <input type="checkbox" id="isActive" name="isActive" class="custom-checkbox" checked>
+              <label for="isActive" class="custom-checkbox-label">Is Active</label><br>
+              <p id="isActiveError" class="text-danger"></p>
+
+              <input type="submit" value="Submit">
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+      <!-- Edit Coupon modal -->
+
+      <div class="modal fade" id="editStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog-scrollable modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editStaticBackdropLabel">Edit Coupon</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editCouponForm">
+              <label for="editCouponCode">Coupon Code:</label><br>
+              <input type="text" id="editCouponCode" name="editCouponCode"><br>
+              <p id="editCouponCodeError" class="edit-text-danger"></p>
+
+              <label for="editDiscountType">Discount Type:</label><br>
+              <select id="editDiscountType" name="editDiscountType">
+                <option value="percentage">Percentage</option>
+                <option value="fixed">Fixed</option>
+              </select><br>
+              <p id="editDiscountTypeError" class="edit-text-danger"></p>
+
+              <label for="editDiscountValue">Discount Value:</label><br>
+              <input type="number" id="editDiscountValue" name="editDiscountValue"><br>
+              <p id="editDiscountValueError" class="edit-text-danger"></p>
+
+              <label for="editExpirationDate">Expiration Date:</label><br>
+              <input type="date" id="editExpirationDate" name="editExpirationDate"><br>
+              <p id="editExpirationDateError" class="edit-text-danger"></p>
+
+              <label for="editMinimumPurchaseAmount">Minimum Purchase Amount:</label><br>
+              <input type="number" id="editMinimumPurchaseAmount" name="editMinimumPurchaseAmount"><br>
+              <p id="editMinimumPurchaseAmountError" class="edit-text-danger"></p>
+
+              <label for="editMaxDiscountAmount">Max Discount Amount:</label><br>
+              <input type="number" id="editMaxDiscountAmount" name="editMaxDiscountAmount"><br>
+              <p id="editMaxDiscountAmountError" class="edit-text-danger"></p>
+
+              <label for="editUsageLimit">Usage Limit:</label><br>
+              <input type="number" id="editUsageLimit" name="editUsageLimit"><br>
+              <p id="editUsageLimitError" class="edit-text-danger"></p>
+
+              <input type="checkbox" id="editIsActive" name="editIsActive" class="custom-checkbox" >
+              <label for="editIsActive" class="custom-checkbox-label">Is Active</label><br>
+              <p id="editIsActiveError" class="edit-text-danger"></p>
+              
+
+              <input type="submit" value="Submit">
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </main>
+  <script>
+
+    document.getElementById('addCouponForm').addEventListener('submit', function (event) {
+      // Clear previous error messages
+      document.querySelectorAll('.text-danger').forEach(function (element) {
+        element.textContent = '';
+      });
+
+      let hasError = false;
+
+      // Validate coupon code
+      const couponCode = document.getElementById('couponCode').value;
+      if (!couponCode) {
+        document.getElementById('couponCodeError').textContent = 'Coupon Code is required.';
+        hasError = true;
+      }
+
+      // Validate discount type
+      const discountType = document.getElementById('discountType').value;
+      if (!discountType) {
+        document.getElementById('discountTypeError').textContent = 'Discount Type is required.';
+        hasError = true;
+      }
+
+      // Validate discount value
+      const discountValue = document.getElementById('discountValue').value;
+      if (discountType === 'percentage' && discountValue > 60) {
+        document.getElementById('discountValueError').textContent = 'Discount Value Cannot Become More Than 60%';
+        hasError = true;
+      }
+      if (!discountValue) {
+        document.getElementById('discountValueError').textContent = 'Discount Value is required.';
+        hasError = true;
+      } else if (discountValue <= 0) {
+        document.getElementById('discountValueError').textContent = 'Discount Value must be greater than 0.';
+        hasError = true;
+      }
+
+      // Validate expiration date
+      const expirationDate = document.getElementById('expirationDate').value;
+      const currentDate = new Date().toISOString().split('T')[0];
+      if (!expirationDate) {
+        document.getElementById('expirationDateError').textContent = 'Expiration Date is required.';
+        hasError = true;
+      } else if (expirationDate <= currentDate) {
+        document.getElementById('expirationDateError').textContent = 'Expiration Date must be a future date.';
+        hasError = true;
+      }
+
+      // Validate minimum purchase amount
+      const minimumPurchaseAmount = document.getElementById('minimumPurchaseAmount').value;
+      if (!minimumPurchaseAmount) {
+        document.getElementById('minimumPurchaseAmountError').textContent = 'Minimum Purchase Amount is required.';
+        hasError = true;
+      }
+      if (minimumPurchaseAmount && minimumPurchaseAmount < 0) {
+        document.getElementById('minimumPurchaseAmountError').textContent = 'Minimum Purchase Amount cannot be negative.';
+        hasError = true;
+      }
+      if (discountType === 'fixed' && discountValue > minimumPurchaseAmount * 60 / 100) {
+        document.getElementById('discountValueError').textContent = 'Discount Value Cannot Become More Than 60% of minimum purchase amount';
+        hasError = true;
+      }
+
+      // Validate max discount amount
+
+      const maxDiscountAmount = document.getElementById('maxDiscountAmount').value;
+
+      if (!maxDiscountAmount) {
+        document.getElementById('maxDiscountAmountError').textContent = 'Max Discount Amount is required.';
+        hasError = true;
+      }
+      if (maxDiscountAmount && maxDiscountAmount < 0) {
+        document.getElementById('maxDiscountAmountError').textContent = 'Max Discount Amount cannot be negative.';
+        hasError = true;
+      }
+
+      // Validate usage limit
+      const usageLimit = document.getElementById('usageLimit').value;
+      if (!usageLimit) {
+        document.getElementById('usageLimitError').textContent = 'Usage Limit is required.';
+        hasError = true;
+      }
+      if (usageLimit && usageLimit < 0) {
+        document.getElementById('usageLimitError').textContent = 'Usage Limit cannot be negative.';
+        hasError = true;
+      }
+
+      if (hasError) {
+        event.preventDefault();
+      }
+    });
+
+    ////////////////fetch to add coupon///////////////////
+    const addCouponForm = document.getElementById('addCouponForm');
+
+    addCouponForm.addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent the default form submission
+      console.log('The add coupon form eventlistner hits');
+
+      // Clear previous error messages
+      document.querySelectorAll('.text-danger').forEach(function (element) {
+        element.textContent = '';
+      });
+
+      // Get form data
+      const formData = new FormData(addCouponForm);
+
+      // Convert formData to JSON object
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+      console.log('the json data from the front end script:', jsonData);
+      // Send form data to the server
+      fetch('/admin/addCoupon', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json(); // Parse the JSON response
+        })
+        .then(data => {
+          // Handle success response
+          console.log('Success:', data);
+          window.location.reload();
+          // Optionally, you can redirect or show a success message here
+        })
+        .catch(error => {
+          // Handle errors
+          console.error('Error in the fetch catch');
+          // Optionally, display an error message to the user
+        });
+    });
+
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+  const editButtons = document.querySelectorAll('.edit-btn');
+  
+  editButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const couponCode = button.getAttribute('data-code');
+      const discountType = button.getAttribute('data-discount-type');
+      const discountValue = button.getAttribute('data-discount-value');
+      const expirationDate = button.getAttribute('data-expiration-date'); // Format the date to YYYY-MM-DD
+      const minimumPurchaseAmount = button.getAttribute('data-minimum-purchase-amount');
+      const maxDiscountAmount = button.getAttribute('data-max-discount-amount');
+      const usageLimit = button.getAttribute('data-usage-limit');
+      const isActive = button.getAttribute('data-is-active') === 'true'; // Correctly check for 'true'
+
+      // Populate the modal fields
+      document.getElementById('editCouponCode').value = couponCode;
+      document.getElementById('editDiscountType').value = discountType;
+      document.getElementById('editDiscountValue').value = discountValue;
+      document.getElementById('editExpirationDate').value = expirationDate;
+      document.getElementById('editMinimumPurchaseAmount').value = minimumPurchaseAmount;
+      document.getElementById('editMaxDiscountAmount').value = maxDiscountAmount;
+      document.getElementById('editUsageLimit').value = usageLimit;
+      
+      // Update checkbox state
+      const checkbox = document.getElementById('editIsActive');
+      checkbox.checked = isActive;
+    });
+  });
+});
+/////////////edit Coupon validation//////////////////
+
+document.getElementById('editCouponForm').addEventListener('submit', function (event) {
+  // Clear previous error messages
+  document.querySelectorAll('.edit-text-danger').forEach(function (element) {
+    element.textContent = '';
+  });
+
+  let hasError = false;
+
+  // Validate coupon code
+  const couponCode = document.getElementById('editCouponCode').value;
+  if (!couponCode) {
+    document.getElementById('editCouponCodeError').textContent = 'Coupon Code is required.';
+    hasError = true;
+  }
+
+  // Validate discount type
+  const discountType = document.getElementById('editDiscountType').value;
+  if (!discountType) {
+    document.getElementById('editDiscountTypeError').textContent = 'Discount Type is required.';
+    hasError = true;
+  }
+
+  // Validate discount value
+  const discountValue = document.getElementById('editDiscountValue').value;
+  if (discountType === 'percentage' && discountValue > 60) {
+    document.getElementById('editDiscountValueError').textContent = 'Discount Value cannot be more than 60%.';
+    hasError = true;
+  }
+  if (!discountValue) {
+    document.getElementById('editDiscountValueError').textContent = 'Discount Value is required.';
+    hasError = true;
+  } else if (discountValue <= 0) {
+    document.getElementById('editDiscountValueError').textContent = 'Discount Value must be greater than 0.';
+    hasError = true;
+  }
+
+  // Validate expiration date
+  const expirationDate = document.getElementById('editExpirationDate').value;
+  const currentDate = new Date().toISOString().split('T')[0];
+  if (!expirationDate) {
+    document.getElementById('editExpirationDateError').textContent = 'Expiration Date is required.';
+    hasError = true;
+  } else if (expirationDate <= currentDate) {
+    document.getElementById('editExpirationDateError').textContent = 'Expiration Date must be a future date.';
+    hasError = true;
+  }
+
+  // Validate minimum purchase amount
+  const minimumPurchaseAmount = document.getElementById('editMinimumPurchaseAmount').value;
+  if (!minimumPurchaseAmount) {
+    document.getElementById('editMinimumPurchaseAmountError').textContent = 'Minimum Purchase Amount is required.';
+    hasError = true;
+  }
+  if (minimumPurchaseAmount && minimumPurchaseAmount < 0) {
+    document.getElementById('editMinimumPurchaseAmountError').textContent = 'Minimum Purchase Amount cannot be negative.';
+    hasError = true;
+  }
+  if (discountType === 'fixed' && discountValue > minimumPurchaseAmount * 60 / 100) {
+    document.getElementById('editDiscountValueError').textContent = 'Discount Value cannot be more than 60% of minimum purchase amount.';
+    hasError = true;
+  }
+
+  // Validate max discount amount
+  const maxDiscountAmount = document.getElementById('editMaxDiscountAmount').value;
+  if (maxDiscountAmount && maxDiscountAmount < 0) {
+    document.getElementById('editMaxDiscountAmountError').textContent = 'Max Discount Amount cannot be negative.';
+    hasError = true;
+  }
+
+  // Validate usage limit
+  const usageLimit = document.getElementById('editUsageLimit').value;
+  if (!usageLimit) {
+    document.getElementById('editUsageLimitError').textContent = 'Usage Limit is required.';
+    hasError = true;
+  }
+  if (usageLimit && usageLimit < 0) {
+    document.getElementById('editUsageLimitError').textContent = 'Usage Limit cannot be negative.';
+    hasError = true;
+  }
+
+  if (hasError) {
+    event.preventDefault();
+  }
+});
+
+
+///////////fetch for the edit coupn//////////////
+
+const editCouponForm = document.getElementById('editCouponForm');
+
+editCouponForm.addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent the default form submission
+
+  // Clear previous error messages
+  document.querySelectorAll('.text-danger').forEach(function(element) {
+    element.textContent = '';
+  });
+
+  // Get form data
+  const formData = new FormData(editCouponForm);
+
+  // Convert formData to JSON object
+  const jsonData = {};
+  formData.forEach((value, key) => {
+    jsonData[key] = value;
+  });
+
+  console.log('the json data from the front end script:', jsonData);
+
+  // Send form data to the server
+  fetch('/admin/editCoupon', {
+    method: 'PUT', // Use PUT method for updating
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(jsonData)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json(); // Parse the JSON response
+  })
+  .then(data => {
+    // Handle success response
+    console.log('Success:', data);
+    window.location.reload();
+    // Optionally, you can redirect or show a success message here
+  })
+  .catch(error => {
+    // Handle errors
+    console.error('Error:', error);
+    // Optionally, display an error message to the user
+  });
+});
+
+
+
+
+
+
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

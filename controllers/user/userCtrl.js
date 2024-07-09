@@ -4,6 +4,7 @@ const categoryModel = require('../../models/categoryModel');
 const wishlistModel = require('../../models/wishlistModel');
 const cartModel = require('../../models/cartModel');
 const otpModel = require('../../models/otpModel');
+const walletModel = require('../../models/walletModel');
 const nodemailer = require("nodemailer");
 const { render } = require('ejs');
 const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
@@ -12,6 +13,7 @@ const express = require('express');
 const app = express();
 const mailSender = require('../../config/mailer'); // Adjust the path as needed
 const bcrypt = require('bcrypt');
+const e = require("connect-flash");
 
 
 const ITEMS_PER_PAGE  = 5;
@@ -26,16 +28,17 @@ exports.getHome = async(req, res) => {
   try {
     const products = await  productModel.find();
     const category = await categoryModel.find();
-  res.render("user/index",{products,category});
+    const productNumber = 0;
+  res.render("user/index",{products,category,productNumber});
   
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
+    console.error('Error in getHome:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
   }
 
 };
-exports.getHomeAfterLogin = async(req,res) => {
- 
+exports.getHomeAfterLogin = async(req,res,next) => {
+  try {
     const products = await  productModel.find({isBlocked:false});
     const category = await categoryModel.find({isBlocked:false});
     const email = req.session.user;
@@ -51,16 +54,30 @@ exports.getHomeAfterLogin = async(req,res) => {
      
     
     res.render('user/home',{products,category,productNumber});
+  } catch (error) {
+    console.error('Error in getHomeAfterLogin:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
+  }
+ 
+
 
 }
 
 /////Get signup and post signup /////
 
-exports.getSignup = (req, res) => {
-  if(req.session.user){
-    return res.redirect("/getHome")
+exports.getSignup = (req, res,next) => {
+  try {
+    const referralCode = req.params.referralCode;
+    req.session.inviteCode = referralCode;////////////saving the referral code as the invite code in the session//////////
+    if(req.session.user){
+      return res.redirect("/getHome")
+    }
+      return res.render("user/signUp",{error:req.flash("error")});
+  } catch (error) {
+    console.error('Error in getSignup:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
   }
-    return res.render("user/signUp",{error:req.flash("error")});
+  
     
 };
 
@@ -68,7 +85,7 @@ exports.getSignup = (req, res) => {
 
 
 
-exports.postSignup = async (req, res) => {
+exports.postSignup = async (req, res,next) => {
   const { name, email, password, confirmPassword } = req.body;
   app.locals = {
     email,
@@ -121,8 +138,7 @@ exports.postSignup = async (req, res) => {
     const token = totp.generate(secret);
     console.log(`Token generated for OTP is ${token}`);
 
-    // Store OTP and its expiration time in session
-    // req.session.otp = token;
+    
     
   const otp = new otpModel({
     email,
@@ -130,22 +146,7 @@ exports.postSignup = async (req, res) => {
     createdAt:Date.now()
   });
 
-  await otp.save();
-
-
-    // req.session.otpExpireTime = Date.now() + 60000; // 60 seconds from now
-    // req.session.credentials = { name, email, password, confirmPassword };
-    // console.log('Session credentials set:', req.session.credentials);
-    // console.log(`The OTP stored in req.session.otp is ${req.session.otp}`);
-    
-    // Clear OTP after 60 seconds
-    // setTimeout(() => {
-    //   if (req.session) {
-    //     delete req.session.otp;
-    //     delete req.session.otpExpireTime;
-    //     console.log("OTP removed from session after 60 seconds from the post signup method");
-    //   }
-    // }, 60000);
+    await otp.save();
 
     // Send OTP via email
     const mailBody = `Your OTP for registration is ${token}`;
@@ -153,52 +154,106 @@ exports.postSignup = async (req, res) => {
 
     return res.redirect('/getOtp');
   } catch (error) {
-    console.error('Error during signup:', error);
-    return res.status(500).send('Internal Server Error');
+    console.error('Error in postSignup:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
   }
 };
 
 
 /////Get otp and post otp////
-exports.getOtp = (req, res) => {
-  
-  res.render("user/otp",{error:req.flash('error')});
+exports.getOtp = (req, res,next) => {
+  try {
+    res.render("user/otp",{error:req.flash('error')});
+  } catch (error) {
+    console.error('Error in getOtp:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
+  }
+ 
 };
 
 
-exports.postOtp = async (req, res) => {
+exports.postOtp = async (req, res,next) => {
   try {
     const { first, sec, third, fourth, fifth, sixth } = req.body;
     const enteredOtp = `${first}${sec}${third}${fourth}${fifth}${sixth}`;
 
+    const { email, name, password } = app.locals;
 
- const {email,name,password} = app.locals;
-
-    const credentials = await otpModel.findOne({email});
+    const credentials = await otpModel.findOne({ email });
 
     if (credentials && credentials.otp === enteredOtp) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
-      const newUser = new userModel({
-        name: name,
-        email: email,
-        password: hashedPassword,
-      });
+      /////////////////function to generate the referral code/////////////
+      function generateReferralCode(userId) {
+        const cleanedUserId = userId.replace(/\s+/g, '').toUpperCase();
+        const randomString = Math.random().toString(36).substring(2, 8).toUpperCase();
+        return `${cleanedUserId}-${randomString}`;
+      }
 
-      await newUser.save();
-   
+      const referralCode = generateReferralCode(name);
+      let newUser;
+      let isinvited;
 
+      // Check if the user was invited through a referral code
+      if (req.session.inviteCode) {
+        isinvited = await userModel.findOne({ referralCode: req.session.inviteCode });
+      }
+
+      if (isinvited) {
+        newUser = new userModel({
+          name: name,
+          email: email,
+          password: hashedPassword,
+          referralCode: referralCode,
+          walletAmount: 50
+        });
+        await newUser.save();
+
+        const newUser1 = await userModel.findOne({ email });
+        const userId = newUser1._id;
+
+        const newWalletHistory = new walletModel({
+          userId: userId,
+          description: '50 Rupees credited for joining through the referral',
+          amount: 50
+        });
+        await newWalletHistory.save();
+
+        isinvited.walletAmount = (isinvited.walletAmount || 0) + 150;
+        await isinvited.save();
+
+        const newWalletHistory1 = new walletModel({
+          userId: isinvited._id,
+          description: '150 Rupees credited for referring a new user',
+          amount: 150,
+          createdAt: Date.now()
+        });
+        await newWalletHistory1.save();
+      } else {
+        newUser = new userModel({
+          name: name,
+          email: email,
+          password: hashedPassword,
+          referralCode: referralCode
+        });
+        await newUser.save();
+      }
+// delete app.locals.email;
+// delete app.locals.name;  //////////if cleared these fields the functionality of the resend otp may be interrupted///////
+// delete app.locals.password;
       res.redirect("/getLogin");
     } else {
       req.flash("error", 'Enter the correct OTP');
       res.redirect("/getOtp");
     }
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error('Error in postOtp:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
   }
 };
+
 
 
 
@@ -207,9 +262,8 @@ exports.postOtp = async (req, res) => {
 // Resend OTP function
 
 
-exports.resendOtp = async (req, res) => {
+exports.resendOtp = async (req, res,next) => {
   try {
-    console.log('Resend OTP function hits');
 
     // Generate OTP
     const token = totp.generate(secret);
@@ -240,21 +294,148 @@ console.log('The resend otp is :',token);
 
     // return res.status(200).json({ message: 'OTP resent successfully' });
   } catch (error) {
-    console.error('Error:', error);
-    return res.status(500).json({ message: 'Internal Server Error' });
+    console.error('Error in resendOtp:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
   }
 };
 
-//////////Get google///////
-exports.getGoogle=(req,res,next)=>{
-  req.session.user=req.user._id
-  console.log('The req.session.user in the getGoogle function is',req.session.user)
-  res.redirect("/getHome");
+
+////////////forgot password////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+exports.forgotPassword = (req,res) => {
+  try {
+    res.render('user/forgotpassword',{error:req.flash('error')});
+  } catch (error) {
+    console.log(error);
+  }
+ 
+}
+
+exports.forgotPasswordOtpPage = (req,res) => {
+  try {
+    res.render('user/forgotPassOtp',{error:req.flash('error')});
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+exports.postForgotPassword = async(req,res) =>{
+  try {
+    const email = req.body.user_email;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+ app.locals.forgotEmail = email;
+  if(!email){
+    req.flash("error",'Enter an email to continue!');
+    res.redirect('/forgotPassword');
+  }
+
+  if(email.trim()!==email){
+    req.flash("error","No spaces are allowed before and after the email address!")
+  }
+
+  if(!emailRegex.test(email)){
+    req.flash("error",'Enter valid email address!');
+    res.redirect('/forgotPassword');
+  }
+  const user = await userModel.findOne({email});
+  if(!user){
+    console.log('the user is not found');
+    req.flash("error",'User not found!');
+   return res.redirect('/forgotPassword')
+  }
+if(user.email===email){
+  const token = totp.generate(secret);
+  console.log('The otp generated for the resett password',token);
+ 
+const mailBody = `Your otp for resetting the password is ${token}`;
+  await mailSender(email,'Forgot Password OTP',mailBody);
+  const otp = new otpModel({
+    email,
+    otp:token,
+    createdAt:Date.now()
+  });
+  await otp.save();
+  req.flash('error','');
+  res.redirect('/getForgotPassOtpPage');
+}
+  
+  } catch (error) {
+    console.log('error in the otp sending and otp page rendering function');
+    console.error(error);
+  }
+  
+
+}
+
+exports.ChangePasswordOtp = async(req,res) => {
+  try {
+    console.log('The change passwor otp confirmation hits');
+    const { first, sec, third, fourth, fifth, sixth } = req.body;
+    const enteredOtp = `${first}${sec}${third}${fourth}${fifth}${sixth}`;
+    console.log('entered otp',enteredOtp);
+    const email = app.locals.forgotEmail;
+    const otp  = await otpModel.findOne({email});
+
+    if(otp.otp===enteredOtp){
+      console.log('The otp and  the entered otp is  the same');
+            const user = await userModel.findOne({email});
+            if(!user){
+              req.flash("error",'Failed to fetch user Data!');
+              res.redirect('/forgotPassword');
+            }
+            res.render('user/newPassword',{error:req.flash('error')});
+    } else {
+      req.flash("error",'The otp entered is incorrect!');
+      res.redirect('/getForgotPassOtpPage');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+exports.putForgotPassword = async (req, res) => {
+  try {
+    console.log('The put password function hits');
+    const email = app.locals.forgotEmail;
+    console.log(req.body);
+    const  password = req.body.password;
+    const confirmPassword  = req.body.confirmPassword;
+    
+    console.log('The password:', password);
+    console.log('The confirm password',confirmPassword);
+
+    if (!password) {
+      return res.status(400).json({ error: 'Password is required' });
+    }
+    if (!confirmPassword) {
+      return res.status(400).json({ error: 'Please re-enter the password to continue!' });
+    }
+    if (confirmPassword !== password) {
+      return res.status(400).json({ error: 'Passwords do not match!' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while changing the password' });
+  }
 };
 
 /////get Login and Post login//////
 
 exports.getLogin=(req,res)=>{
+ 
   if(req.session.user){
     return res.redirect("/getHome")
   }
@@ -288,7 +469,7 @@ exports.postLogin = async (req, res) => {
       return res.redirect("/getLogin");
     }
 
-    const isPasswordMatch = await bcrypt.compare(data.password, user.password);
+    const isPasswordMatch = bcrypt.compare(data.password, user.password);
 
     if (!isPasswordMatch) {
       req.flash("error", "Password does not match");
@@ -301,25 +482,25 @@ exports.postLogin = async (req, res) => {
 
     res.redirect('/getHome');
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
+    console.error('Error in postLogin:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
   }
 };
 
 
 ///////////Get product detail page//////////
 
-exports.getProductDetail = async(req,res) => {
+exports.getProductDetail = async(req,res,next) => {
   try {
    
       const productId = req.params.productId;
-      const product =  await productModel.findById({_id:productId});
+      const product =  await productModel.findById({_id:productId}).populate('category');
       res.render("user/productdetail",{product});
    
   
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
+    console.error('Error in getProductDetail:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
   }
     
 }
@@ -333,17 +514,22 @@ exports.getProductDetail = async(req,res) => {
 /////post logout////
 
 
-exports.postLogout = (req,res) => {
-  //  req.session.user = null;
+exports.postLogout = (req,res,next) => {
+ try {
+  req.session.destroy ((err) => {
+    if(err){
+      res.status(500).json({error:"Internal server error"});
+    }else{
+      res.redirect("/");
+      console.log(`The session after logout is : ${req.session}`)
+    }
+   });
+ } catch (error) {
+  console.error('Error in postLogout:', error);
+  res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
+ }
   
-    req.session.destroy ((err) => {
-      if(err){
-        res.status(500).json({error:"Internal server error"});
-      }else{
-        res.redirect("/");
-        console.log(`The session after logout is : ${req.session}`)
-      }
-     });
+   
 }
 
 
@@ -357,14 +543,22 @@ exports.postLogout = (req,res) => {
 
 exports.getProductList=async (req,res,next)=>{   
   console.log('the get products function hits');
-  const category=req.query.categoryId;
+  const category=req.query.category;
+  console.log({category})
   let action=req.params.action;
   const page=+req.query.page||1;
   const search=req.query.search;
   let searchquery,userName;
   const email = req.session.user;
   const user = await userModel.findOne({email});
+  
+  const ca = await categoryModel.find(); 
   const userId = user._id;
+  const cart  = await cartModel.find({userId});
+  let number = 0;
+  if(cart&& cart.items){
+      number = cart.items.length;
+  }
   if(search){
       searchquery=true;
   }
@@ -397,10 +591,14 @@ exports.getProductList=async (req,res,next)=>{
           wishlist:wishlist,
           categories:categories,
           category:(category)?category : "",
-          userName:userName
+          userName:userName,
+          ca:ca,
+          number:number
+          
       })
-  }catch(err){
-      console.log(err)
+  }catch(error){
+    console.error('Error in getProductList:', error);
+    res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
   }
 }
   

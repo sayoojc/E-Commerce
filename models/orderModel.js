@@ -1,37 +1,109 @@
 const mongoose = require('mongoose')
     orderSchema = new mongoose.Schema({
         user :{
-            type : mongoose.Schema.Types.ObjectId,
-            ref : 'Users'
+           type:mongoose.Schema.Types.ObjectId,
+           ref:'Users',
+           required:true
         },
-        orders:[{
-            product_id: {
-                type : mongoose.Schema.Types.ObjectId,
-                ref:'Products'
+        products:[{
+          productImage:{
+           type:String,
+          },
+            productName: {
+                type:String,
+                required:true
+            },
+            productId:{
+            type:String,
+            required:true
+            },
+            description:{
+                type:String,
+                required:true
             },
             count : {
-                type:Number
+                type:Number,
+                required:true
             },
             price:{
-                type:Number
+                type:Number,
+                required:true
             },
-            address:{
-                type : mongoose.Schema.Types.ObjectId,
-                ref :'Address'
-            },
-            payment:{
-                type:String
-            },
-            orderDate:{
-                type : Date
-            },
-            orderStatus:{
+             orderStatus:{
                 type : String
             },
-            coupon:{
+            orderStatusUpdatedAt: {
+              type: Date
+            }
+        }],
+        address:{
+               address1:{
+                 type:String,
+                 required:true
+               },
+               address2:{
+                 type:String,
+                 required:true
+               },
+               phone:{
+                 type:Number,
+                 required:true
+               },
+               locality:{
+                 type:String,
+                 required:true
+               },
+               pincode:{
+                 type:Number,
+                 required:true
+               },
+               city:{
+                 type:String,
+                 required:true
+               },
+               state:{
+                 type:String,
+                 required:true
+               }
+        },
+        cartValue:{
+            type:Number,
+        },
+        discountAmount:{
+          type:Number,
+          default:0
+        },
+        orderDate:{
+          type : Date,
+          default:Date.now
+        },
+        coupon:{
+            code: {
+                type: String,
+              
+            },
+            discountType: {
+                type: String,
+                enum: ['percentage', 'fixed'],
+               
+            },
+            discountValue: {
+                type: Number,
+            },
+        },
+        payment:{
+            paymentType:{
+                type:String,
+            },
+            amount:{
+                type:Number
+            },
+            status:{
                 type:String
             }
-        }]
+            
+            
+        }
     })
 
     module.exports = mongoose.model("Order",orderSchema)

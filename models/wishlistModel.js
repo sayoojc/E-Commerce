@@ -8,6 +8,10 @@ wishListSchema = new mongoose.Schema({
         product_id:{
             type:mongoose.Schema.Types.ObjectId,
             ref:'Products'
+        },
+        count:{
+            type:Number,
+            default:1
         }
     }]
 })

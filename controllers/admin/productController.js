@@ -9,47 +9,63 @@ const { v4: uuidv4 } = require('uuid');
 
 ///////// Get the product page////////
 
-exports.getProducts = async(req,res) => {
+exports.getProducts = async (req, res, next) => {
     try {
-        const products = await productModel.find().populate("category").exec();
-        
-      
-        res.render("user/adminProduct",{error:req.flash("error"), products});
-    } catch (error) {
-        console.error("Error:",error);
-        res.status(500).json({error:"internal server error from get products catch"});
-    }
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 5;
+        const skip = (page - 1) * limit;
 
+        const products = await productModel.find()
+            .populate("category")
+            .skip(skip)
+            .limit(limit)
+            .exec();
+
+        const totalProducts = await productModel.countDocuments();
+
+        res.render("user/adminProduct", {
+            error: req.flash("error"),
+            products,
+            currentPage: page,
+            totalPages: Math.ceil(totalProducts / limit),
+            limit
+        });
+
+    } catch (error) {
+        console.error('Error in getProducts:', error);
+        res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
+    }
 };
 
+
 ////////////Get the Add product page/////////////
-exports.getAddProducts = async (req,res) => {
+exports.getAddProducts = async (req,res,next) => {
     try {
         const categories = await categoryModel.find({});
         res.render("user/add-product",{categories:categories,error:''});
     } catch (error) {
-        console.error("Error:",error);
-        res.status(500).json({error:"internal server error from get products catch"});
+        console.error('Error in getAddProducts:', error);
+        res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 }
 
 
 /////////////Get the edit product page////////////
-exports.getEditProducts = async(req,res) =>{
+exports.getEditProducts = async(req,res,next) =>{
     try {
         const productId = req.params.productId;
         const categories = await categoryModel.find({});
         const product = await productModel.findOne({_id:productId});
         res.render("user/edit-product",{categories,product,error:''});
     } catch (error) {
-        console.error("Error:",error);
-        res.status(500).json({error:"internal server error from get products catch"}); 
+        console.error('Error in getEditProducts:', error);
+        res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 }
 
 /////////Post the product /////////////////
 
-exports.postProducts = async (req, res) => {
+exports.postProducts = async (req, res,next) => {
     try {
         console.log('post products hits');
         const { name, description, category, price, stock } = req.body;
@@ -147,15 +163,15 @@ exports.postProducts = async (req, res) => {
             return res.redirect("/admin/getProducts");
         }
     } catch (error) {
-        console.error("Error:", error);
-        return res.status(500).json({ error: 'Server error' });
+        console.error('Error in postProducts:', error);
+        res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 };
 
 
 ///////Block unblock product////////
 
-exports.postblockUnblockProduct = async(req,res) => {
+exports.postblockUnblockProduct = async(req,res,next) => {
     try {
         console.log('postblockUnblock product hits');
        const productId = req.body.id
@@ -172,13 +188,13 @@ exports.postblockUnblockProduct = async(req,res) => {
        }
        res.status(201).json({message:'success'});
     } catch (error) {
-        console.log(error);
-        res.status(500).send('internal server error')
+        console.error('Error in postblockUnblockProduct:', error);
+        res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 }
 /////////////Edit products///////////////
 
-exports.postEditProducts = async (req, res) => {
+exports.postEditProducts = async (req, res,next) => {
     try {
         console.log('post edit products hit');
         const updateProductName = req.body.name;
@@ -262,7 +278,7 @@ exports.postEditProducts = async (req, res) => {
         await product.save();
         return res.redirect('/admin/getProducts');
     } catch (error) {
-        console.error("Error:", error);
-        return res.status(500).json({ message: 'Internal Server Error' });
+        console.error('Error in postEditProducts:', error);
+        res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 };

@@ -1,23 +1,5 @@
 
-  
-//////////////////////resizeImage////////////////
-// const widthInput = document.querySelector('[name = "width"]');
-// const heightInput = document.querySelector('[name = "height"]');
-// const widthValue = document.getElementById("width-value");
-// const heightValue = document.getElementById("height-value");
-// const resizedImage = document.getElementById("previewImage");
 
-// function resizeImage(){
-// widthValue.textContent = widthInput.value;
-// heightValue.textContent = heightInput.value;
-// if(resizeImage.src){
-//   URL.revokeObjectURL(resizeImage.src)
-// }
-// const formData = new FormData();
-// formData.append("width",widthInput.value)
-// formData.append("height",heightInput.value);
-// formData.append("image",document.querySelector('[name="image"]').files[0]);
-// }
 
    
 
@@ -34,7 +16,9 @@
 
   // Open edit modal when edit button is clicked
   editButtons.forEach(function(button) {
-    button.addEventListener("click", function() {
+   
+    button.addEventListener("click", function(event) {
+        
       const categoryId = button.getAttribute("data-id");
       const categoryName = button.getAttribute("data-name");
       const imagePath = button.getAttribute("data-image");
@@ -54,6 +38,10 @@
     });
   });
 
+
+
+
+  
   // Close edit modal when close button is clicked
   closeModalButton.addEventListener("click", function() {
     const previewDiv = document.getElementById("image-container");
@@ -342,30 +330,6 @@ document.getElementById("editCategoryForm").addEventListener('submit',function(e
 });
 
 
-///////////////////////js to show the image selected from the computers files for the add Category modal/////////////////////////
-
-// const imageInput = document.getElementById('categoryImage');
-// const previewImage = document.getElementById('previewImage');
-
-// imageInput.addEventListener('change', function(event) {
-//   const file = event.target.files[0]; // Get the selected file
-
-//   const reader = new FileReader();
-
-//   reader.onload = function(event) {
-//     // This event is triggered when the file has been successfully read
-//     const imageUrl = event.target.result;
-//     previewImage.src = imageUrl; // Set the preview image source
-//   };
-
-//   reader.onerror = function(event) {
-//     // This event is triggered if an error occurs while reading the file
-//     console.error('Error reading file:', event.target.error);
-//   };
-
-//   // Read the selected file as a data URL
-//   reader.readAsDataURL(file);
-// });
 
 
   

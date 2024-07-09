@@ -1,333 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<!doctype html>
-<html lang="en" data-bs-theme="auto">
-  <head><script src="../assets/js/color-modes.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  <link rel="stylesheet" href="/user/css/profile.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <title>NUTROMAX</title>
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="/user/css/bootstrap.css" />
+  <!-- font awesome style -->
+  <link href="/user/css/font-awesome.min.css" rel="stylesheet" />
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.122.0">
-    <title>Checkout example · Bootstrap v5.3</title>
+  <!-- responsive style -->
+  <link href="/user/css/responsive.css" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="/user/css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/user/css/my-style.css">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/checkout/">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    
+<style>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-
-<link href="/user/css/bootstrap.min.css.map" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="user/css/bootstrap.css" />
-<!-- font awesome style -->
-<link href="user/css/font-awesome.min.css" rel="stylesheet" />
-<!-- Custom styles for this template -->
-<link href="user/css/style.css" rel="stylesheet" />
-<!-- responsive style -->
-<link href="user/css/responsive.css" rel="stylesheet" />
-
-    <style>
-      /* .container {
-  max-width: 960px;
-}*/
-      .bd-placeholder-img { 
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .b-example-divider {
-        width: 100%;
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .btn-bd-primary {
-        --bd-violet-bg: #712cf9;
-        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
-        --bs-btn-font-weight: 600;
-        --bs-btn-color: var(--bs-white);
-        --bs-btn-bg: var(--bd-violet-bg);
-        --bs-btn-border-color: var(--bd-violet-bg);
-        --bs-btn-hover-color: var(--bs-white);
-        --bs-btn-hover-bg: #6528e0;
-        --bs-btn-hover-border-color: #6528e0;
-        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-        --bs-btn-active-color: var(--bs-btn-hover-color);
-        --bs-btn-active-bg: #5a23c8;
-        --bs-btn-active-border-color: #5a23c8;
-      }
-
-      .bd-mode-toggle {
-        z-index: 1500;
-      }
-
-      .bd-mode-toggle .dropdown-menu .active .bi {
-        display: block !important;
-      }
-
-      
-  .custom-card {
-    border-radius: 10px; /* Corner radius */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light grey box shadow */
-    background-color: #f8f9fa; /* Light grey background */
-    padding: 15px; /* Padding inside the card */
-  }
-  .custom-div {
-      border: 1px solid #ced4da; /* Grey border */
-      border-radius: 8px; /* Rounded corners */
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light grey box shadow */
-      padding: 15px; /* Padding inside the div */
+a {
+      text-decoration: none; /* Remove underline */
+      color: inherit; /* Inherit text color from parent */
+      transition: none; /* Disable any transition effects */
     }
 
-
-    .custom-div button.btn-secondary:hover {
-      box-shadow: 0 0 10px rgba(0, 0, 255, 0.5); /* Blue box shadow on hover */
-      color: blue; /* Blue text on hover */
+    /* Hover effect (removes default) */
+    a:hover {
+      text-decoration: none; /* Ensure underline is not added on hover */
+      color: inherit; /* Ensure text color does not change on hover */
     }
-    .custom-card .form-control {
-  width: 50px; /* Adjust the width here */
-}
-.minus-btn{
-  margin-left:10px ;
-}
-.plus-btn{
-  margin-left: 10px;
-}
-button {
-         background-color: #ff8c00;
-         color: white;
-         border: none;
-         padding: 5px 10px;
-         cursor: pointer;
-         text-transform: uppercase;
-         font-size: 0.8rem;
-         margin-left: 20px;
-         border-radius: 5px;
-      }
-
-      button:hover {
-         background-color: #ff7c00;
-         
-      }
-      .normal-case {
-    text-transform: none;
-  }
-  .addressChangeBtn{
-    border-color: #6c757d;
-   
-  }
-  .addressChangeBtn:hover{
-    border-color: #6c757d;
-    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.5); /* Adjust the shadow as needed */
+    footer {
+    background: #f8f8f8;
+    padding: 45px 0 1px;
     
-  }
-  #orderConfirmDiv {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-align: center;
-    border: 1px solid #007bff;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    text-decoration: none;
-    width: auto; /* Adjusted to auto to fit the text */
-    height: 50px;
-  }
-
-  #orderConfirmDiv:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-  }
-
-  #orderConfirmDiv:active {
-    background-color: #004085;
-    border-color: #004085;
-  }
-  .order {
-  margin-bottom: 20px; /* Adjust the value as needed */
 }
 
-.order-item {
-  display: flex;
-  align-items: center;
-}
+</style>
+</head>
 
-.order-item-image {
-  width: 100px;
-  height: 100px;
-}
+<%-include('./header.ejs')%>
 
-.order-item-details {
-  margin-left: 20px;
-}
+  <body>
+    <div class="bodyContainer">
+      <div class="sidebar">
+        <div class="profile-info">
+          <img src="/admin/images/uniSexProfileLogo.jpeg" alt="Profile Picture">
+          <h2>
+           <%=user.name%>
+          </h2>
+          <p>
+          <%=user.email%>
+          </p>
 
-.order-item-details p {
-  margin: 0;
-}
+        </div>
+        <ul class="sidebar-menu">
+          <li class="active"><a href="#">My Orders</a></li>
+          <li><a href="#">My Cart</a></li>
+          <li><a href="#">My Profile</a></li>
+          <li><a href="#">Wishlist</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </div>
+      <div class="main-content">
 
-  
-    </style>
 
-    
-    <!-- Custom styles for this template -->
-    <link href="checkout.css" rel="stylesheet">
-  </head>
-  <body class="bg-body-tertiary">
-   
-    <%- include('./header.ejs') %>
-  
-   
-    
-    
-    
-    <main>
-    
-        <div class="container-fluid" style="padding-left: 170px; padding-right: 170px;">
-            <div class="col-md-10 col-lg-12 border border-dark p-3 custom-div">
-              <h1>Order History</h1>
-              <% if (orders && orders.length > 0) { %>
-                <% orders.forEach(order => { %>
-                  <div class="order col-md-10 col-lg-12 border border-dark p-3 custom-div mb-3">
-                    <h2>Order Date: <%= new Date(order.orders[0].orderDate).toDateString() %></h2>
-                    <ul>
-                      <% order.orders.forEach(item => { %>
-                        <li class="order-item d-flex align-items-center mb-3">
-                          <img src="/<%= item.product_id.image[0] %>" alt="<%= item.product_id.name %>" class="order-item-image">
-                          <div class="order-item-details ml-3">
-                            <p><strong>Product:</strong> <%= item.product_id.productName %></p>
-                            <p><strong>Quantity:</strong> <%= item.count %></p>
-                            <p><strong>Price:</strong> $<%= item.price %></p>
-                            <p><strong>Status:</strong> <%= item.orderStatus %></p>
-                            <p><strong>Payment Method:</strong> <%= item.payment %></p>
-                          </div>
-                        </li>
-                        <li>
-                          <button id="cancelOrderButton" 
-                          data-count="<%= item.count %>"
-            data-orderId="<%= order._id %>" 
-            data-productId="<%= item.product_id._id %>">Cancel</button>
-                        </li>
-                      <% }) %>
-                    </ul>
-                    
-                  </div>
-
-                <% }) %>
-              <% } else { %>
-                <p>You have no order history.</p>
-              <% } %>
-            </div>
+        <h1>My Orders</h1>
+        <div class="profile-form d-flex flex-column">
+          <div>
+            <% if (orders && orders.length > 0) { %>
+              <% orders.forEach(order => { %>
+                <a href="/getOrderDetail/<%=order._id%>" >
+                <div class="order col-md-10 col-lg-12 border border-dark p-3 custom-div mb-3">
+                  <ul>
+                    <% order.products.forEach(item => { %>
+                      <li class="order-item d-flex align-items-center mb-3">
+                        <div class="order-item-container"> 
+                        </div>
+                        
+                        <div class="order-item-details d-flex flex-grow-1 justify-content-between align-items-center ml-3">
+                      
+                          <img src="/<%=item.productImage%>" alt="product image" style="width: 70px;">
+                          <strong><p class="mb-0 pr-3"> <%= item.productName %></p></strong>
+                          <strong><p class="mb-0 pr-3"> ₹<%= item.price %></p></strong>
+                        
+                       
+                        </div>
+                      </li>
+                      
+                    <% }) %>
+                  </ul>
+                </div>
+              </a>
+              <% }) %>
+            <% } else { %>
+              <p>You have no order history.</p>
+            <% } %>
           </div>
-         
+
+ <!-- Pagination Controls -->
+ <nav aria-label="Page navigation">
+  <ul class="pagination">
+    <% if (page > 1) { %>
+      <li class="page-item">
+        <a class="page-link" href="?search=<%= search %>&page=<%= page - 1 %>&limit=<%= limit %>" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    <% } %>
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <li class="page-item <%= page === i ? 'active' : '' %>">
+        <a class="page-link" href="?search=<%= search %>&page=<%= i %>&limit=<%= limit %>"><%= i %></a>
+      </li>
+    <% } %>
+    <% if (page < totalPages) { %>
+      <li class="page-item">
+        <a class="page-link" href="?search=<%= search %>&page=<%= page + 1 %>&limit=<%= limit %>" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    <% } %>
+  </ul>
+</nav>
+
+
+          <div id="backend-error"></div>
+        </div>
         
-     
-                <div id="backend-error"></div>
-       
-    
-      
-      
-      </main>
-   
+
+
+
+      </div>
+    </div>
+
+
+
+
+<%-include('./footer.ejs') %>
 
 
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- jQery -->
+    <script src="/user/js/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script src="/user/js/popper.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/user/js/bootstrap.js"></script>
+    <!-- custom js -->
+    <script src="/user/js/custom.js"></script>
 
-
-
-<footer>
-
-</footer>
-
-</div>
-<script>
-  //////////fetch to cancel order//////////////////
-  document.addEventListener('DOMContentLoaded', function () {
-  const cancelOrderButtons = document.querySelectorAll('#cancelOrderButton');
-
-  cancelOrderButtons.forEach(button => {
-    button.addEventListener('click', function () {
-      const orderId = this.getAttribute('data-orderId');
-      const productId = this.getAttribute('data-productId');
-      const count = this.getAttribute('data-count'); // Get the product ID
-
-      fetch('/cancelOrder', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ orderId, productId,count })  // Send both orderId and productId
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.message.includes('successfully')) {
-            console.log(data.message);
-            window.location.replace('/getOrderHistory');  // Redirect to order history
-          } else {
-            console.error('Failed to remove product from order');
-            document.getElementById('backend-error').textContent = 'Failed to remove product from order.';
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          document.getElementById('backend-error').textContent = 'An error occurred.';
-        });
-    });
-  });
-});
-
-</script>
-
-
-
-<script src="/user/js/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-    <script src="/user/js/checkout.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
   </body>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

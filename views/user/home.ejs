@@ -108,7 +108,7 @@
       </header>
       <div class="hero_area">
       
-<!-- Modal HTML structure -->
+<!-- Account Modal HTML structure -->
 <div class="modal custom-modal modal-sm" id="accountModal" style="top: 0px; left:1000px">
    <div class="modal-dialog">
        <div class="modal-content">
@@ -118,10 +118,12 @@
            </div>
            <div class="modal-body">
               <ul style="list-style-type: none; justify-content: center; padding-left: 0;">
-               <li style="margin-top: 5px;"><a href="">My orders</a></li>
+               <li style="margin-top: 5px;"><a href="/getOrderHistory">My orders</a></li>
                <li style="margin-top: 5px;"><a href="/getProfile">My Profile</a></li>
                <li style="margin-top: 5px;"><a href="">My Addresses</a></li>
-               <li style="margin-top: 5px;"><a href="">Wishlist</a></li>
+               <li style="margin-top: 5px;"><a href="/getWishlist">Wishlist</a></li>
+               <li style="margin-top: 5px;"><a href="/getWallet">Wallet</a></li>
+               <li style="margin-top: 5px;"><a href="/getCoupons">Coupons</a></li>
                <li style="margin-top: 5px;"><form action="/postLogout" method="post"><button type="submit" style="border: none; background-color: white;padding: 5px  ;">Logout</button></form></li>
               </ul>
            </div>
@@ -649,84 +651,10 @@
          </div>
       </section>
       <!-- end client section -->
-      <!-- footer start -->
-      <footer>
-         <div class="container">
-            <div class="row">
-               <div class="col-md-4">
-                   <div class="full">
-                      <div class="logo_footer">
-                        <a class="navbar-brand" href="index.html"><h4>NUTROMAX</h4></a>
-                      </div>
-                      <div class="information_f">
-                        <p><strong>ADDRESS:</strong> 6050 Technopark,Kazhakkuttam,Trivandrum<br>kerala,India</p>
-                        <p><strong>TELEPHONE:</strong> +91 987 654 3210</p>
-                        <p><strong>EMAIL:</strong> nutromax@gmail.com</p>
-                      </div>
-                   </div>
-               </div>
-               <div class="col-md-8">
-                  <div class="row">
-                  <div class="col-md-7">
-                     <div class="row">
-                        <div class="col-md-6">
-                     <div class="widget_menu">
-                        <h3>Menu</h3>
-                        <ul>
-                           <li><a href="#">Home</a></li>
-                           <li><a href="#">About</a></li>
-                           <li><a href="#">Services</a></li>
-                           <li><a href="#">Testimonial</a></li>
-                           <li><a href="#">Blog</a></li>
-                           <li><a href="#">Contact</a></li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="col-md-6">
-                     <div class="widget_menu">
-                        <h3>Account</h3>
-                        <ul>
-                           <li><a href="#">Account</a></li>
-                           <li><a href="#">Checkout</a></li>
-                           <li><a href="#">Login</a></li>
-                           <li><a href="#">Register</a></li>
-                           <li><a href="#">Shopping</a></li>
-                           <li><a href="#">Widget</a></li>
-                        </ul>
-                     </div>
-                  </div>
-                     </div>
-                  </div>     
-                  <div class="col-md-5">
-                     <div class="widget_menu">
-                        <h3>Newsletter</h3>
-                        <div class="information_f">
-                          <p>Subscribe by our newsletter and get updates.</p>
-                        </div>
-                        <div class="form_sub">
-                           <form>
-                              <fieldset>
-                                 <div class="field">
-                                    <input type="email" placeholder="Enter Your Mail" name="email" />
-                                    <input type="submit" value="Subscribe" />
-                                 </div>
-                              </fieldset>
-                           </form>
-                        </div>
-                     </div>
-                  </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </footer>
-      <!-- footer end -->
-      <div class="cpy_">
-         <p class="mx-auto">© 2021 All Rights Reserved By Nutromax india pvt ltd
-         
-         </p>
       </div>
+      
 
+      <%- include('./footer.ejs') %>
 
 
       <!-- jQery -->

@@ -13,11 +13,17 @@ const user=require("./routes/userRoutes/user.js");
  const profile = require('./routes/userRoutes/profile.js');
  const order = require('./routes/adminRoutes/order.js');
  const cart = require('./routes/userRoutes/cart.js');
+ const wishlist = require('./routes/userRoutes/wishlist.js');
+ const wallet = require('./routes/userRoutes/wallet.js');
+ const salesReport = require('./routes/adminRoutes/salesReport.js');
+ const coupons = require('./routes/adminRoutes/coupon.js');
+ const userCoupons = require('./routes/userRoutes/coupon.js');
+ const orderManagement = require('./routes/adminRoutes/orderManagement.js')
  const nocache = require("nocache");
  const flash=require("connect-flash");
  const passportSetup = require('./config/googleAuth.js');
  const passport = require('passport');
- 
+const errorHandler = require('./Middleware/errorHandler.js'); 
 
 
 const PORT=process.env.PORT||8080
@@ -66,19 +72,28 @@ app.use(passport.session());
 // })
 // // /* Development Details END */
 
- app.use("/",nocache(),user);
+ app.use(nocache());
+ app.use('/',user);
  app.use("/",profile);
  app.use('/',cart);
+ app.use('/',wishlist);
+ app.use('/',wallet);
+ app.use('/',userCoupons);
+
+ app.use('/admin',salesReport);
  app.use("/admin",admin);
- app.use ("/admin",category);
+  app.use ("/admin",category);
  app.use("/admin",product);
  app.use("/admin",account);
  app.use("/admin",order);
+ app.use("/admin",coupons); 
+ app.use("/admin",orderManagement);
 
- app.use('/',(req,res) => {
-  res.render('user/404');
- });
 
+ 
+app.use('/',errorHandler.handlerNotFound);
+
+//  app.use(errorHandler.serverErrorHandler);
 
 
 mongoose.connect(MONGO_URI)

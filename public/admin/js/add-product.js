@@ -147,7 +147,10 @@ form.addEventListener('submit', function (event) {
       showError(fileInput, 'At least one product image is required');
       isValid = false;
   }
-
+if(fileInput.files.length>3) {
+  showError(fileInput,'Cannot appload more than 3 images!.')
+  isValid = false;
+}
   if (isValid) {
       form.submit();
   }

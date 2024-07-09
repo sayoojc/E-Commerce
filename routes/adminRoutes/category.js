@@ -4,9 +4,10 @@ const categoryController = require("../../controllers/admin/categoryCtrl");
 const adminAuth = require('../../Middleware/adminAuth');
 const multerConfig = require('../../Middleware/multer');
 
+
 ///get Controll///
 
-router.get("/getCategory",adminAuth.adminAuth,categoryController.getCategory);
+router.get("/getCategory",categoryController.getCategory);
 
 ///post controll///
 router.post("/previewResizeAddCategory",multerConfig.previewResizeAddCategory,categoryController.previewResizeAddCategory);

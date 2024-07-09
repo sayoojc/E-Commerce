@@ -11,31 +11,30 @@ body {
     
 }
 
-.container {
+.bodyContainer {
     display: flex;
     min-height: 100%;
     min-width: 100%;
     background-color: #f5f5f5;
-}
+} 
 
-.sidebar {
+ .sidebar {
     width: 25%;
-    height: 100%;
     background-color: #fff;
     padding: 20px;
     border-right: 1px solid #ddd;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+    align-items: flex-start;
+} 
 
-.profile-info {
+ .profile-info {
+padding-top: 20px;
     text-align: center;
     padding-bottom: 20px;
     border-bottom: 1px solid #ddd;
-}
+} 
 
 .profile-info img {
     width: 100px;
@@ -59,7 +58,7 @@ body {
     list-style-type: none;
     padding: 0;
     margin: 20px 0 0;
-    height: 100vh;
+   
 }
 
 .sidebar-menu li {
@@ -82,10 +81,11 @@ body {
 }
 
 .main-content {
+   
     width: 100%;
     padding: 20px;
     background-color: #fbfafa;
-    height: 100vh;
+   
 }
 
 h1 {
@@ -113,25 +113,25 @@ h1 {
     color: #666;
 }
 
-.form-group input[type="text"],
+ .form-group input[type="text"],
 .form-group input[type="password"] {
     width: calc(40% - 30px);
     padding: 8px 5px;
     font-size: 14px;
     border: 3px solid  #666;
     border-radius: 4px;
-}
+} 
 
-.form-inline {
+ .form-inline1 {
     display: flex;
     align-items: center;
     width: calc(40% - 30px);
    
-}
+} 
 
 .form-inline input {
     flex: 1;
-}
+} 
 
 .form-inline a {
     margin-left: 10px;

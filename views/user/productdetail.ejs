@@ -3,109 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Product Detail</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/user/css/product-detail.css">
+    <style>
+          .custom-ok-button {
+            background-color: #4CAF50 !important; /* Green background */
+            color: white !important; /* White text */
+            font-weight: bold !important; /* Bold text */
+            border: none !important; /* Remove border */
+            border-radius: 5px !important; /* Rounded corners */
+            padding: 8px 16px !important; /* Padding */
+            font-size: 16px !important; /* Font size */
+            box-shadow: none;
+            transition: none;
+        }
+    </style>
 </head>
 
 <body>
-    <div class = "card-wrapper">
-        <div class = "card">
-          <!-- card left -->
-        <!-- card left -->
-<div class="product-imgs">
-  <div class="img-display">
-    <div class="img-showcase" id="container">
-      <img src="/<%=product.image[2]%>" alt="product image">
-      <img src="/<%=product.image[1]%>" alt="product image">
-      <img src="/<%=product.image[0]%>" alt="product image">
-    </div>
-  </div>
-  <div class="img-select">
-    <div class="img-item">
-      <a href="#" data-id="1">
-        <img src="/<%=product.image[2]%>" alt="product image">
-      </a>
-    </div>
-    <div class="img-item">
-      <a href="#" data-id="2">
-        <img src="/<%=product.image[1]%>" alt="product image">
-      </a>
-    </div>
-    <div class="img-item">
-      <a href="#" data-id="3">
-        <img src="/<%=product.image[0]%>" alt="product image">
-      </a>
-    </div>
-  </div>
-</div>
+    <div class="card-wrapper">
+        <div class="card">
+            <!-- card left -->
+            <div class="product-imgs">
+                <div class="img-display">
+                    <div class="img-showcase" id="container">
+                        <img src="/<%=product.image[2]%>" alt="product image">
+                        <img src="/<%=product.image[1]%>" alt="product image">
+                        <img src="/<%=product.image[0]%>" alt="product image">
+                    </div>
+                </div>
+                <div class="img-select">
+                    <div class="img-item">
+                        <a href="#" data-id="1">
+                            <img src="/<%=product.image[2]%>" alt="product image">
+                        </a>
+                    </div>
+                    <div class="img-item">
+                        <a href="#" data-id="2">
+                            <img src="/<%=product.image[1]%>" alt="product image">
+                        </a>
+                    </div>
+                    <div class="img-item">
+                        <a href="#" data-id="3">
+                            <img src="/<%=product.image[0]%>" alt="product image">
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-
-          <!-- card right -->
-          <div class = "product-content">
-            <h2 class = "product-title"><%=product.productName%></h2>
-           
-            <div class = "product-rating">
-              <i class = "fas fa-star"></i>
-              <i class = "fas fa-star"></i>
-              <i class = "fas fa-star"></i>
-              <i class = "fas fa-star"></i>
-              <i class = "fas fa-star-half-alt"></i>
-              <span>4.7(21)</span>
+            <!-- card right -->
+            <div class="product-content">
+                <h2 class="product-title"><%=product.productName%></h2>
+                <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>4.7(21)</span>
+                </div>
+                <div class="product-price">
+                    <p class="price" style="font-size: 25px;">Price: <span style="font-size: 25px;"><%=product.price%>/-</span></p>
+                </div>
+                <div class="product-detail">
+                    <h2>about this item: </h2>
+                    <p><%=product.description%></p>
+                    <ul>
+                        <% if(product.stock > 0) { %>
+                            <li>Available: <span>in stock</span></li>
+                        <% } else { %>
+                            <li style="color: red;">Out Of Stock : <span>0</span></li>
+                        <% } %>
+                        <li>Category: <span><%=product.category.categoryName%></span></li>
+                        <li>Shipping Area: <span>All over the India</span></li>
+                        <li>Shipping Fee: <span>Free</span></li>
+                    </ul>
+                </div>
+                <div class="purchase-info">
+                    <form action="/addToCart/<%=product._id%>" method="post">
+                        <input type="number" id="count" name="count" value="1">
+                        <button type="submit" class="btn">
+                            Add to Cart <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </form>
+                    <button type="button" class="btn">Compare</button>
+                </div>
+                <div class="social-links">
+                    <p>Share At: </p>
+                    <a href="#">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fab fa-pinterest"></i>
+                    </a>
+                </div>
             </div>
-      
-            <div class = "product-price">
-              <p class = "price" style="font-size: 25px;" >Price: <span style="font-size: 25px;"><%=product.price%>/-</span></p>
-              <!-- <p class = "new-price">New Price: <span>$249.00 (5%)</span></p> -->
-            </div>
-      
-            <div class = "product-detail">
-              <h2>about this item: </h2>
-              <p><%=product.description%></p>
-              <ul>
-                <li>Available: <span>in stock</span></li>
-                <li>Category: <span>Whey Protein</span></li>
-                <li>Shipping Area: <span>All over the world</span></li>
-                <li>Shipping Fee: <span>Free</span></li>
-              </ul>
-            </div>
-      
-            <div class = "purchase-info">
-              <form action="/addToCart/<%=product._id%>" method="post">
-              <input type = "number" id="count" name="count" min = "1" value = "1">
-             
-                <button type = "submit" class = "btn">
-                  Add to Cart <i class = "fas fa-shopping-cart"></i>
-                </button>
-              </form>
-             
-              <button type = "button" class = "btn">Compare</button>
-            </div>
-      
-            <div class = "social-links">
-              <p>Share At: </p>
-              <a href = "#">
-                <i class = "fab fa-facebook-f"></i>
-              </a>
-              <a href = "#">
-                <i class = "fab fa-twitter"></i>
-              </a>
-              <a href = "#">
-                <i class = "fab fa-instagram"></i>
-              </a>
-              <a href = "#">
-                <i class = "fab fa-whatsapp"></i>
-              </a>
-              <a href = "#">
-                <i class = "fab fa-pinterest"></i>
-              </a>
-            </div>
-          </div>
         </div>
-      </div>
-      
-      
-      
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const count = document.getElementById('count');
+
+        count.addEventListener('change', function() {
+            const cartCount = count.value;
+
+            if (cartCount > 5) {
+                Swal.fire({
+                    html: "<span style='color: black; font-weight: bold;'>Can't add more than five products!</span>",
+                    width: '350px',
+                    height: 'auto',
+                    customClass: {
+                        confirmButton: 'custom-ok-button'
+                    }
+                }).then(() => {
+                    count.value = 5;
+                    document.querySelector('.custom-ok-button').innerHTML = '<i class="fa fa-check"></i> Okay';
+                });
+            }
+
+            if (cartCount < 1) {
+                Swal.fire({
+                    html: "<span style='color: blue; font-style: italic;'>At least buy one item, please...</span>",
+                    width: '350px',
+                    height: 'auto',
+                    customClass: {
+                        confirmButton: 'custom-ok-button'
+                    }
+                }).then(() => {
+                    count.value = 1;
+                    document.querySelector('.custom-ok-button').innerHTML = '<i class="fa fa-check"></i> Okay';
+                });
+            }
+        });
+
+///////////backend validation/////////////
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+
+        if (error === 'invalidQuantity') {
+            Swal.fire({
+                title: 'Invalid Quantity',
+                text: "Please enter a valid quantity.",
+                icon: 'error',
+                confirmButtonText: 'OK',
+                customClass: {
+                    confirmButton: 'custom-ok-button'
+                }
+            });
+        }
+    </script>
+    <script src="/admin/js/productdetail.js"></script>
 </body>
-<script src="/admin/js/productdetail.js"></script>
 </html>

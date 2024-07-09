@@ -1,506 +1,584 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="../assets/js/color-modes.js"></script>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.122.0">
-    <title>Checkout example · Bootstrap v5.3</title>
+<head>
+  <script src="../assets/js/color-modes.js"></script>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/checkout/">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.122.0">
+  <title>Checkout example · Bootstrap v5.3</title>
 
-    
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-
-<link href="/user/css/bootstrap.min.css.map" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="user/css/bootstrap.css" />
-<!-- font awesome style -->
-<link href="user/css/font-awesome.min.css" rel="stylesheet" />
-<!-- Custom styles for this template -->
-<link href="user/css/style.css" rel="stylesheet" />
-<!-- responsive style -->
-<link href="user/css/responsive.css" rel="stylesheet" />
-<link rel="stylesheet" href="user/css/cart.css">
-<link rel="stylesheet" href="/user/css/my-style.css">
-<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/checkout/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 
-    <style>
- .address-item {
-    display: flex;
-    align-items: flex-start; /* Align items to the start */
-    padding: 5px; /* Reduce padding for compactness */
-    border: 1px solid #ddd;
-    margin-bottom: 5px; /* Reduce margin for less space between items */
-    border-radius: 5px;
-}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-.address-item label {
-    flex-grow: 1;
-    margin: 0;
-    padding-left: 10px; /* Add some padding to the left for spacing */
-}
+  <link href="/user/css/bootstrap.min.css.map" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/user/css/bootstrap.css" />
+  <!-- font awesome style -->
+  <link href="user/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="user/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="user/css/responsive.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/user/css/cart.css">
+  <link rel="stylesheet" href="/user/css/my-style.css">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 
-.address-item p {
-    margin: 0;
-    font-size: 14px;
-}
 
-    </style>
+  <style>
+    .address-item {
+      display: flex;
+      align-items: flex-start;
+      /* Align items to the start */
+      padding: 5px;
+      /* Reduce padding for compactness */
+      border: 1px solid #ddd;
+      margin-bottom: 5px;
+      /* Reduce margin for less space between items */
+      border-radius: 5px;
+    }
 
-    
-    <!-- Custom styles for this template -->
-    <link href="checkout.css" rel="stylesheet">
-  </head>
-  <body class="bg-body-tertiary">
-   
-    <%- include('./header.ejs') %>
-        
-    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-      <symbol id="check2" viewBox="0 0 16 16">
-        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-      </symbol>
-      <symbol id="circle-half" viewBox="0 0 16 16">
-        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
-      </symbol>
-      <symbol id="moon-stars-fill" viewBox="0 0 16 16">
-        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
-        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
-      </symbol>
-      <symbol id="sun-fill" viewBox="0 0 16 16">
-        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
-      </symbol>
-    </svg>
+    .address-item label {
+      flex-grow: 1;
+      margin: 0;
+      padding-left: 10px;
+      /* Add some padding to the left for spacing */
+    }
 
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-      <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
-              id="bd-theme"
-              type="button"
-              aria-expanded="false"
-              data-bs-toggle="dropdown"
-              aria-label="Toggle theme (auto)">
-        <svg class="bi my-1 theme-icon-active" width="1em" height="1em"><use href="#circle-half"></use></svg>
-        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-            Light
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-            Dark
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-            <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#circle-half"></use></svg>
-            Auto
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-      </ul>
-    </div>
+    .address-item p {
+      margin: 0;
+      font-size: 14px;
+    }
 
-    
+    footer {
+      background-color: rgb(255, 255, 255);
+      padding-bottom: 0px;
+    }
+
+    .custom-flex-container {
+      gap: 10px;
+      /* Adjust spacing between elements */
+    }
+
+    .custom-form {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      /* Adjust spacing between form elements */
+    }
+
+    .custom-form .form-control {
+      width: 60px;
+      /* Adjust the width of the input field as needed */
+      text-align: center;
+    }
+
+    .custom-form .btn {
+      margin: 0;
+    }
+
+    .center-div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      /* Optional: If you want to center the text inside the div */
+      margin: 0 auto;
+      /* This centers the div horizontally */
+      height: 50vh;
+      /* Optional: If you want to center it vertically as well */
+    }
+  </style>
+
+
+</head>
+
+<body class="bg-body-tertiary">
+
+  <%- include('./header.ejs') %>
+
+
+
+
     <div class="container-fluid" style="padding-left: 170px; padding-right: 170px;">
       <main>
-        
-       
+        <% if (items.length> 0) { %>
 
-   
-        <div class="row g-5">
-          <div class="col-md-5 col-lg-4 order-md-last">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-              <span class="text-primary">Your cart</span>
-              <span class="badge bg-primary rounded-pill"><%= items.length %></span>
-            </h4>
-            <ul class="list-group mb-3">
-              <% if (items.length > 0) { %>
-                <% items.forEach(item => { %>
-                  <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div>
-                      <h6 class="my-0"><%= item.name %></h6>
-                      <small class="text-body-secondary"><%= item.description %></small>
-                    </div>
-                    <span class="text-body-secondary">$<%= item.price %></span>
-                    <div class="d-flex align-items-center">
-                      <button class="btn btn-outline-danger" id="cancelOrderButton" data-productId="<%= item.productId %>">Cancel Order</button>
-                    </div>
-                  </li>
-                <% }); %>
-                <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
-                  <div class="text-success">
-                    <h6 class="my-0">Promo code</h6>
-                    <small>EXAMPLECODE</small>
-                  </div>
-                  <span class="text-success">−$5</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                  <span>Total (USD)</span>
-                  <strong>$<%= totalPrice %></strong>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                  <span>Total payable</span>
-                  <strong>$<%= totalPayable %></strong>
-                </li>
-              <% } else { %>
-                <li class="list-group-item d-flex justify-content-between">
-                  <span>Your cart is empty.</span>
-                </li>
-              <% } %>
-            </ul>
-            <form class="card p-2">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Promo code">
-                <button type="submit" class="btn btn-secondary">Redeem</button>
-              </div>
-            </form>
-          </div>
-         
 
-         
 
-          <div class="col-md-7 col-lg-8 p-3">
-            <% if (address) { %>
-              <div class="w-100 border mb-3 custom-div d-flex justify-content-center align-items-center">
-                <span><strong><%= address.name %></strong></span>
-                <%= address.address1 %>, <%= address.address2 %>, <%= address.locality %>, <%= address.city %>, <%= address.pincode %>, <%= address.phone %>
-                <button class="btn normal-case addressChangeBtn  btn-primary" data-bs-toggle="modal" data-bs-target="#changeAddressModal">Change</button>
-              </div>
-            <% } else { %>
-              <div class="col-md-7 col-lg-8 p-3"></div>
-              <div class="w-100 border mb-3 custom-div d-flex justify-content-center align-items-center">
-                No address found.
-                <button class="btn normal-case addressChangeBtn">Add Address</button>
-                <!-- You can add a button or link here to allow the user to add an address -->
-              </div>
-            <% } %>
-          </div>
-            
-          
-            <div class="container" class="col-md-7 col-lg-8 p-3">
-              <% if (items.length > 0) { %>
-                <% items.forEach(item => { %>
-                  <div class="row mb-3 custom-card col-md-7 col-lg-8 p-3">
-                    <div class="col-md-4">
-                      <% if (item.image && item.image.length > 0) { %>
-                        <img src="<%= item.image[0] %>" id="prod_img" alt="<%= item.name %>">
-                      <% } else { %>
-                        <img src="/path/to/default-image.jpg" alt="<%= item.name %>">
+          <div class="row g-5">
+            <div class="col-md-5 col-lg-4 order-md-last" id="yourCartDiv">
+              <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-primary">Price Details</span>
+
+              </h4>
+
+              <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>Price (<%= items.length %> items)</span>
+                  <strong>
+                    ₹ <%= totalPrice %>/-
+                  </strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>Delivery Charges</span>
+                  <% if (totalPrice==totalPayable) { %>
+                    <strong style="color: green;">
+                      <span style="text-decoration: line-through; color: black;">₹ 59/-</span> Free
+                    </strong>
+                    <% } else { %>
+                      <strong>₹59/-</strong>
                       <% } %>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>Total payable</span>
+                  <strong>
+                    ₹<%= totalPayable %>/-
+                  </strong>
+                </li>
+              </ul>
+
+
+            </div>
+
+
+
+
+            <div class="col-md-7 col-lg-8 p-3">
+              <% if (address) { %>
+                <div class="w-100 border mb-3 custom-div d-flex justify-content-center align-items-center">
+                  <span><strong>
+                      <%= address.name %>
+                    </strong></span>
+                  <%= address.address1 %>, <%= address.address2 %>, <%= address.locality %>, <%= address.city %>, <%=
+                            address.pincode %>, <%= address.phone %>
+                              <button class="btn normal-case addressChangeBtn  " data-bs-toggle="modal"
+                                data-bs-target="#changeAddressModal">Change</button>
+                </div>
+                <% } else { %>
+                  <div class="col-md-7 col-lg-8 p-3"></div>
+                  <div class="w-100 border mb-3 custom-div d-flex justify-content-center align-items-center">
+                    No address found.
+                    <button type="button" class="add-address-btn" data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop" style="margin-bottom: 20px;">Add Address</button>
+
+                  </div>
+                  <% } %>
+            </div>
+
+
+            <div class="container" class="col-md-7 col-lg-8 p-3">
+              <% items.forEach(item=> { %>
+                <div class=" mb-3 custom-card col-md-7 col-lg-8 p-3">
+                  <div style="display: flex;">
+                    <div>
+                      <% if (item.image && item.image.length> 0) { %>
+                        <img src="<%= item.image[0] %>" id="prod_img" alt="<%= item.name %>">
+                        <% } else { %>
+                          <img src="/path/to/default-image.jpg" alt="<%= item.name %>">
+                          <% } %>
                     </div>
-                    <div class="col-md-8 text-right">
-                      <p><strong><%= item.name %></strong></p>
-                      <p><%= item.description %></p>
-                      <p>Price: $<%= item.price %></p>
-                      <p>Total: $<%= item.price * item.quantity %></p>
-                      <div class="d-flex align-items-center">
-                        <button class="btn btn-outline-secondary minus-btn" type="button">-</button>
-                        <input type="text" class="form-control product-count mx-2" value="<%= item.quantity %>" readonly>
-                        <button class="btn btn-outline-secondary plus-btn" type="button">+</button>
-                        <button class="btn btn-outline-secondary save-for-later-btn" type="button" id="addToWishlistButton" data-productId="<%= item.productId %>">Save for Later</button>
-                        
-                         
-                          <button  id="productRemoveButton" class="btn btn-outline-danger" data-productId="<%= item.productId %>">Remove</button>
-                       
-                      </div>
+
+                    <div>
+                      <p><strong>
+                          <%= item.name %>
+                        </strong></p>
+                      <p>
+                        <%= item.description %>
+                      </p>
+                      <p>Price: ₹<%= item.price %>
+                      </p>
+                      <p>Total: ₹<%= item.price * item.quantity %>
+                      </p>
+
                     </div>
                   </div>
+
+                  <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-secondary cartMinusBtn" data-productId="<%=item.productId%>"
+                      type="button">-</button>
+                    <input type="text" class="form-control product-count mx-2" value="<%= item.quantity %>" readonly>
+                    <button class="btn btn-outline-secondary cartPlusBtn" data-productId="<%=item.productId%>"
+                      type="button">+</button>
+                    <button class="btn btn-primary ml-2 save-for-later-btn" type="button" id="addToWishlistButton"
+                      data-productId="<%= item.productId %>">Save for Later</button>
+
+
+                    <button id="productRemoveButton" class="btn btn-danger ml-3"
+                      data-productId="<%= item.productId %>">Remove</button>
+
+                  </div>
+                </div>
                 <% }); %>
-                <div class="cart-summary">
-                  <p>Total Price: $<%= totalPrice %></p>
-                  <p>Total Payable: $<%= totalPayable %></p>
-                  <p>Number of Products: <%= productNumber %></p>
-                </div>
-                <div class=" border mb-3 p-3 mt-auto col-md-7 col-lg-8 p-3 placeOrderButtonDiv" id="placeOrderButtonDiv">
-                  <button id="placeOrderButton" class="w-100" onclick="window.location.href = '/getCheckout'">Place Order</button>
-                </div>
-              <% } else { %>
-                <p>Your cart is empty.</p>
-                <form action="/getHome" method="get">
-                <button type="submit">Browse products</button>
-              </form>
-              <% } %>
-             <form action="/getOrderHistory" method="get">
-              <button type="submit">Go To Orders</button>
-            </form>
+                  <div class="cart-summary">
+                    <p>Total Price: ₹<%= totalPrice %>
+                    </p>
+                    <p>Total Payable: ₹<%= totalPayable %>
+                    </p>
+                    <p>Number of Products: <%= productNumber %>
+                    </p>
+                  </div>
+                  <div class=" border   p-3   col-md-7 col-lg-8  placeOrderButtonDiv" id="placeOrderButtonDiv"
+                    style="margin-top: auto;">
+                    <button id="placeOrderButton" class="w-100" onclick="window.location.href = '/getCheckout'">Place
+                      Order</button>
+                  </div>
             </div>
-          
-          
-           
-          </div>
 
-          <div class="border mb-3 p-3 mt-auto" style="width: 800px;">
-            <h4>From your wishlist</h4>
-            <% wishlist.products.forEach(product => { %>
-              <div class="w-100 mb-3 custom-card">
-                <img src="/<%= product.product_id.image[0] %>" alt="<%= product.product_id.name %>" style="width: 100px; height: 100px;">
-                <p><strong><%= product.product_id.name %></strong></p>
-                <p><%= product.product_id.description %></p>
-                <p>$<%= product.product_id.price %></p>
-                <div class="d-flex align-items-center">
-                  <form action="/addToCart/<%=product.product_id._id%>" method="post">
-                    <button class="btn btn-outline-secondary minus-btn" type="button">-</button>
-                    <input type="number" class="form-control product-count mx-2" id="count" name="count" min="1" value="1" readonly>
-                    <button class="btn btn-outline-secondary plus-btn" type="button">+</button>
-                    <button type="submit" class="btn btn-primary add-to-cart-from-wishlist" data-productId="<%= product.product_id._id %>">Add To Cart</button>
-                  </form>
-                  <button class="btn btn-danger remove-from-wishlist" data-productId="<%= product.product_id._id %>">Remove</button>
-                </div>
+
+
+
+            <% } else { %>
+              <div class="center-div">
+                <strong>
+                  <p>Your cart is empty!.</p>
+                </strong>
+                <img src="/admin/images/empty cart.png" alt="Empty cart image" style="width: 300px;">
+                <form action="/product-list/:action" method="get">
+                  <button type="submit">Order something new.</button>
+                </form>
               </div>
-            <% }) %>
-          </div>
-          
-          
-          
-          
+              <% } %>
 
-          
+
+
+                <% if (wishlist && wishlist.products && wishlist.products.length> 0) { %>
+                  <div class="col-md-7 col-lg-8 p-3">
+                    <h4>From your wishlist</h4>
+                    <% for (let i=0; i < 3 && i < wishlist.products.length; i++) { %>
+                      <% const product=wishlist.products[i]; %>
+                        <% if (product && product.product_id) { %>
+                          <div class="w-100 mb-3 custom-card">
+                            <div style="display: flex;">
+                              <div>
+                                <img src="/<%= product.product_id.image[0] %>" alt="<%= product.product_id.name %>"
+                                  style="width: 100px; height: 100px;">
+                              </div>
+                              <div>
+                                <p><strong>
+                                    <%= product.product_id.productName %>
+                                  </strong></p>
+                                <p>
+                                  <%= product.product_id.description %>
+                                </p>
+                                <%const productPrice=product.count*product.product_id.price%>
+                                  <p>₹<%= productPrice %>
+                                  </p>
+                              </div>
+                            </div>
+
+
+                            <div
+                              class="d-flex align-items-center justify-content-between flex-wrap custom-flex-container">
+                              <form action="/addToCart/<%= product.product_id._id %>" method="post"
+                                class="d-flex align-items-center custom-form">
+                                <button class="btn btn-outline-secondary minus-btn"
+                                  data-productId="<%=product.product_id._id%>" type="button">-</button>
+                                <input type="number" class="form-control product-count mx-2 text-center" id="count"
+                                  name="count" min="1" value="<%=product.count%>" readonly style="margin-top: 17px;">
+                                <button class="btn btn-outline-secondary plus-btn"
+                                  data-productId="<%=product.product_id._id%>" type="button">+</button>
+                                <button type="submit" class="btn btn-primary add-to-cart-from-wishlist ml-2"
+                                  data-productId="<%= product.product_id._id %>">Add To Cart</button>
+                                  <button type="button" class="btn btn-danger remove-from-wishlist"
+                                  data-productId="<%= product.product_id._id %>"
+                                  style="margin-right: 370px;">Remove</button>
+                              </form>
+                           
+                            </div>
+                          </div>
+                          <% } %>
+                            <% } %>
+                  </div>
+                  <% } %>
+
+
+
           </div>
-        </div>
 
 
 
       </main>
-    </div>
- 
 
-<!-- The address selector modal -->
-<div class="modal fade" id="changeAddressModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
+    </div>
+
+
+
+
+    </div>
+
+
+    <%-include('./footer.ejs') %>
+      <!-- The address selector modal -->
+      <div class="modal fade" id="changeAddressModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
               <h1 class="modal-title fs-5" id="staticBackdropLabel">Select Delivery Address</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
+            </div>
+            <div class="modal-body">
               <form id="changeAddressForm">
-                  <div id="addressList">
-                      <!-- Dynamic address list goes here -->
-                      <% addresses.forEach(address => { %>
-                      <div class="address-item border p-2 mb-2 d-flex align-items-start">
-                         
-                          <label for="address-<%= address._id %>" class="w-100">
-                              <p class="mb-1"><strong><%= address.name %></strong></p>
-                              <p class="mb-1"><%= address.address1 %>, <%= address.address2 %></p>
-                              <p class="mb-1"><%= address.locality %>, <%= address.city %>, <%= address.state %> - <%= address.pincode %></p>
-                              <p class="mb-1">Phone: <%= address.phone %></p>
-                          </label>
-                          <button type="button" class="btn select-address-btn" data-id="<%= address._id %>">Select</button>
-                      </div>
-                      <% }) %>
-                  </div>
-                  <p id="currentPasswordError" class="text-danger"></p>
-                  <p id="backend-error" class="text-danger"></p>
-                  <input type="hidden" id="selectedAddressId" name="selectedAddressId">
+                <div id="addressList">
+                  <!-- Dynamic address list goes here -->
+                  <% addresses.forEach(address=> { %>
+                    <div class="address-item border p-2 mb-2 d-flex align-items-start">
+
+                      <label for="address-<%= address._id %>" class="w-100">
+                        <p class="mb-1"><strong>
+                            <%= address.name %>
+                          </strong></p>
+                        <p class="mb-1">
+                          <%= address.address1 %>, <%= address.address2 %>
+                        </p>
+                        <p class="mb-1">
+                          <%= address.locality %>, <%= address.city %>, <%= address.state %> - <%= address.pincode %>
+                        </p>
+                        <p class="mb-1">Phone: <%= address.phone %>
+                        </p>
+                      </label>
+                      <button type="button" class="btn select-address-btn" data-id="<%= address._id %>">Select</button>
+                    </div>
+                    <% }) %>
+                </div>
+                <p id="currentPasswordError" class="text-danger"></p>
+                <p id="backend-error" class="text-danger"></p>
+                <input type="hidden" id="selectedAddressId" name="selectedAddressId">
               </form>
+            </div>
           </div>
+        </div>
       </div>
-  </div>
-</div>
+
+      <!-- add address modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog-scrollable modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Address</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="addAddressForm">
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name"><br>
+                <p id="nameError" class="text-danger"></p>
+
+                <label for="address">Address Line 1</label><br>
+                <input type="text" id="address1" name="address1" placeholder="Flat,House no,Building,Apartment"><br>
+                <p id="addressError1" class="text-danger"></p>
+
+                <label for="address">Address Line 2</label><br>
+                <input type="text" id="address2" name="address2" placeholder="Sector,Area,Street,Colony"><br>
+                <p id="addressError2" class="text-danger"></p>
+
+                <label for="phone">Phone:</label><br>
+
+                <input type="text" id="phone" name="phone"><br>
+                <p id="phoneError" class="text-danger"></p>
+
+                <label for="locality">Locality:</label><br>
+                <input type="text" id="locality" name="locality"><br>
+                <p id="localityError" class="text-danger"></p>
+
+                <label for="pincode">Pincode:</label><br>
+                <input type="text" id="pincode" name="pincode"><br>
+                <p id="pinCodeError" class="text-danger"></p>
+
+                <label for="city">city:</label><br>
+                <input type="text" id="city" name="city"><br>
+                <p id="cityError" class="text-danger"></p>
+
+                <label for="state">State:</label><br>
+                <input type="text" id="state" name="state"><br>
+                <p id="stateError" class="text-danger"></p>
+
+
+                <input type="submit" value="Submit">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 
+      <script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-      const selectButtons = document.querySelectorAll('.select-address-btn');
+        // JavaScript to handle plus and minus button functionality for the wishlist
+        document.addEventListener('DOMContentLoaded', function () {
+          const buttons = document.querySelectorAll('.plus-btn');
 
-      selectButtons.forEach(button => {
-          button.addEventListener('click', function() {
-              const addressId = this.getAttribute('data-id');
-              document.getElementById('selectedAddressId').value = addressId;
-              
-              // Send the selected address ID via an AJAX request
-              submitAddressSelection(addressId);
+          buttons.forEach(button => {
+            button.addEventListener('click', function () {
+              const productId = button.dataset.productid;
+              console.log('productId', productId);
+
+              fetch('/incProdNum', {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId }) // Send as an object
+              })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.error) {
+                    swal.fire("Error", data.error, "error");
+                  } else {
+
+                    window.location.reload(); // Reload the page to reflect changes
+
+                  }
+                })
+                .catch(error => {
+                  console.error('Error:', error); // Log any error that occurs
+                });
+            });
           });
-      });
-  });
-
-  function submitAddressSelection(addressId) {
-      fetch('/changeAddress', {
-          method: 'PATCH',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ selectedAddressId: addressId })
-      })
-      .then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              // Handle success, perhaps close the modal and update the UI
-              console.log('Address selected successfully');
-              // Close the modal
-              document.querySelector('.btn-close').click();
-             
-              window.location.href ='/getCart';
-          } else {
-              document.getElementById('backend-error').textContent = data.error || 'An error occurred.';
-          }
-          
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          document.getElementById('backend-error').textContent = 'An error occurred.';
-      });
-  }
+        });
 
 
-///////////////fetch to remove product from cart//////////////////
+        document.addEventListener('DOMContentLoaded', function () {
+          const buttons = document.querySelectorAll('.minus-btn');
 
-const productRemoveButton = document.querySelectorAll('#productRemoveButton');
+          buttons.forEach(button => {
+            button.addEventListener('click', function () {
+              const productId = button.dataset.productid;
+              console.log('productId', productId);
+              const context = 'decrement';
 
-productRemoveButton.forEach(button =>{
-  const productId = button.getAttribute('data-productId');
-  button.addEventListener('click',function(){
-    fetch(`/removeFromCart/${productId}`,{
-      method:'DELETE',
-    })
-    .then(response => response.json())
-      .then(data => {
-          if (data.message) {
-              // Handle success, perhaps close the modal and update the UI
-              console.log('product removed');
-              
-             
-             
-              window.location.href ='/getCart';
-          } else {
-              document.getElementById('backend-error').textContent = data.error || 'An error occurred when deleting the product from the cart.';
-          }
-          
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          document.getElementById('backend-error').textContent = 'An error occurred.';
-      });
-  })
-})
-///////////////////fetch to  add to wish list////////////////////////////
-const addToWishlistButton = document.querySelectorAll('#addToWishlistButton');
+              fetch('/incProdNum', {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId, context }) // Send as an object
+              })
+                .then(response => response.json())
 
-addToWishlistButton.forEach(button => {
-  const productId = button.getAttribute('data-productId');
-  button.addEventListener('click',function(){
-    fetch(`/addToWishlist/${productId}`,{
-      method:'post'
-    })
-    .then(response => response.json())
-      .then(data => {
-          if (data.message) {
-              // Handle success, perhaps close the modal and update the UI
-              console.log('product added');
-              
-             
-              window.location.href = '/getCart'; 
-              
-          } else {
-              document.getElementById('backend-error').textContent = data.error || 'An error occurred when adding the product to  the wishlist.';
-          }
-         
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          document.getElementById('backend-error').textContent = 'An error occurred.';
-      });
-  })
-})
+                .then(data => {
+                  if (data.error) {
+                    swal.fire("Error", data.error, "error");
+                  } else {
+
+                    window.location.reload(); // Reload the page to reflect changes
+
+                  }
+                  console.log(data);
+                })
+                .catch(error => {
+                  console.error('Error:', error); // Log any error that occurs
+                });
+            });
+          });
+        });
 
 
-///////////////////////remove from wish list//////////////////////
+        // JavaScript to handle plus and minus button for the cart functionality
+        document.addEventListener('DOMContentLoaded', function () {
+          const buttons = document.querySelectorAll('.cartPlusBtn');
+
+          buttons.forEach(button => {
+            button.addEventListener('click', function () {
+              const productId = button.getAttribute('data-productId');
+              console.log('productId', productId);
+
+              fetch('/incProdNumCart', {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId }) // Send as an object
+              })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.error) {
+                    swal.fire("Error", data.error, "error");
+                  } else {
+
+                    window.location.reload(); // Reload the page to reflect changes
+
+                  }
+                })
+                .catch(error => {
+                  console.error('Error:', error); // Log any error that occurs
+                });
+            });
+          });
+        });
 
 
-const productRemoveFromWishlistButton = document.querySelectorAll('.remove-from-wishlist');
+        document.addEventListener('DOMContentLoaded', function () {
+          const buttons = document.querySelectorAll('.cartMinusBtn');
 
-productRemoveFromWishlistButton.forEach(button => {
-  const productId = button.getAttribute('data-productId');
-  button.addEventListener('click',function(){
-    fetch('/removeFromWishlist',{
-      method:'delete',
-      body:JSON.stringify({productId}),
-      headers:{
-        'Content-Type':'application/json'
-      }
-    })
-    .then(response => response.json())
-      .then(data => {
-          if (data.message) {
-              // Handle success, perhaps close the modal and update the UI
-              console.log('product added');
-              
-             
-              window.location.href = '/getCart'; 
-              
-          } else {
-              document.getElementById('backend-error').textContent = data.error || 'An error occurred when adding the product to  the wishlist.';
-          }
-         
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          document.getElementById('backend-error').textContent = 'An error occurred.';
-      });
-  })
-})
+          buttons.forEach(button => {
+            button.addEventListener('click', function () {
+              const productId = button.getAttribute('data-productId');
+              console.log('productId', productId);
+              const context = 'decrement';
+
+              fetch('/incProdNumCart', {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId, context }) // Send as an object
+              })
+                .then(response => response.json())
+
+                .then(data => {
+                  if (data.error) {
+                    swal.fire("Error", data.error, "error");
+                  } else {
+
+                    window.location.reload(); // Reload the page to reflect changes
+
+                  }
+                  console.log(data);
+                })
+                .catch(error => {
+                  console.error('Error:', error); // Log any error that occurs
+                });
+            });
+          });
+        });
+
+      </script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <!-- Include SweetAlert JS -->
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="/user/js/cart.js"></script>
+      <!-- toast -->
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="/user/js/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script src="/user/js/checkout.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
 
-
-
-</script>
-
-
-
-
-  <footer class="my-5 pt-5 text-body-secondary text-center text-small">
-   
-   
-  </footer>
-</div>
-<script>
-  // Get all the plus and minus buttons
-  const plusBtns = document.querySelectorAll('.plus-btn');
-  const minusBtns = document.querySelectorAll('.minus-btn');
-  
-  // Add click event listeners to each button
-  plusBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Get the input field associated with the button
-      const input = btn.parentElement.querySelector('.product-count');
-      // Increment the value
-      input.value = parseInt(input.value) + 1;
-    });
-  });
-
-  minusBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Get the input field associated with the button
-      const input = btn.parentElement.querySelector('.product-count');
-      // Ensure the value doesn't go below 1
-      if (parseInt(input.value) > 1) {
-        // Decrement the value
-        input.value = parseInt(input.value) - 1;
-      }
-    });
-  });
-</script>
-
-<script src="/user/js/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/user/js/checkout.js"></script>
-  </body>
 </html>

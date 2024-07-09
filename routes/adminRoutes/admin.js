@@ -2,7 +2,7 @@
 const express = require('express');
 const adminController=require("../../controllers/admin/adminCtrl");
 const adminAuth = require('../../Middleware/adminAuth');
-
+const errorHandler = require('../../Middleware/errorHandler');
 
 
 const router = express.Router();
@@ -11,6 +11,9 @@ const router = express.Router();
 
 router.get("/adminLogin",adminController.getAdminLogin);
 router.get("/Dashboard",adminAuth.adminAuth,adminController.getAdminDashboard);
+// In your routes file, ensure you have a route for the AJAX call
+router.get('/admin/top-products', adminController.getTopProducts);
+
 
 
 

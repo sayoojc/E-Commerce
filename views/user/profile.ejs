@@ -8,360 +8,589 @@
     <link rel="stylesheet" href="/user/css/profile.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>NUTROMAX</title>
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="/user/css/bootstrap.css" />
+    <!-- font awesome style -->
+    <link href="/user/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- responsive style -->
+    <link href="/user/css/responsive.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/user/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/user/css/my-style.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+
+<style>
+ #refferralCodeDiv {
+    max-width: 500px; /* Limit the width for better readability */
+    padding: 20px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a border */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+}
+
+#refferralCodeDiv h3 {
+    color: #4CAF50; /* Green text color */
+    font-size: 24px; /* Increase font size */
+    margin-bottom: 10px; /* Space below the heading */
+}
+
+#refferralCodeDiv p {
+    font-size: 16px; /* Increase font size */
+    color: #333; /* Darker text color */
+    margin-bottom: 20px; /* Space below the paragraph */
+}
+
+#CopyLinkButton {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 15px 32px; /* Some padding */
+    text-align: center; /* Center the text (if you want) */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make the button inline-block */
+    font-size: 16px; /* Increase font size */
+    margin: 10px 2px; /* Add some margin */
+    cursor: pointer; /* Add a pointer cursor on hover */
+    border-radius: 8px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+#CopyLinkButton:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+#message {
+    margin-top: 20px; /* Space above the message */
+    font-size: 14px; /* Set font size */
+    color: #555; /* Text color */
+    font-family: Arial, sans-serif; /* Font family */
+}
+
+</style>
 
 </head>
 
+<%-include('./header.ejs')%>
+
 <body>
-    <div class="container">
+    <div class="bodyContainer">
         <div class="sidebar">
             <div class="profile-info">
                 <img src="/admin/images/uniSexProfileLogo.jpeg" alt="Profile Picture">
-                <h2><%=user.name%></h2>
-                <p><%=user.email%></p>
-                
+                <h2>
+                    <%=user.name%>
+                </h2>
+                <p>
+                    <%=user.email%>
+                </p>
+
             </div>
             <ul class="sidebar-menu">
                 <li><a href="#">My Orders</a></li>
+                <li><a href="#">My Cart</a></li>
                 <li class="active"><a href="#">My Profile</a></li>
                 <li><a href="#">Wishlist</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
         </div>
         <div class="main-content">
-            <h1>My Profile</h1>
-            <form class="profile-form">
-                <div class="form-group">
-                    <label for="fullName">Full Name *</label>
-                    <div class="form-inline">
-                        <input type="text" id="fullName" value="<%=user.name%>">
-                        <a href="#" id="changeName" data-bs-toggle="modal" data-bs-target="#changeNameModal">Change</a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="form-inline">
-                        <input type="password" id="password" value="password">
-                        <a href="#" id="passwordChange" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change</a>
-                    </div>
-                </div>
 
-            </form>
+
+            <h1>My Profile</h1>
+            <div class="profile-form" style="display: flex; ">
+                <div>
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <div class="form-inline1">
+                            <input type="text" id="fullName" value="<%=user.name%>" style="width: 250px;">
+                            <a href="#" id="changeName" data-bs-toggle="modal" data-bs-target="#changeNameModal"
+                                style="margin-left: 20px;margin-bottom: 20px;">Change</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="form-inline1">
+                            <input type="password" id="password" value="password" style="width: 250px;">
+                            <a href="#" id="passwordChange" data-bs-toggle="modal" data-bs-target="#changePasswordModal"
+                                style="margin-left: 20px;margin-bottom: 20px;">Change</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="refferralCodeDiv" style="margin-left: 300px; margin-top: 0;">
+                    <h3>Refer and Earn</h3>
+                    <p style="font-size: 16px; color: #333;">
+                        Invite your friends to join us and earn rewards! Get <strong>₹150</strong> for every friend who joins, 
+                        and they will receive <strong>₹50</strong> too!
+                    </p>
+                    <button data-referralLink="<%=referralLink%>" id="CopyLinkButton">Copy Link</button>
+                    <p id="message"></p>
+                </div>
+                
+            </div>
             <div class="addresses">
                 <h2>My Addresses</h2>
                 <button type="button" class="add-address-btn" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop">Add Address</button>
-                    <div class="address-cards">
-                        <% data.forEach(function(addr, index) { %>
-                            <div class="address-card">
-                                <div class="address-info">
-                                    <p><strong>Name:</strong> <%= addr.name %></p>
-                                    <p><strong>Address:</strong> <%= addr.address1 %>, <%= addr.address2 %>, <%= addr.locality %>, <%= addr.city %>, <%= addr.state %>, <%= addr.pincode %></p>
-                                </div>
-                                <div class="address-actions">
-                                    <button class="edit-button" type="button"  data-bs-toggle="modal" data-index="<%= index %>"
-                                    data-bs-target="#editStaticBackdrop" onclick="editFormPopulate('<%=JSON.stringify(addr)%>')">Edit</button>
+                    data-bs-target="#staticBackdrop" style="margin-bottom: 20px;">Add Address</button>
+                <div class="address-cards">
+                    <% data.forEach(function(addr, index) { %>
+                        <div class="address-card">
+                            <div class="address-info">
+                                <p><strong>Name:</strong>
+                                    <%= addr.name %>
+                                </p>
+                                <p><strong>Address:</strong>
+                                    <%= addr.address1 %>, <%= addr.address2 %>, <%= addr.locality %>, <%= addr.city %>,
+                                                    <%= addr.state %>, <%= addr.pincode %>
+                                </p>
+                            </div>
+                            <div class="address-actions">
+                                <button class="edit-button" type="button" data-bs-toggle="modal"
+                                    data-index="<%= index %>" data-bs-target="#editStaticBackdrop"
+                                    onclick="editFormPopulate('<%=JSON.stringify(addr)%>')">Edit</button>
 
-                                    <button class="delete-button" id="delete-button" type="button" data-id="<%=addr._id%>">Delete</button>
+                                <button class="delete-button" id="delete-button" type="button"
+                                    data-id="<%=addr._id%>">Delete</button>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+
+            </div>
+            <h1 id="backendError" class="text-danger"></h1>
+
+        </div>
+    </div>
+    <footer>
+        <div class=" container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="full">
+                        <div class="logo_footer">
+
+                        </div>
+                        <div class="information_f">
+                            <p><strong>ADDRESS:</strong> 6050
+                                Technopark,Kazhakkuttam,Trivandrum<br>kerala,India</p>
+                            <p><strong>TELEPHONE:</strong> +91 987 654 3210</p>
+                            <p><strong>EMAIL:</strong> nutromax@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="widget_menu">
+                                        <h3>Menu</h3>
+                                        <ul>
+                                            <li><a href="#">Home</a></li>
+                                            <li><a href="#">About</a></li>
+                                            <li><a href="#">Services</a></li>
+                                            <li><a href="#">Testimonial</a></li>
+                                            <li><a href="#">Blog</a></li>
+                                            <li><a href="#">Contact</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="widget_menu">
+                                        <h3>Account</h3>
+                                        <ul>
+                                            <li><a href="#">Account</a></li>
+                                            <li><a href="#">Checkout</a></li>
+                                            <li><a href="#">Login</a></li>
+                                            <li><a href="#">Register</a></li>
+                                            <li><a href="#">Shopping</a></li>
+                                            <li><a href="#">Widget</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        <% }) %>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="widget_menu">
+                                <h3>Newsletter</h3>
+                                <div class="information_f">
+                                    <p>Subscribe by our newsletter and get updates.</p>
+                                </div>
+                                <div class="form_sub">
+                                    <form>
+                                        <fieldset>
+                                            <div class="field">
+                                                <input type="email" placeholder="Enter Your Mail" name="email" />
+                                                <input type="submit" value="Subscribe" />
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <h1 id="backendError" class="text-danger"></h1>
-    </div>
-<!--Add Address Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog-scrollable modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Address</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
             </div>
-            <div class="modal-body">
-                <form  id="addAddressForm">
-                    <label for="name">Name:</label><br>
-                    <input type="text" id="name" name="name"><br>
-                    <p id="nameError" class="text-danger"></p>
+        </div>
 
-                    <label for="address">Address Line 1</label><br>
-                    <input type="text" id="address1" name="address1" placeholder="Flat,House no,Building,Apartment"><br>
-                    <p id="addressError1" class="text-danger"></p>
 
-                    <label for="address">Address Line 2</label><br>
-                    <input type="text" id="address2" name="address2" placeholder="Sector,Area,Street,Colony"><br>
-                    <p id="addressError2" class="text-danger"></p>
+    </footer>
+    <!-- footer end -->
+    <div class="cpy_">
+        <p class="mx-auto">© 2021 All Rights Reserved By Nutromax india pvt ltd
 
-                    <label for="phone">Phone:</label><br>
-                    
-                    <input type="text" id="phone" name="phone"><br>
-                    <p id="phoneError" class="text-danger"></p>
+        </p>
 
-                    <label for="locality">Locality:</label><br>
-                    <input type="text" id="locality" name="locality"><br>
-                    <p id="localityError" class="text-danger"></p>
+    </div>
+    <!--Add Address Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog-scrollable modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Address</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addAddressForm">
+                        <label for="name">Name:</label><br>
+                        <input type="text" id="name" name="name"><br>
+                        <p id="nameError" class="text-danger"></p>
 
-                    <label for="pincode">Pincode:</label><br>
-                    <input type="text" id="pincode" name="pincode"><br>
-                    <p id="pinCodeError" class="text-danger"></p>
+                        <label for="address">Address Line 1</label><br>
+                        <input type="text" id="address1" name="address1"
+                            placeholder="Flat,House no,Building,Apartment"><br>
+                        <p id="addressError1" class="text-danger"></p>
 
-                    <label for="city">city:</label><br>
-                    <input type="text" id="city" name="city"><br>
-                    <p id="cityError" class="text-danger"></p>
+                        <label for="address">Address Line 2</label><br>
+                        <input type="text" id="address2" name="address2" placeholder="Sector,Area,Street,Colony"><br>
+                        <p id="addressError2" class="text-danger"></p>
 
-                    <label for="state">State:</label><br>
-                    <input type="text" id="state" name="state"><br>
-                    <p id="stateError" class="text-danger"></p>
-                    
-                    
-                    <input type="submit" value="Submit">
-                </form>
+                        <label for="phone">Phone:</label><br>
+
+                        <input type="text" id="phone" name="phone"><br>
+                        <p id="phoneError" class="text-danger"></p>
+
+                        <label for="locality">Locality:</label><br>
+                        <input type="text" id="locality" name="locality"><br>
+                        <p id="localityError" class="text-danger"></p>
+
+                        <label for="pincode">Pincode:</label><br>
+                        <input type="text" id="pincode" name="pincode"><br>
+                        <p id="pinCodeError" class="text-danger"></p>
+
+                        <label for="city">city:</label><br>
+                        <input type="text" id="city" name="city"><br>
+                        <p id="cityError" class="text-danger"></p>
+
+                        <label for="state">State:</label><br>
+                        <input type="text" id="state" name="state"><br>
+                        <p id="stateError" class="text-danger"></p>
+
+
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<!--Edit Address Modal -->
-<div class="modal fade" id="editStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog-scrollable modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Address</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form  id="editAddressForm">
-                    <label for="editName">Name:</label><br>
-                    <input type="text" id="editName" name="editName"><br>
-                    <p id="editnameError" class="text-danger"></p>
+    <!--Edit Address Modal -->
+    <div class="modal fade" id="editStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog-scrollable modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Address</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editAddressForm">
+                        <label for="editName">Name:</label><br>
+                        <input type="text" id="editName" name="editName"><br>
+                        <p id="editnameError" class="text-danger"></p>
 
-                    <label for="editAddress1">Address Line 1</label><br>
-                    <input type="text" id="editAddress1" name="editAddress1" placeholder="Flat,House no,Building,Apartment"><br>
-                    <p id="editAddressError1" class="text-danger"></p>
+                        <label for="editAddress1">Address Line 1</label><br>
+                        <input type="text" id="editAddress1" name="editAddress1"
+                            placeholder="Flat,House no,Building,Apartment"><br>
+                        <p id="editAddressError1" class="text-danger"></p>
 
-                    <label for="editAddress2">Address Line 2</label><br>
-                    <input type="text" id="editAddress2" name="editAddress2" placeholder="Sector,Area,Street,Colony"><br>
-                    <p id="editAddressError2" class="text-danger"></p>
+                        <label for="editAddress2">Address Line 2</label><br>
+                        <input type="text" id="editAddress2" name="editAddress2"
+                            placeholder="Sector,Area,Street,Colony"><br>
+                        <p id="editAddressError2" class="text-danger"></p>
 
-                    <label for="editPhone">Phone:</label><br>
-                    <input type="text" id="editPhone" name="editPhone"><br>
-                    <p id="editPhoneError" class="text-danger"></p>
+                        <label for="editPhone">Phone:</label><br>
+                        <input type="text" id="editPhone" name="editPhone"><br>
+                        <p id="editPhoneError" class="text-danger"></p>
 
-                    <label for="editLocality">Locality:</label><br>
-                    <input type="text" id="editLocality" name="editLocality"><br>
-                    <p id="editLocalityError" class="text-danger"></p>
+                        <label for="editLocality">Locality:</label><br>
+                        <input type="text" id="editLocality" name="editLocality"><br>
+                        <p id="editLocalityError" class="text-danger"></p>
 
-                    <label for="editPincode">Pincode:</label><br>
-                    <input type="text" id="editPincode" name="editPincode"><br>
-                    <p id="editPinCodeError" class="text-danger"></p>
+                        <label for="editPincode">Pincode:</label><br>
+                        <input type="text" id="editPincode" name="editPincode"><br>
+                        <p id="editPinCodeError" class="text-danger"></p>
 
-                    <label for="editCity">city:</label><br>
-                    <input type="text" id="editCity" name="editCity"><br>
-                    <p id="editCityError" class="text-danger"></p>
+                        <label for="editCity">city:</label><br>
+                        <input type="text" id="editCity" name="editCity"><br>
+                        <p id="editCityError" class="text-danger"></p>
 
-                    <label for="editState">State:</label><br>
-                    <input type="text" id="editState" name="editState"><br>
-                    <p id="editStateError" class="text-danger"></p>
-                    
-                    <input type="hidden" id="addressId">
-                    
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                        <label for="editState">State:</label><br>
+                        <input type="text" id="editState" name="editState"><br>
+                        <p id="editStateError" class="text-danger"></p>
 
+                        <input type="hidden" id="addressId">
 
-<!-- change password modal -->
-<div class="modal fade" id="changePasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class=" modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Change Password</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form  id="changePasswordForm">
-                   <label for="currentPassword">Current Password</label><br>
-                    <input type="password" id="currentPassword" name="currentPassword"><br>
-                    <p id="currentPasswordError" class="text-danger"></p>
-
-                    <label for="newPassword">New Password</label><br>
-                    <input type="password" id="newPassword" name="newPassword"><br>
-                    <p id="newPasswordError" class="text-danger"></p>
-                    <p id="backend-error1"></p>
-                
-                    <input type="submit" value="Submit">
-                </form>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- change name modal -->
-<div class="modal fade" id="changeNameModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class=" modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Change Name</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form  id="changeNameForm">
-                   <label for="newName">New Name</label><br>
-                    <input type="text" id="newName" name="newName"><br>
-                    <p id="currentPasswordError" class="text-danger"></p>
-                    <p id="backend-error" class="text-danger"></p>
-                    <input type="submit" value="Submit">
-                </form>
+
+    <!-- change password modal -->
+    <div class="modal fade" id="changePasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class=" modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Change Password</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="changePasswordForm">
+                        <label for="currentPassword">Current Password</label><br>
+                        <input type="password" id="currentPassword" name="currentPassword"><br>
+                        <p id="currentPasswordError" class="text-danger"></p>
+
+                        <label for="newPassword">New Password</label><br>
+                        <input type="password" id="newPassword" name="newPassword"><br>
+
+                        <label for="confirmPassword">New Password</label><br>
+                        <input type="password" id="confirmPassword" name="confirmPassword"><br>
+
+                        <p id="newPasswordError" class="text-danger"></p>
+                        <p id="backend-error1"></p>
+
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    ///////////////////////disabling input elements full name password///////
-  const fullName = document.getElementById('fullName');
-  const pasword = document.getElementById('password');
-  fullName.disabled = true;
-  pasword.readOnly = true;
-    /////////////////////////////////////////////////////////////////////////
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('addAddressForm');
-    const modal = document.getElementById('staticBackdrop');
+    <!-- change name modal -->
+    <div class="modal fade" id="changeNameModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class=" modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Change Name</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="changeNameForm">
+                        <label for="newName">New Name</label><br>
+                        <input type="text" id="newName" name="newName"><br>
+                        <p id="currentPasswordError" class="text-danger"></p>
+                        <p id="backend-error" class="text-danger"></p>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    // Clear error messages and reset form when modal is hidden
-    modal.addEventListener('hidden.bs.modal', () => {
-        document.getElementById('nameError').innerHTML = '';
-        document.getElementById('addressError1').innerHTML = '';
-        document.getElementById('addressError2').innerHTML = '';
-        document.getElementById('phoneError').innerHTML = '';
-        document.getElementById('localityError').innerHTML = '';
-        document.getElementById('pinCodeError').innerHTML = '';
-        document.getElementById('stateError').innerHTML = '';
-        document.getElementById('cityError').innerHTML = '';
-        form.reset();
-    });
 
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
 
-        const name = document.getElementById('name').value.trim();
-        const address1 = document.getElementById('address1').value.trim();
-        const address2 = document.getElementById('address2').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const locality = document.getElementById('locality').value.trim();
-        const pincode = document.getElementById('pincode').value.trim();
-        const state = document.getElementById('state').value.trim();
-        const city = document.getElementById('city').value.trim();
+    <!-- jQery -->
+    <script src="/user/js/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script src="/user/js/popper.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/user/js/bootstrap.js"></script>
+    <!-- custom js -->
+    <script src="/user/js/custom.js"></script>
+    <script>
+      
+      /////////////////////////////script for copying the refferal code/////////////////////
+      document.addEventListener('DOMContentLoaded', () => {
+  const copyButton = document.getElementById('CopyLinkButton');
+  const message = document.getElementById('message');
 
-        const nameError = document.getElementById('nameError');
-        const addressError1 = document.getElementById('addressError1');
-        const addressError2 = document.getElementById('addressError2');
-        const phoneError = document.getElementById('phoneError');
-        const localityError = document.getElementById('localityError');
-        const pinCodeError = document.getElementById('pinCodeError');
-        const stateError = document.getElementById('stateError');
-        const cityError = document.getElementById('cityError');
+  copyButton.addEventListener('click', () => {
+    const referralLink = copyButton.getAttribute('data-referralLink');
 
-        const phonePattern = /^[0-9]{10}$/;
-        const pincodePattern = /^[0-9]{6}$/;
-
-        let isValid = true;
-
-        // Clear previous errors
-        nameError.innerHTML = '';
-        addressError1.innerHTML = '';
-        addressError2.innerHTML = '';
-        phoneError.innerHTML = '';
-        localityError.innerHTML = '';
-        pinCodeError.innerHTML = '';
-        stateError.innerHTML = '';
-        cityError.innerHTML = '';
-
-        // Validate fields
-        if (!name) {
-            nameError.innerHTML = 'Please add a name to continue.';
-            isValid = false;
-        }
-        if (!address1) {
-            addressError1.innerHTML = 'Please fill the Address1 field to continue.';
-            isValid = false;
-        }
-        if (!address2) {
-            addressError2.innerHTML = 'Please fill the Address2 field to continue.';
-            isValid = false;
-        }
-        if (!phone || !phonePattern.test(phone)) {
-            phoneError.innerHTML = 'Please add a valid phone number to continue.';
-            isValid = false;
-        }
-        if (!locality) {
-            localityError.innerHTML = 'Please add a locality to continue.';
-            isValid = false;
-        }
-        if (!pincode || !pincodePattern.test(pincode)) {
-            pinCodeError.innerHTML = 'Please add a valid pincode to continue.';
-            isValid = false;
-        }
-        if (!city) {
-            cityError.innerHTML = 'Please add a city to continue.';
-            isValid = false;
-        }
-        if (!state) {
-            stateError.innerHTML = 'Please add a state to continue.';
-            isValid = false;
-        }
-
-        if (isValid) {
-            console.log(name)
-            const formData = {};
-            formData.name= name;
-            formData.address1= address1;
-            formData.address2= address2;
-            formData.phone= phone;
-            formData.locality= locality;
-            formData.pincode= pincode;
-            formData.state= state;
-            formData.city= city;
-
-            console.log('FormData from the front end script:', formData);
-
-            try {
-                const response = await fetch('/postAddress', {
-                    method: 'POST',
-                        headers:{
-                            "Content-Type":"application/json"
-                        },
-                    body: JSON.stringify(formData),
-                });
-                
-
-                if (!response.ok) {
-                    throw new Error('Server error');
-                }
-
-                const data = await response.json();
-
-                if (data.errorMessage) {
-                    document.getElementById('backendError').textContent = data.errorMessage;
-                } else {
-                    
-                    window.location.href = '/getProfile';
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-    });
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(referralLink).then(() => {
+        message.textContent = 'Referral link copied to clipboard!';
+      }).catch(err => {
+        console.error('Failed to copy text: ', err);
+        message.textContent = 'Failed to copy referral link.';
+      });
+    } else {
+      // Fallback for browsers that do not support the Clipboard API
+      const textArea = document.createElement('textarea');
+      textArea.value = referralLink;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        message.textContent = 'Referral link copied to clipboard!';
+      } catch (err) {
+        console.error('Failed to copy text: ', err);
+        message.textContent = 'Failed to copy referral link.';
+      }
+      document.body.removeChild(textArea);
+    }
+  });
 });
 
-//////////////populate the edit address form with the original address//////////////
-// Function to populate edit address modal fields
-function editFormPopulate(address){
-    let addressObj = JSON.parse(address);
-    document.getElementById('editName').value = addressObj.name;
+
+        ///////////////////////disabling input elements full name password///////
+        const fullName = document.getElementById('fullName');
+        const pasword = document.getElementById('password');
+        fullName.disabled = true;
+        pasword.readOnly = true;
+        /////////////////////////////////////////////////////////////////////////
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('addAddressForm');
+            const modal = document.getElementById('staticBackdrop');
+
+            // Clear error messages and reset form when modal is hidden
+            modal.addEventListener('hidden.bs.modal', () => {
+                document.getElementById('nameError').innerHTML = '';
+                document.getElementById('addressError1').innerHTML = '';
+                document.getElementById('addressError2').innerHTML = '';
+                document.getElementById('phoneError').innerHTML = '';
+                document.getElementById('localityError').innerHTML = '';
+                document.getElementById('pinCodeError').innerHTML = '';
+                document.getElementById('stateError').innerHTML = '';
+                document.getElementById('cityError').innerHTML = '';
+                form.reset();
+            });
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const name = document.getElementById('name').value.trim();
+                const address1 = document.getElementById('address1').value.trim();
+                const address2 = document.getElementById('address2').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const locality = document.getElementById('locality').value.trim();
+                const pincode = document.getElementById('pincode').value.trim();
+                const state = document.getElementById('state').value.trim();
+                const city = document.getElementById('city').value.trim();
+
+                const nameError = document.getElementById('nameError');
+                const addressError1 = document.getElementById('addressError1');
+                const addressError2 = document.getElementById('addressError2');
+                const phoneError = document.getElementById('phoneError');
+                const localityError = document.getElementById('localityError');
+                const pinCodeError = document.getElementById('pinCodeError');
+                const stateError = document.getElementById('stateError');
+                const cityError = document.getElementById('cityError');
+
+                const phonePattern = /^[0-9]{10}$/;
+                const pincodePattern = /^[0-9]{6}$/;
+
+                let isValid = true;
+
+                // Clear previous errors
+                nameError.innerHTML = '';
+                addressError1.innerHTML = '';
+                addressError2.innerHTML = '';
+                phoneError.innerHTML = '';
+                localityError.innerHTML = '';
+                pinCodeError.innerHTML = '';
+                stateError.innerHTML = '';
+                cityError.innerHTML = '';
+
+                // Validate fields
+                if (!name) {
+                    nameError.innerHTML = 'Please add a name to continue.';
+                    isValid = false;
+                }
+                if (!address1) {
+                    addressError1.innerHTML = 'Please fill the Address1 field to continue.';
+                    isValid = false;
+                }
+                if (!address2) {
+                    addressError2.innerHTML = 'Please fill the Address2 field to continue.';
+                    isValid = false;
+                }
+                if (!phone || !phonePattern.test(phone)) {
+                    phoneError.innerHTML = 'Please add a valid phone number to continue.';
+                    isValid = false;
+                }
+                if (!locality) {
+                    localityError.innerHTML = 'Please add a locality to continue.';
+                    isValid = false;
+                }
+                if (!pincode || !pincodePattern.test(pincode)) {
+                    pinCodeError.innerHTML = 'Please add a valid pincode to continue.';
+                    isValid = false;
+                }
+                if (!city) {
+                    cityError.innerHTML = 'Please add a city to continue.';
+                    isValid = false;
+                }
+                if (!state) {
+                    stateError.innerHTML = 'Please add a state to continue.';
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    console.log(name)
+                    const formData = {};
+                    formData.name = name;
+                    formData.address1 = address1;
+                    formData.address2 = address2;
+                    formData.phone = phone;
+                    formData.locality = locality;
+                    formData.pincode = pincode;
+                    formData.state = state;
+                    formData.city = city;
+
+                    console.log('FormData from the front end script:', formData);
+
+                    try {
+                        const response = await fetch('/postAddress', {
+                            method: 'POST',
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(formData),
+                        });
+
+
+                        if (!response.ok) {
+                            throw new Error('Server error');
+                        }
+
+                        const data = await response.json();
+
+                        if (data.errorMessage) {
+                            document.getElementById('backendError').textContent = data.errorMessage;
+                        } else {
+
+                            window.location.reload();
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+            });
+        });
+
+        //////////////populate the edit address form with the original address//////////////
+        // Function to populate edit address modal fields
+        function editFormPopulate(address) {
+            let addressObj = JSON.parse(address);
+            document.getElementById('editName').value = addressObj.name;
             document.getElementById('editAddress1').value = addressObj.address1;
             document.getElementById('editAddress2').value = addressObj.address2;
             document.getElementById('editLocality').value = addressObj.locality;
@@ -371,116 +600,184 @@ function editFormPopulate(address){
             document.getElementById('editPincode').value = addressObj.pincode;
             document.getElementById('addressId').value = addressObj._id;
 
-            console.log('the address id to be added to the hidden input is',addressObj._id);
-}
-
-////////////////////validation and fetch of the edit address //////////////////////////////
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('editAddressForm');
-    const modal = document.getElementById('editStaticBackdrop');
-
-    // Clear error messages and reset form when modal is hidden
-    modal.addEventListener('hidden.bs.modal', () => {
-        document.getElementById('editNameError').innerHTML = '';
-        document.getElementById('editAddressError1').innerHTML = '';
-        document.getElementById('editAddressError2').innerHTML = '';
-        document.getElementById('editPhoneError').innerHTML = '';
-        document.getElementById('editLocalityError').innerHTML = '';
-        document.getElementById('editPinCodeError').innerHTML = '';
-        document.getElementById('editStateError').innerHTML = '';
-        document.getElementById('editCityError').innerHTML = '';
-        form.reset();
-    });
-
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const name = document.getElementById('editName').value.trim();
-        const address1 = document.getElementById('editAddress1').value.trim();
-        const address2 = document.getElementById('editAddress2').value.trim();
-        const phone = document.getElementById('editPhone').value.trim();
-        const locality = document.getElementById('editLocality').value.trim();
-        const pincode = document.getElementById('editPincode').value.trim();
-        const state = document.getElementById('editState').value.trim();
-        const city = document.getElementById('editCity').value.trim();
-        const addressId = document.getElementById('addressId').value;
-
-        const nameError = document.getElementById('editNameError');
-        const addressError1 = document.getElementById('editAddressError1');
-        const addressError2 = document.getElementById('editAddressError2');
-        const phoneError = document.getElementById('editPhoneError');
-        const localityError = document.getElementById('editLocalityError');
-        const pinCodeError = document.getElementById('editPinCodeError');
-        const stateError = document.getElementById('editStateError');
-        const cityError = document.getElementById('editCityError');
-
-        const phonePattern = /^[0-9]{10}$/;
-        const pincodePattern = /^[0-9]{6}$/;
-
-        let isValid = true;
-
-        // Clear previous errors
-        // nameError.innerHTML = '';
-        // addressError1.innerHTML = '';
-        // addressError2.innerHTML = '';
-        // phoneError.innerHTML = '';
-        // localityError.innerHTML = '';
-        // pinCodeError.innerHTML = '';
-        // stateError.innerHTML = '';
-        // cityError.innerHTML = '';
-
-        // Validate fields
-        if (!name) {
-            nameError.innerHTML = 'Please add a name to continue.';
-            isValid = false;
-        }
-        if (!address1) {
-            addressError1.innerHTML = 'Please fill the Address Line 1 field to continue.';
-            isValid = false;
-        }
-        if (!address2) {
-            addressError2.innerHTML = 'Please fill the Address Line 2 field to continue.';
-            isValid = false;
-        }
-        if (!phone || !phonePattern.test(phone)) {
-            phoneError.innerHTML = 'Please add a valid phone number to continue.';
-            isValid = false;
-        }
-        if (!locality) {
-            localityError.innerHTML = 'Please add a locality to continue.';
-            isValid = false;
-        }
-        if (!pincode || !pincodePattern.test(pincode)) {
-            pinCodeError.innerHTML = 'Please add a valid pincode to continue.';
-            isValid = false;
-        }
-        if (!city) {
-            cityError.innerHTML = 'Please add a city to continue.';
-            isValid = false;
-        }
-        if (!state) {
-            stateError.innerHTML = 'Please add a state to continue.';
-            isValid = false;
+            console.log('the address id to be added to the hidden input is', addressObj._id);
         }
 
-        if (isValid) {
-            const formData = {
-                name,
-                address1,
-                address2,
-                phone,
-                locality,
-                pincode,
-                state,
-                city,
-                addressId
-            };
+        ////////////////////validation and fetch of the edit address //////////////////////////////
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('editAddressForm');
+            const modal = document.getElementById('editStaticBackdrop');
 
+            // Clear error messages and reset form when modal is hidden
+            modal.addEventListener('hidden.bs.modal', () => {
+                document.getElementById('editNameError').innerHTML = '';
+                document.getElementById('editAddressError1').innerHTML = '';
+                document.getElementById('editAddressError2').innerHTML = '';
+                document.getElementById('editPhoneError').innerHTML = '';
+                document.getElementById('editLocalityError').innerHTML = '';
+                document.getElementById('editPinCodeError').innerHTML = '';
+                document.getElementById('editStateError').innerHTML = '';
+                document.getElementById('editCityError').innerHTML = '';
+                form.reset();
+            });
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const name = document.getElementById('editName').value.trim();
+                const address1 = document.getElementById('editAddress1').value.trim();
+                const address2 = document.getElementById('editAddress2').value.trim();
+                const phone = document.getElementById('editPhone').value.trim();
+                const locality = document.getElementById('editLocality').value.trim();
+                const pincode = document.getElementById('editPincode').value.trim();
+                const state = document.getElementById('editState').value.trim();
+                const city = document.getElementById('editCity').value.trim();
+                const addressId = document.getElementById('addressId').value;
+
+                const nameError = document.getElementById('editNameError');
+                const addressError1 = document.getElementById('editAddressError1');
+                const addressError2 = document.getElementById('editAddressError2');
+                const phoneError = document.getElementById('editPhoneError');
+                const localityError = document.getElementById('editLocalityError');
+                const pinCodeError = document.getElementById('editPinCodeError');
+                const stateError = document.getElementById('editStateError');
+                const cityError = document.getElementById('editCityError');
+
+                const phonePattern = /^[0-9]{10}$/;
+                const pincodePattern = /^[0-9]{6}$/;
+
+                let isValid = true;
+
+                // Clear previous errors
+                // nameError.innerHTML = '';
+                // addressError1.innerHTML = '';
+                // addressError2.innerHTML = '';
+                // phoneError.innerHTML = '';
+                // localityError.innerHTML = '';
+                // pinCodeError.innerHTML = '';
+                // stateError.innerHTML = '';
+                // cityError.innerHTML = '';
+
+                // Validate fields
+                if (!name) {
+                    nameError.innerHTML = 'Please add a name to continue.';
+                    isValid = false;
+                }
+                if (!address1) {
+                    addressError1.innerHTML = 'Please fill the Address Line 1 field to continue.';
+                    isValid = false;
+                }
+                if (!address2) {
+                    addressError2.innerHTML = 'Please fill the Address Line 2 field to continue.';
+                    isValid = false;
+                }
+                if (!phone || !phonePattern.test(phone)) {
+                    phoneError.innerHTML = 'Please add a valid phone number to continue.';
+                    isValid = false;
+                }
+                if (!locality) {
+                    localityError.innerHTML = 'Please add a locality to continue.';
+                    isValid = false;
+                }
+                if (!pincode || !pincodePattern.test(pincode)) {
+                    pinCodeError.innerHTML = 'Please add a valid pincode to continue.';
+                    isValid = false;
+                }
+                if (!city) {
+                    cityError.innerHTML = 'Please add a city to continue.';
+                    isValid = false;
+                }
+                if (!state) {
+                    stateError.innerHTML = 'Please add a state to continue.';
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    const formData = {
+                        name,
+                        address1,
+                        address2,
+                        phone,
+                        locality,
+                        pincode,
+                        state,
+                        city,
+                        addressId
+                    };
+
+                    try {
+                        const response = await fetch('/editAddress', {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData),
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Server error');
+                        }
+
+                        const data = await response.json();
+
+                        if (data.errorMessage) {
+                            document.getElementById('backendEditError').textContent = data.errorMessage;
+                        } else {
+                            window.location.reload();
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+            });
+        });
+        /////////////////////////fetch to delete the address//////////////
+        const deleteButtons = document.querySelectorAll('.delete-button')
+        console.log('delete button:', deleteButtons);
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', async function () {
+
+                const addressId = this.dataset.id;
+                console.log('delete button:', addressId);
+
+                try {
+                    const response = await fetch(`/deleteAddress/${addressId}`, {
+                        method: 'DELETE'
+                    })
+
+                    if (!response.ok) {
+                        throw new Error('Server error');
+                    }
+                    window.location.reload();
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+
+
+            })
+        })
+        ///////////////////// change password////////////////
+        const form = document.getElementById('changePasswordForm');
+        const formData = {};
+        const currentPasswordElement = document.getElementById('currentPassword');
+        const newPasswordElement = document.getElementById('newPassword');
+
+
+
+        form.addEventListener('submit', async function () {
+            event.preventDefault();
+
+            if (currentPasswordElement && newPasswordElement) {
+                formData.currentPassword = currentPasswordElement.value;
+                formData.newPassword = newPasswordElement.value;
+            } else {
+                console.error('One or both of the input elements were not found.');
+            }
             try {
-                const response = await fetch('/editAddress', {
+                const response = await fetch(`/changePassword`, {
                     method: 'PUT',
                     headers: {
-                        'Content-Type': 'application/json'
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify(formData),
                 });
@@ -488,123 +785,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!response.ok) {
                     throw new Error('Server error');
                 }
-
-                const data = await response.json();
-
-                if (data.errorMessage) {
-                    document.getElementById('backendEditError').textContent = data.errorMessage;
+                const result = await response.json();
+                if (result.errorMessage) {
+                    document.getElementById('backend-error1').textContent = data.errorMessage;
                 } else {
-                    window.location.href = '/getProfile';
+
+                    window.location.reload();
                 }
+
             } catch (error) {
                 console.error('Error:', error);
             }
-        }
-    });
-});
-/////////////////////////fetch to delete the address//////////////
- const deleteButtons = document.querySelectorAll('.delete-button')
- console.log('delete button:',deleteButtons);
- deleteButtons.forEach(button => {
-    button.addEventListener('click',async function(){
+        })
+        ////////////////fetch for the change name/////////////
+        const changePasswordForm = document.getElementById('changeNameForm');
+        const newNameInput = document.getElementById('newName');
+        //  const changeNameModal = new bootstrap.Modal(document.getElementById('changeNameModal'));
 
-const addressId = this.dataset.id;
-console.log('delete button:',addressId);
+        changePasswordForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            try {
+                const newName = newNameInput.value;
 
-try {
-   const response = await fetch(`/deleteAddress/${addressId}`,{
-    method: 'DELETE'
-   }) 
-
-   if (!response.ok) {
-                throw new Error('Server error');
-            }
-    window.location.href = '/getProfile';
-} catch (error) {
-    console.error('Error:', error); 
-}
-
-
-})
- })
-///////////////////// change password////////////////
-  const form = document.getElementById('changePasswordForm');
-  const formData = {};
-  const currentPasswordElement = document.getElementById('currentPassword');
-const newPasswordElement = document.getElementById('newPassword');
-
-
-  
-  form.addEventListener('submit',async function(){
-    event.preventDefault();
-
-    if (currentPasswordElement && newPasswordElement) {
-  formData.currentPassword = currentPasswordElement.value;
-  formData.newPassword = newPasswordElement.value;
-} else {
-  console.error('One or both of the input elements were not found.');
-}
-    try {
-   const response = await fetch(`/changePassword`,{
-    method: 'PUT',
-    headers:{
-        "Content-Type":"application/json"
-    },
-    body:JSON.stringify(formData),
-   }) ;
-
-   if (!response.ok) {
-                throw new Error('Server error');
-            }
-            const result = await response.json();
-            if (result.errorMessage) {
-                    document.getElementById('backend-error1').textContent = data.errorMessage;
-                } else {
-                    
-                    window.location.href = '/getProfile';
+                const response = await fetch('/changeName', {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ newName: newName })
+                })
+                if (!response.ok) {
+                    throw new Error('Server error');
                 }
-    
-} catch (error) {
-    console.error('Error:', error); 
-}
-  })
- ////////////////fetch for the change name/////////////
- const changePasswordForm = document.getElementById('changeNameForm');
- const newNameInput = document.getElementById('newName');
-//  const changeNameModal = new bootstrap.Modal(document.getElementById('changeNameModal'));
+                const result = await response.json();
 
- changePasswordForm.addEventListener('submit',async function(event){
-    event.preventDefault();
-try {
-    const newName = newNameInput.value;
-
-    const response = await fetch('/changeName',{
-        method:'PUT',
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({newName:newName})
-    })
-    if (!response.ok) {
-                throw new Error('Server error');
-            }
-            const result = await response.json();
-            
-            if (result.errorMessage) {
+                if (result.errorMessage) {
                     document.getElementById('backend-error').textContent = data.errorMessage;
                 } else {
-                    
-                    window.location.href = '/getProfile';
-                }
-            // changeNameModal.hide();
-   
-    
-} catch (error) {
-    console.error('Error:', error); 
-}
- })
 
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+                    window.location.reload();
+                }
+                // changeNameModal.hide();
+
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        })
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

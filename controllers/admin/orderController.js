@@ -4,17 +4,17 @@ const orderModel = require('../../models/orderModel');
 
 
 
-exports.getAdminOrdersPage = async (req, res) => {
+exports.getAdminOrdersPage = async (req, res,next) => {
     try {
         const orders = await orderModel.find()
             .populate('user')
             .populate('orders.product_id')
-            .populate('orders.address')
+            .populate('address')
             .exec();
             console.log('orders from order controller function',orders);
         res.render('user/adminOrders', { orders });
     } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Internal server error from get orders catch' });
+        console.error('Error in getAdminOrdersPage:', error);
+        res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 };

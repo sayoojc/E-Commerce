@@ -155,6 +155,7 @@
     #placeOrderButtonDiv{
       position: fixed;
       border-radius: 5px;
+      
     }
     .custom-div {
     display: flex;
@@ -189,7 +190,7 @@
   
   .col-md-7 > .p-3, .col-lg-8 > .p-3 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-grow: 1;
   }
   
@@ -214,9 +215,10 @@
   }
   .col-md-5.col-lg-4.order-md-last {
     position: fixed;
-    top: 20px; /* Adjust based on your needs */
+    top: 40px; /* Adjust based on your needs */
     right: 100px; /* Adjust based on your needs */
     width: 400px; /* Set a fixed width or use a percentage */
+    transition: position 2s ease-in-out
   }
   
   @media (max-width: 992px) {

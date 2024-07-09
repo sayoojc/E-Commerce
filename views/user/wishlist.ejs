@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="/user/css/profile.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>NUTROMAX</title>
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="/user/css/bootstrap.css" />
+    <!-- font awesome style -->
+    <link href="/user/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- responsive style -->
+    <link href="/user/css/responsive.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/user/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/user/css/my-style.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+
+<style>
+    .product-card {
+    position: relative; /* Make the container position relative */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: transform 0.2s;
+    overflow: hidden;
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    
+}
+
+.product-info {
+    padding: 15px;
+}
+
+.product-name {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.product-category {
+    color: #888;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.product-price {
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.product-description {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+
+.input-group {
+        width: 100%;
+        
+    }
+
+    .input-group .btn {
+        width: 30px;
+        height: 30px;
+        line-height: 0.8;
+    }
+
+    .product-count {
+    width: calc(100% - 68px); /* Adjust width according to button width */
+    text-align: center;
+   
+   height:30px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+}
+
+</style>
+
+</head>
+
+<%-include('./header.ejs')%>
+
+<body>
+    <div class="bodyContainer">
+        <div class="sidebar"  >
+            <div class="profile-info">
+                <img src="/admin/images/uniSexProfileLogo.jpeg" alt="Profile Picture">
+                <h2>
+                    <%=user.name%>
+                </h2>
+                <p>
+                    <%=user.email%>
+                </p>
+
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#">My Orders</a></li>
+                <li><a href="#">My Cart</a></li>
+                <li ><a href="#">My Profile</a></li>
+                <li class="active"><a href="#">Wishlist</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </div>
+       
+            
+
+        <div class="container mt-5">
+            <h1>Your Wishlist</h1>
+            <div class="row">
+                <% if (wishlist && wishlist.products && wishlist.products.length > 0) { %>
+                    <% wishlist.products.forEach(item => { %>
+                        <% const product = item.product_id; %>
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <div class="product-card card h-100 position-relative">
+                                <!-- Heart icon -->
+                                <div class="wishlist-icon"></div>
+                                <!-- Product image -->
+                                <div class="product-image card-img-top">
+                                    <img src="<%= product.image[0] %>" alt="<%= product.productName %>">
+                                </div>
+                                <!-- Product info -->
+                                <div class="product-info card-body">
+                                    <div class="product-name card-title"><%= product.productName %></div>
+                                    <div class="product-category">Category: <%= product.category ? product.category.name : 'N/A' %></div>
+                                    <div class="product-price">$<%= product.price %></div>
+                                    <div class="product-description card-text"><%= product.description %></div>
+                                </div>
+                                <form action="/addToCart/<%=product._id%>" method="post">
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-secondary minus-btn" data-productid="<%=product._id%>" type="button">-</button>
+                                        <input type="number" class="form-control product-count mx-2" id="count" name="count" min="1" value="<%=item.count%>" readonly>
+                                        <button class="btn btn-outline-secondary plus-btn" data-productid="<%=product._id%>" type="button">+</button>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block mt-2" data-productId="<%= product._id %>">Add To Cart</button>
+                                </form>
+                                <button class="btn btn-danger remove-from-wishlist" data-productId="<%= product._id %>" style="margin-top: 10px;">Remove</button>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No products in your wishlist.</p>
+                <% } %>
+            </div>
+        </div>
+        
+        
+        
+                <h1 id="backendError" class="text-danger"></h1>
+            
+      
+      </div>
+    <footer >
+        <div class=" container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="full">
+                        <div class="logo_footer">
+
+                        </div>
+                        <div class="information_f">
+                            <p><strong>ADDRESS:</strong> 6050
+                                Technopark,Kazhakkuttam,Trivandrum<br>kerala,India</p>
+                            <p><strong>TELEPHONE:</strong> +91 987 654 3210</p>
+                            <p><strong>EMAIL:</strong> nutromax@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="widget_menu">
+                                        <h3>Menu</h3>
+                                        <ul>
+                                            <li><a href="#">Home</a></li>
+                                            <li><a href="#">About</a></li>
+                                            <li><a href="#">Services</a></li>
+                                            <li><a href="#">Testimonial</a></li>
+                                            <li><a href="#">Blog</a></li>
+                                            <li><a href="#">Contact</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="widget_menu">
+                                        <h3>Account</h3>
+                                        <ul>
+                                            <li><a href="#">Account</a></li>
+                                            <li><a href="#">Checkout</a></li>
+                                            <li><a href="#">Login</a></li>
+                                            <li><a href="#">Register</a></li>
+                                            <li><a href="#">Shopping</a></li>
+                                            <li><a href="#">Widget</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="widget_menu">
+                                <h3>Newsletter</h3>
+                                <div class="information_f">
+                                    <p>Subscribe by our newsletter and get updates.</p>
+                                </div>
+                                <div class="form_sub">
+                                    <form>
+                                        <fieldset>
+                                            <div class="field">
+                                                <input type="email" placeholder="Enter Your Mail" name="email" />
+                                                <input type="submit" value="Subscribe" />
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </footer>
+    <!-- footer end -->
+    <div class="cpy_">
+        <p class="mx-auto">© 2021 All Rights Reserved By Nutromax india pvt ltd
+
+        </p>
+
+    </div>
+ <script>
+
+   // JavaScript to handle plus and minus button functionality
+   document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.plus-btn');
+    
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = button.dataset.productid;
+            console.log('productId', productId);
+            
+            fetch('/incProdNum', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId }) // Send as an object
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    swal("Error", data.error, "error");
+                } else {
+                   
+                        window.location.reload(); // Reload the page to reflect changes
+                   
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error); // Log any error that occurs
+            });
+        });
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.minus-btn');
+    
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = button.dataset.productid;
+            console.log('productId', productId);
+            const context = 'decrement';
+            
+            fetch('/incProdNum', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId,context }) // Send as an object
+            })
+            .then(response => response.json())
+           
+            .then(data => {
+                if (data.error) {
+                    swal("Error", data.error, "error");
+                } else {
+                   
+                        window.location.reload(); // Reload the page to reflect changes
+                   
+                }
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error); // Log any error that occurs
+            });
+        });
+    });
+});
+
+    ///////////////////////remove from wish list//////////////////////
+
+
+const productRemoveFromWishlistButton = document.querySelectorAll('.remove-from-wishlist');
+
+productRemoveFromWishlistButton.forEach(button => {
+  const productId = button.getAttribute('data-productId');
+  button.addEventListener('click',function(){
+    fetch('/removeFromWishlist',{
+      method:'delete',
+      body:JSON.stringify({productId}),
+      headers:{
+        'Content-Type':'application/json'
+      }
+    })
+    .then(response => response.json())
+      .then(data => {
+          if (data.message) {
+              // Handle success, perhaps close the modal and update the UI
+              console.log('product added');
+              
+             
+              window.location.reload();
+              
+          } else {
+              document.getElementById('backend-error').textContent = data.error || 'An error occurred when adding the product to  the wishlist.';
+          }
+         
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          document.getElementById('backend-error').textContent = 'An error occurred.';
+      });
+  })
+})
+ </script>
+    <!-- sweet alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- jQery -->
+    <script src="/user/js/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script src="/user/js/popper.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="/user/js/bootstrap.js"></script>
+    <!-- custom js -->
+    <script src="/user/js/custom.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,7 +1,21 @@
+<style>
+
+
+/* Style for the icon */
+.cart-icon {
+  color: #000000; /* Change to your desired icon color;*/
+  height: 50px;
+}
+
+
+
+</style>
+
 <header class="header_section">
+  <div id="modalBackground"></div> 
     <div class="container">
        <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href="index.html"><h4>NUTROMAX</h4></a>
+          <a class="navbar-brand" style="position: fixed;" href="/getHome"><h4>NUTROMAX</h4></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class=""> </span>
           </button>
@@ -11,7 +25,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
              <ul class="navbar-nav">
                 <li class="nav-item active">
-                  <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="/getHome">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Categories <span class="caret"></span></a>
@@ -23,7 +37,7 @@
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="product.html">Products</a>
+                  <a class="nav-link" href="/product-list/:action">Products</a>
                 </li>
               
                
@@ -33,18 +47,14 @@
                </li>
                
                
-                <!-- <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                  </a>
-                </li> -->
-                <li class="nav-item">
-                  <form class="form-inline" action="/getCart">
-                    <button class="btn my-2 my-sm-0 nav_search-btn" type="submit"> 
-                      <i class="fa badge fa-lg "  value=<%=productNumber%>>&#xf290;</i>
-                    </button>
-                  </form>
-                </li>
+               
+               <li class="nav-item">
+                <form class="form-inline" action="/getCart">
+                  <button class="btn my-2 my-sm-0 nav_search-btn cart-button" type="submit"> 
+                    <i class="fa badge fa-lg cart-icon" value="<%=productNumber%>">&#xf290;</i>
+                  </button>
+                </form>
+              </li>
               </ul>
               
                 
@@ -63,4 +73,56 @@
           </div>
        </nav>
     </div>
+    <!-- Account Modal HTML structure -->
+<div class="modal custom-modal modal-sm" id="accountModal" style="top: 0px; left:1000px; width: 180px;">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Account</h5>
+              <div class="close-btn">&times;</div>
+          </div>
+          <div class="modal-body">
+             <ul style="list-style-type: none; justify-content: center; padding-left: 0;">
+              <li style="margin-top: 5px;"><a href="/getOrderHistory">My orders</a></li>
+              <li style="margin-top: 5px;"><a href="/getProfile">My Profile</a></li>
+              <li style="margin-top: 5px;"><a href="">My Addresses</a></li>
+              <li style="margin-top: 5px;"><a href="/getWishlist">Wishlist</a></li>
+              <li style="margin-top: 5px;"><a href="/getWallet">Wallet</a></li>
+              <li style="margin-top: 5px;"><a href="/getCoupons">Coupons</a></li>
+              <li style="margin-top: 5px;"><form action="/postLogout" method="post"><button type="submit" style="border: none; background-color: white;padding: 5px  ;">Logout</button></form></li>
+             </ul>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+ <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             var accountModalTrigger = document.getElementById('accountModalTrigger');
+             var accountModal = document.getElementById('accountModal');
+             let modalBackground = document.getElementById('modalBackground');
+         
+             accountModalTrigger.addEventListener('click', function(event) {
+                 event.preventDefault();
+                 modalBackground.style.display = 'block';
+                 accountModal.style.display = 'block';
+             });
+         
+             // Close the modal when the close button is clicked
+             var closeModalButton = accountModal.querySelector('.close-btn');
+             closeModalButton.addEventListener('click', function() {
+                 accountModal.style.display = 'none';
+                 modalBackground.style.display = 'none';
+             });
+         
+             // Close the modal when clicking outside the modal
+             modalBackground .addEventListener('click', function(event) {
+               accountModal.style.display = 'none';
+                 modalBackground.style.display = 'none';
+             });
+         });
+    </script>
+
  </header>

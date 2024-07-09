@@ -1,6 +1,6 @@
 const userController = require('../../controllers/admin/accountctrl');
 const adminAuth = require('../../Middleware/adminAuth');
-
+const errorHandler = require('../../Middleware/errorHandler');
 const express = require('express');
 const router = express.Router();
 

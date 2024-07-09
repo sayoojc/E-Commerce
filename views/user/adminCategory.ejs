@@ -25,108 +25,100 @@
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
 	-->
-<link rel="stylesheet" href="/admin/css/admin-category.css">
-  
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  -->
+  <link rel="stylesheet" href="/admin/css/admin-category.css">
+
 </head>
 
 <body>
-<header>
-  <div class="" id="home">
-    <nav class="navbar navbar-expand-xl">
-      <div class="container h-100">
-        <a class="navbar-brand" href="index.html">
-          <h1 class="tm-site-title mb-0">Product Admin</h1>
-        </a>
-        <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
-          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <i class="fas fa-bars tm-nav-icon"></i>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mx-auto h-100">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fas fa-tachometer-alt"></i>
-                Dashboard
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="far fa-file-alt"></i>
-                <span>
-                  Reports <i class="fas fa-angle-down"></i>
-                </span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Daily Report</a>
-                <a class="dropdown-item" href="#">Weekly Report</a>
-                <a class="dropdown-item" href="#">Yearly Report</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/admin/getProducts">
-                <i class="fas fa-shopping-cart"></i>
-                Products
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">
-                <i class="fas fa-list-alt"></i>
-                Categories
-              </a>
-            </li>
-
-
-            <li class="nav-item">
-              <a class="nav-link" href="/admin/getUserDetail">
-                <i class="far fa-user"></i>
-                Accounts
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-cog"></i>
-                <span>
-                  Settings <i class="fas fa-angle-down"></i>
-                </span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">Billing</a>
-                <a class="dropdown-item" href="#">Customize</a>
-              </div>
-            </li>
-          </ul>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-             <form action="/admin/postAdminLogout" method="post">
-              <button type="submit" style="border: none; background-color: transparent;color: white; margin-top: 25px;margin-left: 20px; font-size: 18px;">Logout</button>
-             </form>
-                
-            
-            </li>
-          </ul>
+  <header>
+    <div class="" id="home">
+      <nav class="navbar navbar-expand-xl">
+        <div class="container h-100">
+          <a class="navbar-brand" href="#">
+            <h1 class="tm-site-title mb-0">Product Admin</h1>
+          </a>
+          <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars tm-nav-icon"></i>
+          </button>
+  
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto h-100">
+              <li class="nav-item">
+                <a class="nav-link active" href="/admin/Dashboard">
+                  <i class="fas fa-tachometer-alt"></i>
+                  Dashboard
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                 <a class="nav-link dropdown-toggle" href="/admin/getSalesReport">
+                  <i class="far fa-file-alt"></i>
+                  Sales Report
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/getOrderManagement">
+                  <i class="fas fa-tasks"></i>
+                  Order Management
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/getProducts">
+                  <i class="fas fa-shopping-cart"></i>
+                  Products
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/getCategory">
+                  <i class="fas fa-list-alt"></i>
+                  Categories
+                </a>
+              </li>
+  
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/getAdminCoupons">
+                  <i class="fas fa-ticket-alt"></i>
+                  Coupons
+                </a>
+              </li>
+  
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/getUserDetail">
+                  <i class="far fa-user"></i>
+                  Accounts
+                </a>
+              </li>
+          
+            </ul>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <form action="/admin/postAdminLogout" method="post">
+                  <button type="submit"
+                    style="border: none; background-color: transparent;color: white; margin-top: 25px;margin-left: 20px; font-size: 18px;">Logout</button>
+                </form>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-  </div>
+  
+      </nav>
+    </div>
   </header>
   <main>
     <div class="backdiv">
       <div class="categoryHeader">
         <%if(data.length>0){%>
-        <h1>Categories</h1>
-        <%} else {%>
-          <h1>No Categories</h1>
-          <%}%>
-        <button id="add">Add Category</button>
+          <h1>Categories</h1>
+          <%} else {%>
+            <h1>No Categories</h1>
+            <%}%>
+              <button id="add">Add Category</button>
       </div>
-     
+
       <div class="fresh-table full-color-orange">
         <table id="fresh-table" class="table">
           <thead>
@@ -144,100 +136,148 @@
                   </td>
                   <td>
                     <%= data.categoryName %>
-                    <% let bool = data.isBlocked ? 'Blocked' :'Active' %>
+                      <% let bool=data.isBlocked ? 'Blocked' :'Active' %>
                   </td>
                   <td>
-                        <img src="/<%= data.imageURL %>" alt="<%=data.categoryName%>image" style="height:150px; width: 150px;">
+                    <img src="/<%= data.imageURL %>" alt="<%=data.categoryName%>image"
+                      style="height:150px; width: 150px;">
                   </td>
                   <td>
-                    <button class="edit-btn" data-id="<%= data._id %>" data-name="<%= data.categoryName %>" data-image ="/<%=data.imageURL%>">Edit</button>
-                    
-                    <button class="block-btn" data-id="<%= data._id %>" data-isBlocked = "<%= bool %>" value="<%= bool %>"><%=bool%></button>
-                    
-                
-                   
+                    <button class="edit-btn" data-id="<%= data._id %>" data-name="<%= data.categoryName %>"
+                      data-image="/<%=data.imageURL%>">Edit</button>
+
+                    <button class="block-btn" data-id="<%= data._id %>" data-isBlocked="<%= bool %>"
+                      value="<%= bool %>">
+                      <%=bool%>
+                    </button>
+
+
+
                   </td>
                 </tr>
                 <% count++; %>
                   <% }); %>
           </tbody>
-        </table> 
+        </table>
       </div>
 
 
 
 
-<!-- edit categoy modal -->
-    
-      <div class="editButton">
-        <div class="close-btn">&times;</div>
-        <form id="editCategoryForm" enctype="multipart/form-data">
-            <div class="form" >
-                <h2>Category Edit</h2>
-                <div class="form-element">
-                    <label for="Category">Edit category</label>
-                    <input type="text"  name="CategoryName" id="category_name">
-                    <div id="editCategoryError" class="error"></div>
-                    <input type="file" name="editCategoryImage" id="editImage">
-                    <div id="image-container" >
-                      <button type="button" id="imagePreviewClose" >&times;</button>
-                      <img id="edit_image" class="edit_image" alt="" class="hidden" >
-                    </div>
-                    <input type="hidden" id="category_id" name="category_id">
-                    
-                </div>
-                <div class="form-element">
-                    <button type="submit">Update</button>
-                </div>
+      <!-- edit categoy modal -->
+
+     
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+    <div class="editButton">
+      <div class="close-btn">&times;</div>
+      <form id="editCategoryForm" enctype="multipart/form-data">
+        <div class="form">
+          <h2>Category Edit</h2>
+          <div class="form-element">
+            <label for="Category">Edit category</label>
+            <input type="text" name="CategoryName" id="category_name">
+            <div id="editCategoryError" class="error"></div>
+            <input type="file" name="editCategoryImage" id="editImage">
+            <div id="image-container">
+              <button type="button" id="imagePreviewClose">&times;</button>
+              <img id="edit_image" class="edit_image" alt="" class="hidden">
             </div>
-        </form>
+            <input type="hidden" id="category_id" name="category_id">
+
+          </div>
+          <div class="form-element">
+            <button type="submit">Update</button>
+          </div>
+        </div>
+      </form>
     </div>
-    
 
 
-
-
-
-
-    </div>
-
-
-<!-- add category modal -->
-<!-- div to be opened in the background when the modal is opened -->
-<div id="modalBackground"></div>   
-<div class="addCategory">
-    <div class="close-btn">&times;</div>
-    <div class="form" id="formAdd">
+    <!-- add category modal -->
+    <!-- div to be opened in the background when the modal is opened -->
+    <div id="modalBackground"></div>
+    <div class="addCategory">
+      <div class="close-btn">&times;</div>
+      <div class="form" id="formAdd">
         <h2>Add Category</h2>
         <!-- form starting -->
         <form id="addCategoryForm" enctype="multipart/form-data">
-            <div class="form-element">
-                <label for="category">Category Name</label>
-                <input type="text" id="Category" name="addCategoryName">
-                <!-- Error message container -->
-                <div id="categoryNameError" class="error"></div>
-                <!-- image preview container -->
-                <input type="file" id="categoryImage" name="categoryImage">
-                <div id="categoryImageError" class="error"></div> <!-- Error message container -->
-                <img id="previewImage" src="#" alt="Preview" style="display: none; width: 250px; height: 250px;">
-                <div id="backendError" class="error"></div>
-            </div>
-            <div class="form-element">
-                <button id="submitBtn" type="submit">Update</button>
-            </div>
+          <div class="form-element">
+            <label for="category">Category Name</label>
+            <input type="text" id="Category" name="addCategoryName">
+            <!-- Error message container -->
+            <div id="categoryNameError" class="error"></div>
+            <!-- image preview container -->
+            <input type="file" id="categoryImage" name="categoryImage">
+            <div id="categoryImageError" class="error"></div> <!-- Error message container -->
+            <img id="previewImage" src="#" alt="Preview" style="display: none; width: 250px; height: 250px;">
+            <div id="backendError" class="error"></div>
+          </div>
+          <div class="form-element">
+            <button id="submitBtn" type="submit">Update</button>
+          </div>
         </form>
         <!-- form ending -->
+      </div>
     </div>
-</div>
 
 
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
   </main>
- <script src="/admin/js/admin-category.js"></script>
-  </body>
+  <script>
   
-  </html>
+  </script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
+  <script src="/admin/js/admin-category.js"></script> 
+</body>
+
+</html>

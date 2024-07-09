@@ -22,7 +22,17 @@ const schema =new mongoose.Schema({
     },
     googleId:{
         type:String
+    },
+    walletAmount:{
+        type:Number,
+        default:0
+    },
+    referralCode:{
+        type:String,
+        required:true
     }
+    
+   
 });
 
 
