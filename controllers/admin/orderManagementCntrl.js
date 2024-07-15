@@ -83,6 +83,22 @@ exports.updateOrderStatus = async (req, res, next) => {
     if (!product) {
       return res.status(404).json({ success: false, message: 'Product not found in the order' });
     }
+let orgProdPrice = product.price;
+let discount = 0;
+
+
+if(order.coupon && order.coupon.discountType === 'percentage'){
+ discount = orgProdPrice*order.coupon.discountValue/100
+ orgProdPrice = orgProdPrice-discount;
+}
+  
+
+  if(newStatus === 'Cancelled' || newStatus === 'returned'){
+    order.payment.amount-=orgProdPrice;
+  }
+
+
+
 
     // Update the order status of the product
     product.orderStatus = newStatus;

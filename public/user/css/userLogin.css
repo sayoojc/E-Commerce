@@ -2,11 +2,12 @@ html {
     height: 100%;
   }
   body {
-    margin:0;
-    padding:0;
-    font-family: sans-serif;
-    background: linear-gradient(#141e30, #243b55);
-  }
+    
+   background-color: #F1F3F6;
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Removes default margin */
+    font-family: Arial, sans-serif; /* Optional: Set a font family */
+}
   
   .login-box {
     position: absolute;
@@ -15,16 +16,16 @@ html {
     width: 400px;
     padding: 40px;
     transform: translate(-50%, -50%);
-    background: rgba(0,0,0,.5);
+    background: #FFFFFF;
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
   }
   
-  .login-box h2 {
+  .login-box h3 {
     margin: 0 0 30px;
     padding: 0;
-    color: #fff;
+    color: #373737;
     text-align: center;
   }
   
@@ -45,23 +46,30 @@ html {
   }
   .login-box .user-box label {
     position: absolute;
-    top: 20px;
-    left: 0;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
+    
     pointer-events: none;
     transition: .5s;
   }
   
-  .login-box .user-box input:focus ~ label,
-  .login-box .user-box input:valid ~ label {
-    top: -20px;
-    left: 0;
-    color: white;
-    
+  .user-box label {
+    position: absolute;
+    top: -12px;
+    left: 10px;
+    background: #fff;
+    padding: 0 5px;
     font-size: 12px;
-  }
+    color: #777;
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.user-box input:focus + label,
+.user-box input:not(:placeholder-shown) + label {
+    top: -7px;
+    left: 10px;
+    font-size: 12px;
+    color: #ff7f50; /* Change this color to match your theme */
+}
   
   .login-box form a {
     position: relative;
@@ -85,16 +93,21 @@ html {
    
     
   }
-  .login-box #submitBtn{
-   width:70px;
-   height:30px;
-   font-size: 16px;
-   background-color: darkorange;
-   border-radius: 5px;
-  }
-  .login-box #submitBtn:hover{
+  #submitBtn {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #ff7f50;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-  } 
+    margin-bottom: 20px;
+}
+
+#submitBtn:hover {
+    background-color: #ff5722;
+}
   
   .login-box #submitBtn:active {
     background: #03e9f4;
@@ -106,58 +119,165 @@ html {
   .google-signin-button {
     display: flex; /* Use flexbox */
     align-items: center; /* Align items vertically in the center */
-    background-color: #ffffff; /* Button background color */
-    color: #757575; /* Text color */
+    background-color: #F1F1F1; /* Button background color */
+    color: #2F73C2; /* Text color */
     border: 1px solid #757575; /* Button border */
     padding: 10px 20px; /* Padding */
     font-size: 16px; /* Font size */
     cursor: pointer; /* Cursor style */
     border-radius: 5px;
     height: 35px;
-    width: 200px;
+    width: 100%;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .google-signin-button:hover {
+    background-color: #E0E0E0; /* Slightly darker background */
+    color: #1F5A9C; /* Slightly darker text color */
+    border-color: #5A5A5A; /* Slightly darker border color */
+  }
+  .google-signin-button:active {
+    background-color: #C8C8C8; /* Even darker background when clicked */
+    color: #144B80; /* Darker text color when clicked */
+    border-color: #444; /* Darker border color when clicked */
   }
   .signIN{
-    margin-left: 30px;
+    margin-left: 75px;
   }
   .google-icon {
     background-image: url('https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg'); /* Google sign-in icon */
     background-size: cover;
     width: 20px; /* Adjust icon size as needed */
     height: 20px;
-    margin-right: 10px; /* Margin to separate the icon from the text */
+   
     padding-top: 1px;
-    margin-left: 0px;
+    margin-left: 30px;
   }
   .login-box .user-box input {
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
-    color: #fff;
+    color: #373737;
     margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #fff;
+    border: 2px solid #D8D8D8;
+    border-radius: 5px;
     outline: none;
     background: transparent; /* Set background to transparent */
   }
   
+  .user-box input:focus {
+    border-color: #ff7f50; /* Change this color to whatever you prefer */
+}
+
   
-  
-  
-  .forget{
-    margin-top: 30px;
+ 
+.error-message {
+  color: rgb(218, 15, 15);
+  font-size: 14px;
+  display: block;
+  position: absolute;
+  bottom: calc(36%);
+  left: 38%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+}
+
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+    padding-top: 10px;
   }
-    
-  .register{
-    color: white;
-     margin-top: 30px;
-  }
-  .error-message {
-    color: rgb(218, 15, 15);
-    font-size: 14px;
-    font-size: 14px;
-    display: block;
-    position: absolute;
-    bottom: calc(18%);
-   
-  }
+
+  .or-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #999;
+    margin: 20px 0;
+}
+
+.or-divider::before, .or-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.or-divider:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.or-divider:not(:empty)::after {
+    margin-left: .5em;
+}
+
+.forget {
+  margin-top: 20px;
+}
+
+.forget a {
+  color: #ff7f50; /* Change to your desired color */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.forget a:hover {
+  color: #ff5722; /* Change to your desired hover color */
+}
+
+.register {
+  margin-top: 20px;
+  color: #333; /* Change to your desired text color */
+}
+
+.register p {
+  margin: 10px 0;
+}
+
+.register a {
+  color: #ff7f50; /* Change to your desired color */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.register a:hover {
+  color: #ff5722; /* Change to your desired hover color */
+}
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-style: italic;
+  color: #333; /* Example color */
+  text-align: center;
   
+}
+
+
+/* Full-page overlay */
+.loader-overlay {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 249, 249); /* Black background with transparency */
+  z-index: 9999; /* Sit on top */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Loader spinner */
+/* Loader spinner */
+.loader {
+  border: 8px solid #ff5722; /* Light grey */
+  border-top: 8px solid #FFFFFF; /* Blue */
+  border-radius: 50%;
+  width: 60px; /* Decrease size */
+  height: 60px; /* Decrease size */
+  animation: spin .7s linear infinite; /* Increase speed */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -31,7 +31,7 @@ exports.getUserDetail = async (req, res, next) => {
           search,
         });
   
-        console.log('The req.session.admin:', req.session.admin);
+        
       } else {
         res.redirect('/adminLogin');
       }
@@ -48,11 +48,11 @@ exports.getUserDetail = async (req, res, next) => {
 
 exports.postblockUnblockUser = async(req,res) => {
     try {
-        console.log('postblockUnblock category hits');
+        
        const userId = req.body.id
-       console.log(`The user id from the front end is${userId}`);
+       
        const user = await userModel.findById(userId) ;
-       console.log(user);
+       
        if(user.isBlocked===true){
         user.isBlocked=false;
            await user.save();

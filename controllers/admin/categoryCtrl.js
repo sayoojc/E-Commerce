@@ -10,7 +10,7 @@ exports.getCategory = async (req, res,next) => {
     try {
 
         if(req.session.admin){
-            console.log(req.session.admin);
+            
             const categories = await categoryModel.find({});
             res.render('user/adminCategory', {data: categories,error: req.flash("error")} );
         }
@@ -59,7 +59,7 @@ exports.previewResizeAddCategory = async (req, res,next) => {
 
 exports.postCategory = async (req, res,next) => {
     try {
-        console.log('post category hits');
+       
         if (req.session.admin) {
             const { addCategoryName } = req.body;
             const existingCategory = await categoryModel.findOne({ categoryName: { $regex: new RegExp('^' + addCategoryName + '$', 'i') } });
@@ -136,7 +136,7 @@ exports.postEditCategory = async (req, res,next) => {
         let imageUrl;
         if(image){
              imageUrl = image.path;
-             console.log(imageUrl);
+             
         }
         
         if(data){
@@ -159,11 +159,11 @@ exports.postEditCategory = async (req, res,next) => {
 
 exports.postblockUnblock = async(req,res,next) => {
     try {
-        console.log('postblockUnblock category hits');
+       
        const categoryId = req.body.id
-       console.log(`The category id from the front end is${categoryId}`);
+       
        const category = await categoryModel.findById(categoryId) ;
-       console.log(category);
+       
        if(category.isBlocked===true){
            category.isBlocked=false;
            await category.save();

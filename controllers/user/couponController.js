@@ -28,7 +28,7 @@ exports.getCoupons = async(req,res,next) => {
 
 exports.redeemCoupon = async (req, res,next) => {
     try {
-      console.log('The redeem coupon function hits');
+      
       
       // Check if the user session exists
       const email = req.session.user;
@@ -57,7 +57,7 @@ exports.redeemCoupon = async (req, res,next) => {
   
       let totalPayable = totalPrice < 1000 && totalPrice >= 1 ? totalPrice + 59 : totalPrice;
 
-      console.log('The total payable from the cart is:',totalPayable);
+      
   
       // Validate coupon code
       const { couponCode } = req.body;
@@ -70,7 +70,7 @@ exports.redeemCoupon = async (req, res,next) => {
         return res.status(404).json({ success: false, message: 'Coupon not found' });
       }
   
-      console.log('Coupon from the database:', coupon);
+      
   
       const { discountType, discountValue, expirationDate, minimumPurchaseAmount, maxDiscountAmount, usageLimit, usageCount, isActive } = coupon;
   
@@ -99,13 +99,13 @@ exports.redeemCoupon = async (req, res,next) => {
       } else {
         discountAmount = discountValue;
       }
-  console.log('discount amount:',discountAmount);
+  
       totalPayable -= discountAmount;
   
       // Increment the usage count of the coupon
       coupon.usageCount += 1;
       await coupon.save()//
-  console.log('total payable:',totalPayable);
+  
       res.status(200).json({ success: true, totalPayable,coupon });
     } catch (error) {
       console.error('Error in redeemCoupon:', error);

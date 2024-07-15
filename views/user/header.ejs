@@ -3,11 +3,289 @@
 
 /* Style for the icon */
 .cart-icon {
-  color: #000000; /* Change to your desired icon color;*/
-  height: 50px;
+  color: #131313; /* Change to your desired icon color;*/
+  height: 20px;
+}
+.nav-item .form-inline {
+            width: 100%;
+        }
+
+        .input-group {
+            width: 100%;
+        }
+
+        .form-control {
+        
+            border-radius: 10px 0 0 10px;
+            border-color: #6c757d;
+        }
+
+        .btn-outline-secondary {
+            border-radius: 0 10px 10px 0;
+            border-color: #6c757d;
+            color: #6c757d;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .fa-search {
+            margin-right: 0;
+        }
+
+        .cart-button {
+            position: relative;
+        }
+
+        .cart-icon {
+            font-size: 1.2em;
+          margin-right: 50px;
+        }
+
+        .cart-icon-badge {
+            position: absolute;
+            top: -3px;
+            right: 5px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2em 0.5em;
+            font-size: 0.5em;
+        }
+        .product-card {
+            border: 1px solid #eaeaea;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            margin: 10px;
+            transition: box-shadow 0.3s;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .product-price {
+            font-size: 1.2em;
+            color: #007bff;
+        }
+        .product-price del {
+            color: #999;
+            margin-left: 10px;
+        }
+        .product-discount {
+            background: green;
+            color: white;
+            font-size: 0.85em;
+            padding: 2px 8px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            border-radius: 3px;
+        }
+        .bold-montserrat {
+      font-family: 'Montserrat', sans-serif;
+   
+    }
+      /* Style for chat button */
+      #chatButton {
+         background-color: #007bff; /* Blue background */
+         border: none; /* Remove borders */
+         color: white; /* White text */
+         padding: 10px 20px; /* Some padding */
+         cursor: pointer; /* Pointer/hand icon */
+         border-radius: 5px; /* Rounded corners */
+         font-size: 16px; /* Increase font size */
+         margin-left: 20px;
+      }
+      
+      #chatButton i {
+         margin-right: 8px; /* Add some space between the icon and text */
+      }
+      
+      /* Style for chat popup */
+      .chat-popup {
+         position: fixed; /* Fixed position */
+         top: 0; /* Align to top */
+         right: -300px; /* Initially outside the viewport */
+         width: 300px; /* Width of the popup */
+         height: 100%; /* Full height */
+         background-color: #f1f1f1; /* Light gray background */
+         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+         transition: right 0.3s ease; /* Smooth slide transition */
+         z-index: 1000; /* Ensure it's above other content */
+         overflow-y: auto; /* Enable vertical scrolling */
+      }
+      
+      .chat-popup.open {
+         right: 0; /* Slide in to the viewport */
+      }
+      
+      /* Style for chat messages */
+      .chat-messages {
+         padding: 20px;
+      }
+      
+      .chat-message {
+         margin-bottom: 10px;
+         padding: 10px;
+         background-color: #ffffff;
+         border-radius: 5px;
+         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .chat-message.received {
+         background-color: #f0f0f0;
+         text-align: right;
+      }
+      
+      .chat-message.received .message-content {
+         text-align: left;
+       }
+
+      /* Style for message input area */
+      .message-input {
+         padding: 10px;
+         background-color: #ffffff;
+         border-top: 1px solid #ddd;
+      }
+      
+      .message-input input {
+         width: calc(100% - 20px);
+         padding: 8px;
+         border: 1px solid #ddd;
+         border-radius: 3px;
+         resize: none; /* Disable textarea resizing */
+         font-size: 14px;
+         margin-bottom: 10px;
+      }
+      
+      .message-input button {
+         background-color: #007bff;
+         color: white;
+         border: none;
+         padding: 8px 15px;
+         border-radius: 3px;
+         cursor: pointer;
+         font-size: 14px;
+      }
+      #chatCloseButton {
+   width: 30px; /* Adjust width as needed */
+   height: 30px; /* Set height to match width for a square button */
+   background-color: transparent; /* Transparent background */
+   border: none; /* Remove default button border */
+   font-size: 24px; /* Adjust font size */
+   color: #333; /* Color of the '×' symbol */
+   cursor: pointer; /* Pointer cursor on hover */
+   display: flex; /* Use flexbox for centering content */
+   justify-content: center; /* Center horizontally */
+   align-items: center; /* Center vertically */
+   outline: none; /* Remove focus outline */
 }
 
+#chatCloseButton:hover {
+   color: #666; /* Darker color on hover */
+}
+.chat-popup {
+    display: none;
+    /* Your styles here */
+}
 
+.chat-popup.open {
+    display: block;
+}
+.loader1 {
+  margin-left: 100px;
+  margin-bottom: 35px;
+  width: 40px;
+  padding: 5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #0a0a0a;
+  --_m: 
+    conic-gradient(#0000 10%,#000),
+    linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+          mask: var(--_m);
+  -webkit-mask-composite: source-out;
+          mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.chat-heading {
+    font-size: 20px; /* Adjust the font size as needed */
+    font-weight: bold; /* Make the text bold */
+    text-align: center; /* Center the text */
+    margin-bottom: 10px; /* Add some space below the heading */
+    color: #333; /* Set the text color */
+    padding: 10px; /* Add padding around the text */
+    background-color: #f1f1f1; /* Set a background color */
+    border-radius: 5px; /* Add rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+.account-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.accountModalList {
+  margin-top: 5px;
+}
+
+.accountModalList a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Logout button styling */
+.logout-button {
+  border: none;
+  background-color: white;
+  padding: 5px;
+}
+/* Hover effect for logout button */
+.logout-button:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+.accountModalList a:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* Active (clicking) effect */
+.accountModalList a:active {
+  background-color: #e0e0e0;
+  color: #000;
+}
+/* Active (clicking) effect for logout button */
+.logout-button:active {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+/* Full-page overlay */
+.loader-overlay {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 249, 249); /* Black background with transparency */
+  z-index: 9999; /* Sit on top */
+  justify-content: center;
+  align-items: center;
+}
 
 </style>
 
@@ -15,7 +293,7 @@
   <div id="modalBackground"></div> 
     <div class="container">
        <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" style="position: fixed;" href="/getHome"><h4>NUTROMAX</h4></a>
+          <a class="navbar-brand" style="position: fixed;" href="/getHome"> <h4 class="bold-montserrat">NUTROMAX</h4></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class=""> </span>
           </button>
@@ -25,19 +303,11 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
              <ul class="navbar-nav">
                 <li class="nav-item active">
-                  <a class="nav-link" href="/getHome">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link loader-nav" href="/getHome">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Categories <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                   <%category.forEach((category) => {%>
-                      
-                      <li><a href="" style="color: black;"><%=category.categoryName%></a></li>
-                   <%});%>
-                  </ul>
-                </li>
+               
                 <li class="nav-item">
-                  <a class="nav-link" href="/product-list/:action">Products</a>
+                  <a class="nav-link loader-nav" href="/product-list/:action">Products</a>
                 </li>
               
                
@@ -50,29 +320,39 @@
                
                <li class="nav-item">
                 <form class="form-inline" action="/getCart">
-                  <button class="btn my-2 my-sm-0 nav_search-btn cart-button" type="submit"> 
-                    <i class="fa badge fa-lg cart-icon" value="<%=productNumber%>">&#xf290;</i>
-                  </button>
+                    <button class="btn my-2 my-sm-0 nav_search-btn cart-button" type="submit"> 
+                        <i class="fas fa-shopping-cart cart-icon"></i>
+                        <span class="cart-icon-badge"><%= productNumber %></span>
+                    </button>
                 </form>
-              </li>
+            </li>
               </ul>
               
                 
               
               <li class="nav-item">
-                <form class="form-inline" action="/search" method="GET">
+                <form class="form-inline" action="/product-list/search" method="GET">
                   <div class="input-group">
-                    <input type="text" class="form-control" name="query" placeholder="Search" aria-label="Search" required>
+                    <input type="text" class="form-control" name="search" placeholder="Search" aria-label="Search" required style="width: 300px;">
                     <button class="btn btn-outline-secondary" type="submit">
                       <i class="fa fa-search"></i>
                     </button>
                   </div>
                 </form>
               </li>
+              <li>
+                <button id="chatButton">
+                   <i class="fas fa-comments"></i> Chat AI
+                </button>
+              
+             </li>
+             
              </ul>
           </div>
        </nav>
     </div>
+
+
     <!-- Account Modal HTML structure -->
 <div class="modal custom-modal modal-sm" id="accountModal" style="top: 0px; left:1000px; width: 180px;">
   <div class="modal-dialog">
@@ -82,23 +362,108 @@
               <div class="close-btn">&times;</div>
           </div>
           <div class="modal-body">
-             <ul style="list-style-type: none; justify-content: center; padding-left: 0;">
-              <li style="margin-top: 5px;"><a href="/getOrderHistory">My orders</a></li>
-              <li style="margin-top: 5px;"><a href="/getProfile">My Profile</a></li>
-              <li style="margin-top: 5px;"><a href="">My Addresses</a></li>
-              <li style="margin-top: 5px;"><a href="/getWishlist">Wishlist</a></li>
-              <li style="margin-top: 5px;"><a href="/getWallet">Wallet</a></li>
-              <li style="margin-top: 5px;"><a href="/getCoupons">Coupons</a></li>
-              <li style="margin-top: 5px;"><form action="/postLogout" method="post"><button type="submit" style="border: none; background-color: white;padding: 5px  ;">Logout</button></form></li>
-             </ul>
+            <ul class="account-list">
+                <li class="accountModalList"><a href="/getOrderHistory">My orders</a></li>
+                <li class="accountModalList"><a href="/getProfile">My Profile</a></li>
+                <li class="accountModalList"><a href="/getWishlist">Wishlist</a></li>
+                <li class="accountModalList"><a href="/getWallet">Wallet</a></li>
+                <li class="accountModalList"><a href="/getCoupons">Coupons</a></li>
+                <li class="accountModalList">
+                  <form action="/postLogout" method="post">
+                    <button type="submit" class="logout-button">Logout</button>
+                  </form>
+                </li>
+              </ul>
           </div>
       </div>
+  </div>
+</div>
+ 
+
+<div class="chat-popup" id="chatPopup">
+  <button id="chatCloseButton">&times;</button>
+  <div class="chat-heading">Chat with our AI Chat bot</div>
+
+  <div class="chat-messages" id="chatMessages">
+      <!-- Chat messages will be inserted here dynamically -->
+  </div>
+  <div class="loader1" id="loader1" style="display: none;">Loading....</div>
+  <div class="message-input">
+      <input id="messageInput" placeholder="Type your message..."></input>
+      <button id="sendMessage">Send</button>
   </div>
 </div>
 
 
 
  <script>
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const chatButton = document.getElementById('chatButton');
+    const chatPopup = document.getElementById('chatPopup');
+    const messageInput = document.getElementById('messageInput');
+    const sendMessageButton = document.getElementById('sendMessage');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatCloseButton = document.getElementById('chatCloseButton');
+    const loader = document.getElementById('loader');
+
+    chatButton.addEventListener('click', function() {
+        chatPopup.classList.toggle('open');
+    });
+
+    chatCloseButton.addEventListener('click', function() {
+        chatPopup.classList.remove('open');
+    });
+
+    sendMessageButton.addEventListener('click', function() {
+        const prompt = messageInput.value.trim();
+        if (prompt !== '') {
+            appendMessage(prompt, 'sent');
+            showLoader(); // Show the loader when sending the request
+
+            fetch('/aiChat', {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ prompt: prompt })
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                hideLoader(); // Hide the loader when the response is received
+                appendMessage(data.reply, 'received');
+            })
+            .catch((error) => {
+                hideLoader(); // Hide the loader if there's an error
+                console.log(error.message);
+            });
+
+            messageInput.value = ''; // Clear input after sending
+        }
+    });
+
+    function appendMessage(message, type) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message', type === 'received' ? 'received' : 'sent');
+        messageElement.innerHTML = `<div class="message-content">${message}</div>`;
+        chatMessages.appendChild(messageElement);
+        chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to bottom
+    }
+
+    function showLoader() {
+        loader1.style.display = 'block';
+    }
+
+    function hideLoader() {
+        loader1.style.display = 'none';
+    }
+});
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
          document.addEventListener('DOMContentLoaded', function() {
              var accountModalTrigger = document.getElementById('accountModalTrigger');
              var accountModal = document.getElementById('accountModal');

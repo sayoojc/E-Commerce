@@ -1,229 +1,401 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <!-- Basic -->
-      <meta charset="utf-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <!-- Mobile Metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-      <!-- Site Metas -->
-      <meta name="keywords" content="" />
-      <meta name="description" content="" />
-      <meta name="author" content="" />
-      <link rel="shortcut icon" href="" type="">
-      <title>NUTROMAX</title>
-      <!-- bootstrap core css -->
-      <link rel="stylesheet" type="text/css" href="/user/css/bootstrap.css" />
-      <!-- font awesome style -->
-      <link href="/user/css/font-awesome.min.css" rel="stylesheet" />
+
+<head>
+   <!-- Basic -->
+   <meta charset="utf-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <!-- Mobile Metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+   <!-- Site Metas -->
+   <meta name="keywords" content="" />
+   <meta name="description" content="" />
+   <meta name="author" content="" />
+   <link rel="shortcut icon" href="" type="">
+   <title>NUTROMAX</title>
+  
+   <link rel="stylesheet" type="text/css" href="/user/css/bootstrap.css" />
+   <!-- font awesome style -->
+   <link href="/user/css/font-awesome.min.css" rel="stylesheet" />
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+   <!-- responsive style -->
+   <link href="/user/css/responsive.css" rel="stylesheet" />
+   <!-- Custom styles for this template -->
+   <link href="/user/css/style.css" rel="stylesheet" />
+   <link rel="stylesheet" href="/user/css/my-style.css">
+   <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+
+   <style>
+       footer {
+      background-color: rgb(255, 255, 255);
+      padding-bottom: 0px;
+    }
+      .montserrat {
+         font-family: 'Montserrat', sans-serif;
+         font-style: italic;
+         font-weight: 700;
+         /* Increase the font weight */
+         font-size: 30px;
+         /* Increase the font size */
+         letter-spacing: 2px;
+         /* Add space between letters */
+         color: white
+      }
+
+      .carousel-item {
+
+         transition: transform 0.6s ease;
+      }
+      .category-link {
+  display: block;
+  text-decoration: none; /* Optional: to remove underline from links */
+  color: inherit; /* Optional: to inherit text color */
+}
+
+.category-card {
+  border: none;
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.category-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+.category-title {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.category-card:hover {
+  transform: translateY(-10px);
+}
+
+  .product-card {
+ 
+   padding: 0 !important;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: transform 0.3s ease-in-out; /* Quicker, smoother transition */
+}
+
+.product-card:hover {
+  transform: scale(1.01); /* More subtle zoom in on hover */
+}
+    
+    .product-card img {
+        width: 100%;
+        height: auto;
+        
+    }
+    .row {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+    .col-md-2 {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .custom-container {
+        max-width: 1200px; /* Adjust the max-width as needed */
+        margin: 30px 30px;
       
-      <!-- responsive style -->
-      <link href="/user/css/responsive.css" rel="stylesheet" />
-      <!-- Custom styles for this template -->
-      <link href="/user/css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/user/css/my-style.css">
-    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+       
+    }
+
+    #categoryHeader{
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 650;
+      font-size:x-large;
+    }
+    .newProduct{
+      font-size: 15px;
+      color: black;
+    }
+    .newProd{
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 650;
+      font-size:x-large;
+    }
+    .price-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; /* Semi-bold */
+      font-size: 1.2rem; /* Adjust size as needed */
+      color: #000000; /* Example color, adjust as needed */
+      display: inline-block; /* Ensures proper spacing */
+      padding-bottom: 10px;
+    
+    }
+    .bestseller_section {
+  padding: 60px 0;
+  background-color: #f8f9fa;
+  position: relative;
+}
+
+.bestseller_bg_box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.bestseller_bg_box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heading_container {
+  text-align: left; /* Align text to the left */
+}
+
+.heading_container h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+}
+
+.bestseller_section p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #555;
+  text-align: left; /* Align text to the left */
+}
+
+.shop_now_btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+.shop_now_btn:hover {
+  background-color: #555;
+}
+
+.product-card1 {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px; /* Add padding to the cards */
+  text-align: center;
+  transition: box-shadow 0.3s;
+  margin-bottom: 30px;
+  width: 100%; /* Ensures the card takes full width in the column */
+  height: 430px; /* Add height from inline CSS */
+  width: 250px; /* Add width from inline CSS */
+}
+
+.product-card1 img {
+  width: 100%;
+  height:auto; /* Maintain height for images */
+  border-radius: 10px;
+}
+
+.product-details1 {
+  padding: 0px 20px;
+}
+
+.product-name1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.product-description1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #777;
+}
+
+.product_section.layout_padding_new {
+  padding: 60px 0;
+  background-color: #f8f9fa;
+}
+
+.heading_container h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+}
+
+.heading_container span {
+  color: #e67e22;
+}
+
+.product-box {
+  background-color: #fff;
+  border: 1px solid #b6b4b4;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.img-box img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.detail-box h5 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #e67e22;
+  margin-top: 15px;
+}
+
+.detail-box h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #e67e22;
+  margin-top: 10px;
+}
+
+@media (min-width: 576px) {
+  .col-sm-6.col-md-4.col-lg-2 {
+    flex: 0 0 16.6667%;
+    max-width: 16.6667%;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .col-sm-6.col-md-4.col-lg-2 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+/* Full-page overlay */
+.loader-overlay {
+ /* Hidden by default */
+ display: none;
+  position: fixed; /* Stay in place */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 249, 249); /* Black background with transparency */
+  z-index: 9999; /* Sit on top */
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+ 
+  aspect-ratio: 1;
+ border-radius: 50px;
+  border: 8px solid rgb(56, 58, 58);
+  border-right-color: #f73e06;
+  animation: l2 1s infinite linear;
+  width: 75px !important;
+  --_m:none;
+  background: none !important;
+}
+@keyframes l2 {to{transform: rotate(1turn)}}
 
 
-    <style>
-      /* Custom styles for dropdown menu */
 
-    /* Add custom styles for modal */
+   </style>
+
+</head>
+
+<body>
+   <!-- div to be opened in the background when the modal is opened -->
    
-    </style>
-
-   </head>
-   <body>
-         <!-- div to be opened in the background when the modal is opened -->
-         <div id="modalBackground"></div> 
-      <header class="header_section">
-         <div class="container">
-            <nav class="navbar navbar-expand-lg custom_nav-container">
-               <a class="navbar-brand" href="index.html"><h4>NUTROMAX</h4></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                   <span class=""> </span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                   <ul class="navbar-nav">
-                     
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav">
-                     <li class="nav-item active">
-                       <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                     </li>
-                     <li class="nav-item dropdown">
-                       <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Categories <span class="caret"></span></a>
-                       <ul class="dropdown-menu">
-                        <%category.forEach((category) => {%>
-                           
-                           <li><a href="/product-list/list?category=<%= category._id %>>" style="color: black;"><%=category.categoryName%></a></li>
-                        <%});%>
-                       </ul>
-                     </li>
-                     <li class="nav-item">
-                       <a class="nav-link" href="/product-list/:action">Products</a>
-                     </li>
-                   
-                    
-                      <!-- Account modal trigger -->
-                      <li class="nav-item">
-                        <a class="nav-link" href="#" id="accountModalTrigger">Account</a>
-                    </li>
-                    
-                    
-                     <!-- <li class="nav-item">
-                       <a class="nav-link" href="#">
-                         <i class="fa fa-user" aria-hidden="true"></i>
-                       </a>
-                     </li> -->
-                     <li class="nav-item">
-                       <form class="form-inline" action="/getCart">
-                         <button class="btn my-2 my-sm-0 nav_search-btn" type="submit"> 
-                           <i class="fa badge fa-lg "  value=<%=productNumber%>>&#xf290;</i>
-                         </button>
-                       </form>
-                     </li>
-                   </ul>
-                   
-                     
-                   
-                   <li class="nav-item">
-                     <form class="form-inline" action="/product-list/search" method="GET">
-                       <div class="input-group">
-                         <input type="text" class="form-control" name="search" placeholder="Search" aria-label="Search" required>
-                         <% if (category) { %>
-                           <input type="hidden" name="category" value="<%= category %>">
-                         <% } %>
-                         <button class="btn btn-outline-secondary" type="submit">
-                           <i class="fa fa-search"></i>
-                         </button>
-                       </div>
-                     </form>
-                   </li>
-                   
-                  </ul>
-               </div>
-            </nav>
-         </div>
-      </header>
+   <%-include('./header.ejs')%>
       <div class="hero_area">
-      
-<!-- Account Modal HTML structure -->
-<div class="modal custom-modal modal-sm" id="accountModal" style="top: 0px; left:1000px">
-   <div class="modal-dialog">
-       <div class="modal-content">
-           <div class="modal-header">
-               <h5 class="modal-title">Account</h5>
-               <div class="close-btn">&times;</div>
-           </div>
-           <div class="modal-body">
-              <ul style="list-style-type: none; justify-content: center; padding-left: 0;">
-               <li style="margin-top: 5px;"><a href="/getOrderHistory">My orders</a></li>
-               <li style="margin-top: 5px;"><a href="/getProfile">My Profile</a></li>
-               <li style="margin-top: 5px;"><a href="">My Addresses</a></li>
-               <li style="margin-top: 5px;"><a href="/getWishlist">Wishlist</a></li>
-               <li style="margin-top: 5px;"><a href="/getWallet">Wallet</a></li>
-               <li style="margin-top: 5px;"><a href="/getCoupons">Coupons</a></li>
-               <li style="margin-top: 5px;"><form action="/postLogout" method="post"><button type="submit" style="border: none; background-color: white;padding: 5px  ;">Logout</button></form></li>
-              </ul>
-           </div>
-       </div>
-   </div>
-</div>
+
+       
+
+
+
+
+
          <!-- slider section -->
-         <section class="slider_section ">
-            <div class="slider_bg_box">
-               <img src="/user/images/pexels-andrea-piacquadio-3768722.jpg" alt="">
-            </div>
-            <div id="customCarousel1" class="carousel slide" data-ride="carousel">
-               <div class="carousel-inner">
-                  <div class="carousel-item active">
-                     <div class="container ">
-                        <div class="row">
-                           <div class="col-md-7 col-lg-6 ">
-                              <div class="detail-box">
-                                 <h1>
-                                    <span>
-                                    Sale 20% Off*
-                                    </span>
-                                    <br>
-                                    On Everything
-                                 </h1>
-                                 <p>
-                                   *minimum order value 2500/-
-                                 </p>
-                                 <div class="btn-box">
-                                    <a href="" class="btn1">
-                                    Shop Now
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item ">
-                     <div class="container ">
-                        <div class="row">
-                           <div class="col-md-7 col-lg-6 ">
-                              <div class="detail-box">
-                                 <h1>
-                                    <span>
-                                     30% Off
-                                    </span>
-                                    <br>
-                                    On orders above 10000/-
-                                 </h1>
-                                 <p>
-                                    orders above 10000/- gets an instant 30% off
-                                 </p>
-                                 <div class="btn-box">
-                                    <a href="" class="btn1">
-                                    Shop Now
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="container ">
-                        <div class="row">
-                           <div class="col-md-7 col-lg-6 ">
-                              <div class="detail-box">
-                                 <h1>
-                                    <span>
-                                    Sale 10% Off
-                                    </span>
-                                    <br>
-                                    On Everything
-                                 </h1>
-                                 <p>
-                                    10% off on everything for the first buy in nutromax maximum discount 1500/-
-                                 </p>
-                                 <div class="btn-box">
-                                    <a href="" class="btn1">
-                                    Shop Now
-                                    </a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+
+         <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner">
+               <div class="carousel-item active">
+                  <img src="/user/images/corousel1.jpg" class="d-block w-100" alt="...">
                </div>
-               <div class="container">
-                  <ol class="carousel-indicators">
-                     <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
-                     <li data-target="#customCarousel1" data-slide-to="1"></li>
-                     <li data-target="#customCarousel1" data-slide-to="2"></li>
-                  </ol>
+               <div class="carousel-item">
+                  <img src="/user/images/carousal2.webp" class="d-block w-100" alt="...">
+               </div>
+               <div class="carousel-item">
+                  <img src="/user/images/corousal3.webp" class="d-block w-100" alt="...">
+               </div>
+               <div class="carousel-item">
+                  <img src="/user/images/corousal4.jpg" class="d-block w-100" alt="...">
                </div>
             </div>
-         </section>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+               <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+               <span class="carousel-control-next-icon" aria-hidden="true"></span>
+               <span class="visually-hidden">Next</span>
+            </button>
+         </div>
+
          <!-- end slider section -->
       </div>
+
+
+      <div class="container mt-5">
+         <h2 class="mb-4" id="categoryHeader">Categories</h2>
+         <div class="row">
+           <% category.forEach((category, index) => { %>
+             <% if (index % 6 === 0 && index !== 0) { %>
+               </div><div class="row">
+             <% } %>
+             <div class="col-md-2">
+               <a href="/product-list/list?category=<%=category._id%>" class="category-link">
+                 <div class="category-card">
+                   <img src="<%= category.imageURL %>" alt="<%= category.categoryName %>">
+                   <div class="category-title"><%= category.categoryName %></div>
+                 </div>
+               </a>
+             </div>
+           <% }) %>
+         </div>
+       </div>
+       
+       
+       
+       
+
+
+
+
       <!-- why section -->
       <section class="why_section layout_padding">
          <div class="container">
@@ -236,7 +408,9 @@
                <div class="col-md-4">
                   <div class="box ">
                      <div class="img-box">
-                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                           xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512"
+                           style="enable-background:new 0 0 512 512;" xml:space="preserve">
                            <g>
                               <g>
                                  <path d="M476.158,231.363l-13.259-53.035c3.625-0.77,6.345-3.986,6.345-7.839v-8.551c0-18.566-15.105-33.67-33.67-33.67h-60.392
@@ -261,13 +435,15 @@
                            </g>
                            <g>
                               <g>
-                                 <path d="M144.835,350.597c-9.136,0-16.568,7.432-16.568,16.568c0,9.136,7.432,16.568,16.568,16.568
+                                 <path
+                                    d="M144.835,350.597c-9.136,0-16.568,7.432-16.568,16.568c0,9.136,7.432,16.568,16.568,16.568
                                     c9.136,0,16.568-7.432,16.568-16.568C161.403,358.029,153.971,350.597,144.835,350.597z" />
                               </g>
                            </g>
                            <g>
                               <g>
-                                 <path d="M427.023,350.597c-9.136,0-16.568,7.432-16.568,16.568c0,9.136,7.432,16.568,16.568,16.568
+                                 <path
+                                    d="M427.023,350.597c-9.136,0-16.568,7.432-16.568,16.568c0,9.136,7.432,16.568,16.568,16.568
                                     c9.136,0,16.568-7.432,16.568-16.568C443.591,358.029,436.159,350.597,427.023,350.597z" />
                               </g>
                            </g>
@@ -323,7 +499,7 @@
                         </svg>
                      </div>
                      <div class="detail-box">
-                        <h5>
+                        <h5 style="color: white;">
                            Fast Delivery
                         </h5>
                         <p>
@@ -335,7 +511,9 @@
                <div class="col-md-4">
                   <div class="box ">
                      <div class="img-box">
-                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 490.667 490.667" style="enable-background:new 0 0 490.667 490.667;" xml:space="preserve">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                           xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 490.667 490.667"
+                           style="enable-background:new 0 0 490.667 490.667;" xml:space="preserve">
                            <g>
                               <g>
                                  <path d="M138.667,192H96c-5.888,0-10.667,4.779-10.667,10.667V288c0,5.888,4.779,10.667,10.667,10.667s10.667-4.779,10.667-10.667
@@ -365,7 +543,8 @@
                            </g>
                            <g>
                               <g>
-                                 <path d="M376.405,354.923c-4.224-4.032-11.008-3.861-15.061,0.405c-30.613,32.235-71.808,50.005-116.011,50.005
+                                 <path
+                                    d="M376.405,354.923c-4.224-4.032-11.008-3.861-15.061,0.405c-30.613,32.235-71.808,50.005-116.011,50.005
                                     s-85.397-17.771-115.989-50.005c-4.032-4.309-10.816-4.437-15.061-0.405c-4.309,4.053-4.459,10.816-0.405,15.083
                                     c34.667,36.544,81.344,56.661,131.456,56.661s96.789-20.117,131.477-56.661C380.864,365.739,380.693,358.976,376.405,354.923z" />
                               </g>
@@ -438,7 +617,7 @@
                         </svg>
                      </div>
                      <div class="detail-box">
-                        <h5>
+                        <h5 style="color: white;">
                            Free Shiping
                         </h5>
                         <p>
@@ -450,16 +629,20 @@
                <div class="col-md-4">
                   <div class="box ">
                      <div class="img-box">
-                        <svg id="_30_Premium" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg" data-name="30_Premium">
+                        <svg id="_30_Premium" height="512" viewBox="0 0 512 512" width="512"
+                           xmlns="http://www.w3.org/2000/svg" data-name="30_Premium">
                            <g id="filled">
-                              <path d="m252.92 300h3.08a124.245 124.245 0 1 0 -4.49-.09c.075.009.15.023.226.03.394.039.789.06 1.184.06zm-96.92-124a100 100 0 1 1 100 100 100.113 100.113 0 0 1 -100-100z" />
-                              <path d="m447.445 387.635-80.4-80.4a171.682 171.682 0 0 0 60.955-131.235c0-94.841-77.159-172-172-172s-172 77.159-172 172c0 73.747 46.657 136.794 112 161.2v158.8c-.3 9.289 11.094 15.384 18.656 9.984l41.344-27.562 41.344 27.562c7.574 5.4 18.949-.7 18.656-9.984v-70.109l46.6 46.594c6.395 6.789 18.712 3.025 20.253-6.132l9.74-48.724 48.725-9.742c9.163-1.531 12.904-13.893 6.127-20.252zm-339.445-211.635c0-81.607 66.393-148 148-148s148 66.393 148 148-66.393 148-148 148-148-66.393-148-148zm154.656 278.016a12 12 0 0 0 -13.312 0l-29.344 19.562v-129.378a172.338 172.338 0 0 0 72 0v129.38zm117.381-58.353a12 12 0 0 0 -9.415 9.415l-6.913 34.58-47.709-47.709v-54.749a171.469 171.469 0 0 0 31.467-15.6l67.151 67.152z" />
-                              <path d="m287.62 236.985c8.349 4.694 19.251-3.212 17.367-12.618l-5.841-35.145 25.384-25c7.049-6.5 2.89-19.3-6.634-20.415l-35.23-5.306-15.933-31.867c-4.009-8.713-17.457-8.711-21.466 0l-15.933 31.866-35.23 5.306c-9.526 1.119-13.681 13.911-6.634 20.415l25.384 25-5.841 35.145c-1.879 9.406 9 17.31 17.367 12.618l31.62-16.414zm-53-32.359 2.928-17.615a12 12 0 0 0 -3.417-10.516l-12.721-12.531 17.658-2.66a12 12 0 0 0 8.947-6.5l7.985-15.971 7.985 15.972a12 12 0 0 0 8.947 6.5l17.658 2.66-12.723 12.535a12 12 0 0 0 -3.417 10.516l2.928 17.615-15.849-8.231a12 12 0 0 0 -11.058 0z" />
+                              <path
+                                 d="m252.92 300h3.08a124.245 124.245 0 1 0 -4.49-.09c.075.009.15.023.226.03.394.039.789.06 1.184.06zm-96.92-124a100 100 0 1 1 100 100 100.113 100.113 0 0 1 -100-100z" />
+                              <path
+                                 d="m447.445 387.635-80.4-80.4a171.682 171.682 0 0 0 60.955-131.235c0-94.841-77.159-172-172-172s-172 77.159-172 172c0 73.747 46.657 136.794 112 161.2v158.8c-.3 9.289 11.094 15.384 18.656 9.984l41.344-27.562 41.344 27.562c7.574 5.4 18.949-.7 18.656-9.984v-70.109l46.6 46.594c6.395 6.789 18.712 3.025 20.253-6.132l9.74-48.724 48.725-9.742c9.163-1.531 12.904-13.893 6.127-20.252zm-339.445-211.635c0-81.607 66.393-148 148-148s148 66.393 148 148-66.393 148-148 148-148-66.393-148-148zm154.656 278.016a12 12 0 0 0 -13.312 0l-29.344 19.562v-129.378a172.338 172.338 0 0 0 72 0v129.38zm117.381-58.353a12 12 0 0 0 -9.415 9.415l-6.913 34.58-47.709-47.709v-54.749a171.469 171.469 0 0 0 31.467-15.6l67.151 67.152z" />
+                              <path
+                                 d="m287.62 236.985c8.349 4.694 19.251-3.212 17.367-12.618l-5.841-35.145 25.384-25c7.049-6.5 2.89-19.3-6.634-20.415l-35.23-5.306-15.933-31.867c-4.009-8.713-17.457-8.711-21.466 0l-15.933 31.866-35.23 5.306c-9.526 1.119-13.681 13.911-6.634 20.415l25.384 25-5.841 35.145c-1.879 9.406 9 17.31 17.367 12.618l31.62-16.414zm-53-32.359 2.928-17.615a12 12 0 0 0 -3.417-10.516l-12.721-12.531 17.658-2.66a12 12 0 0 0 8.947-6.5l7.985-15.971 7.985 15.972a12 12 0 0 0 8.947 6.5l17.658 2.66-12.723 12.535a12 12 0 0 0 -3.417 10.516l2.928 17.615-15.849-8.231a12 12 0 0 0 -11.058 0z" />
                            </g>
                         </svg>
                      </div>
                      <div class="detail-box">
-                        <h5>
+                        <h5 style="color: white;">
                            Best Quality
                         </h5>
                         <p>
@@ -472,94 +655,103 @@
          </div>
       </section>
       <!-- end why section -->
+
+
+
       
-      <!-- arrival section -->
-      <section class="arrival_section">
-         <div class="container">
-            <div class="box">
-               <div class="arrival_bg_box">
-                  <img src="/user/images/new arrival.png" alt="">
-               </div>
-               <div class="row">
-                  <div class="col-md-6 ml-auto">
-                     <div class="heading_container remove_line_bt">
-                        <h2>
-                           #NewArrivals
-                        </h2>
+      <div class="container-fluid mt-4" style="background-color: antiquewhite;">
+         <h2 class="mb-4 newProd" style="padding-top: 20px;">New Product Launches</h2>
+         <div class="row" style="padding-bottom: 30px;">
+             <% latestProducts.forEach(product => { %>
+                 <div class="col-md-2" >
+                  <a href="getProductDetail/<%= product._id %>" style="text-decoration: none; color: inherit;" class="latestProductCard">
+                     <div class="product-card" style="height: 420px;background-color: white;">
+                         <span class="product-discount">Upto 15% OFF</span>
+                         <img src="/<%= product.image[0] %>" alt="Product image">
+                         <p class="mt-3  newProduct"><%= product.productName %></p>
+                         <p class="newProduct"><%= product.description %></p>
+                         <div style="margin-bottom: 20px;">
+                           <h5 class="price-tag">₹<%= product.price %>/-</h5>
+                         </div>
+                        
                      </div>
-                     <p style="margin-top: 20px;margin-bottom: 30px;">
-                        "Introducing the latest breakthrough in gym supplementation! Elevate your fitness journey with our cutting-edge Technology. Engineered to enhance your performance, accelerate recovery, and maximize gains, this innovative supplement is poised to revolutionize your workouts.
-                     </p>
-                     <a href="">
-                     Shop Now
-                     </a>
-                  </div>
-               </div>
-            </div>
+                  </a>
+                 </div>
+             <% }) %>
          </div>
-      </section>
-      <!-- end arrival section -->
-      
-      <!-- product section -->
-      <section class="product_section layout_padding">
-         <div class="container">
-            <div class="heading_container heading_center">
-               <h2>
-                  Our <span>products</span>
-               </h2>
-            </div>
-            <div class="row">
-               <% products.forEach((product) => { %>
-                  <div class="col-sm-6 col-md-4 col-lg-4">
-                     <a href="getProductDetail/<%= product._id %>">
-                        <div class="box">
-                           <div class="img-box">
-                              <img src="/<%= product.image[0] %>" alt="<%= product.productName %>">
-                           </div>
-                           <div class="detail-box">
-                              <h5>
-                                 <%= product.productName %>
-                              </h5>
-                              <h6>
-                                 <%= product.price %>/-
-                              </h6>
-                           </div>
-                        </div>
-                     </a>
+     </div>
+     
+
+
+
+
+    
+     <div class="container-fluid mt-4" >
+        <div class="row align-items-center">
+         <h2 class="mb-4 newProd" style="padding-top: 20px;">Best Sellers</h2>
+          <!-- Display Most Ordered Products -->
+          <div class="row" style="padding-bottom: 30px;">
+            <% mostSoldProductsDetails.forEach(product => { %>
+               <div class="col-md-2"  >
+                  <a href="getProductDetail/<%= product._id %>" style="text-decoration: none; color: inherit;" class="bestSellerProdCard">
+                <div class="product-card" style="height: 380px;">
+                  <img src="<%= product.productImage %>" alt="<%= product.productName %>">
+                  <div class="product-details">
+                    <p class="product-name"><%= product.productName %></p>
+                    <p class="product-description"><%= product.description %></p>
+                    <p class="price-tag">₹<%= product.price %>/-</p>
                   </div>
-               <% }) %>
+                </div>
+                </a>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+   
+    
+    
+    
+    
+    
+     
+
+<!-- product section -->
+<section class="product_section layout_padding_new">
+   <div class="container">
+      <div class="heading_container heading_center">
+         <h2>
+            Our <span>products</span>
+         </h2>
+      </div>
+      <div class="row" >
+         <% products.forEach((product)=> { %>
+            <div class="col-sm-6 col-md-4 col-lg-2" style="margin-top: 30px;">
+               <a href="getProductDetail/<%= product._id %>" style="text-decoration: none; color: inherit;" class="ourProductsCard">
+                  <div class="product-box">
+                     <div class="img-box">
+                        <img src="/<%= product.image[0] %>" alt="<%= product.productName %>">
+                     </div>
+                     <div class="detail-box">
+                        <h5>
+                           <%= product.productName %>
+                        </h5>
+                        <h6>
+                           ₹<%= product.price %>/-
+                        </h6>
+                     </div>
+                  </div>
+               </a>
             </div>
-            
-         </div>
-      </section>
-      
+         <% }) %>
+      </div>
+   </div>
+</section>
+
+
       <!-- end product section -->
 
-      <!-- subscribe section -->
-      <section class="subscribe_section">
-         <div class="container-fuild">
-            <div class="box">
-               <div class="row">
-                  <div class="col-md-6 offset-md-3">
-                     <div class="subscribe_form ">
-                        <div class="heading_container heading_center">
-                           <h3>Subscribe To Get Discount Offers</h3>
-                        </div>
-                        <p>
-                           "Subscribe now to unlock exclusive offers, expert tips, and the latest updates on new arrivals and promotions</p>
-                        <form action="">
-                           <input type="email" placeholder="Enter your email">
-                           <button>
-                           subscribe
-                           </button>
-                        </form>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- end subscribe section -->
+     
       <!-- client section -->
       <section class="client_section layout_padding">
          <div class="container">
@@ -587,7 +779,9 @@
                               Customer
                            </h6>
                            <p>
-                              I've been using these supplements for a few weeks now, and I'm already feeling a significant improvement in my workouts! The energy boost is amazing, and I'm recovering faster after each session. Definitely recommending these to all my gym buddies!"
+                              I've been using these supplements for a few weeks now, and I'm already feeling a
+                              significant improvement in my workouts! The energy boost is amazing, and I'm recovering
+                              faster after each session. Definitely recommending these to all my gym buddies!"
                            </p>
                         </div>
                      </div>
@@ -606,10 +800,13 @@
                               Gopal G Suresh
                            </h5>
                            <h6>
-                            Fitness Trainer
+                              Fitness Trainer
                            </h6>
                            <p>
-                              I've tried many supplements in the past, but none have delivered results quite like these. The quality is top-notch, and I can feel the difference in my strength and endurance. Plus, the flavors are delicious, making it a pleasure to take them before hitting the gym. Five stars from me!"
+                              I've tried many supplements in the past, but none have delivered results quite like these.
+                              The quality is top-notch, and I can feel the difference in my strength and endurance.
+                              Plus, the flavors are delicious, making it a pleasure to take them before hitting the gym.
+                              Five stars from me!"
                            </p>
                         </div>
                      </div>
@@ -631,7 +828,10 @@
                               Customer
                            </h6>
                            <p>
-                              As someone who's passionate about fitness, I'm always on the lookout for products that actually work. I'm thrilled to say that these supplements exceeded my expectations. Not only do they help me push through tough workouts, but I've also noticed a visible improvement in my muscle definition. Thank you for delivering such exceptional products!"
+                              As someone who's passionate about fitness, I'm always on the lookout for products that
+                              actually work. I'm thrilled to say that these supplements exceeded my expectations. Not
+                              only do they help me push through tough workouts, but I've also noticed a visible
+                              improvement in my muscle definition. Thank you for delivering such exceptional products!"
                            </p>
                         </div>
                      </div>
@@ -639,12 +839,12 @@
                </div>
                <div class="carousel_btn_box">
                   <a class="carousel-control-prev" href="#carouselExample3Controls" role="button" data-slide="prev">
-                  <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
-                  <span class="sr-only">Previous</span>
+                     <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                     <span class="sr-only">Previous</span>
                   </a>
                   <a class="carousel-control-next" href="#carouselExample3Controls" role="button" data-slide="next">
-                  <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                  <span class="sr-only">Next</span>
+                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                     <span class="sr-only">Next</span>
                   </a>
                </div>
             </div>
@@ -652,45 +852,138 @@
       </section>
       <!-- end client section -->
       </div>
-      
+
 
       <%- include('./footer.ejs') %>
 
+      <div id="loaderOverlay" class="loader-overlay">
+         <div class="loader"></div>
+       </div>
 
-      <!-- jQery -->
-      <script src="/user/js/jquery-3.4.1.min.js"></script>
-      <!-- popper js -->
-      <script src="/user/js/popper.min.js"></script>
-      <!-- bootstrap js -->
-      <script src="/user/js/bootstrap.js"></script>
-      <!-- custom js -->
-      <script src="/user/js/custom.js"></script>
+
+       <script>
+           document.addEventListener('DOMContentLoaded', function() {
+    const categoryLinks = document.querySelectorAll('.category-link');
+    const productLinks = document.querySelectorAll('.latestProductCard');
+    const loaderOverlay = document.getElementById('loaderOverlay');
+    const bestSellerProdCard = document.querySelectorAll('.bestSellerProdCard');
+    const ourProductsCard = document.querySelectorAll('.ourProductsCard');
+
+    categoryLinks.forEach(link => {
+      link.addEventListener('click', function(event) {
+        loaderOverlay.style.display = 'flex'; // Show the loader
+      });
+    });
+
+    productLinks.forEach(link => {
+       link.addEventListener('click', function() {
+         loaderOverlay.style.display = 'flex'; // Show the loader
+       });
+     });
+
+     bestSellerProdCard.forEach(link => {
+       link.addEventListener('click', function() {
+         loaderOverlay.style.display = 'flex'; // Show the loader
+       });
+     });
+
+     ourProductsCard.forEach(link => {
+       link.addEventListener('click', function() {
+         loaderOverlay.style.display = 'flex'; // Show the loader
+       });
+     });
+
+ // Show the loader when a navbar link is clicked
+ document.querySelectorAll('.loader-nav').forEach(link => {
+    link.addEventListener('click', function() {
+      document.getElementById('loaderOverlay').style.display = 'flex';
+    });
+  });
+
+
+
    
-      <script>
-         document.addEventListener('DOMContentLoaded', function() {
-             var accountModalTrigger = document.getElementById('accountModalTrigger');
-             var accountModal = document.getElementById('accountModal');
-             let modalBackground = document.getElementById('modalBackground');
-         
-             accountModalTrigger.addEventListener('click', function(event) {
-                 event.preventDefault();
-                 modalBackground.style.display = 'block';
-                 accountModal.style.display = 'block';
-             });
-         
-             // Close the modal when the close button is clicked
-             var closeModalButton = accountModal.querySelector('.close-btn');
-             closeModalButton.addEventListener('click', function() {
-                 accountModal.style.display = 'none';
-                 modalBackground.style.display = 'none';
-             });
-         
-             // Close the modal when clicking outside the modal
-             modalBackground .addEventListener('click', function(event) {
-               accountModal.style.display = 'none';
-                 modalBackground.style.display = 'none';
-             });
-         });
+  document.querySelectorAll('.accountModalList a').forEach(link => {
+    link.addEventListener('click', function() {
+      document.getElementById('loaderOverlay').style.display = 'flex';
+    });
+  });
+
+
+     // Show loader on all link clicks
+     document.querySelectorAll('.nav-item a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        document.getElementById('loaderOverlay').style.display = 'flex';
+      });
+    });
+
+    // Show loader on cart button click
+    document.querySelector('.cart-button').addEventListener('click', function() {
+      document.getElementById('loaderOverlay').style.display = 'flex';
+    });
+
+
+  });
+
+
+
+
+ 
+
+ 
+
+
+
+  
+       </script>
+
+
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+     const productLinks = document.querySelectorAll('.product-card a');
+     const loaderOverlay = document.getElementById('loaderOverlay');
+   
+   
+   });
+   </script>
+   
+         <!-- jQery -->
+         <script src="/user/js/jquery-3.4.1.min.js"></script>
+         <!-- popper js -->
+         <script src="/user/js/popper.min.js"></script>
+         <!-- bootstrap js -->
+         <script src="/user/js/bootstrap.js"></script>
+         <!-- custom js -->
+         <script src="/user/js/custom.js"></script>
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+         <script>
+            document.addEventListener('DOMContentLoaded', function () {
+               var accountModalTrigger = document.getElementById('accountModalTrigger');
+               var accountModal = document.getElementById('accountModal');
+               let modalBackground = document.getElementById('modalBackground');
+
+               accountModalTrigger.addEventListener('click', function (event) {
+                  event.preventDefault();
+                  modalBackground.style.display = 'block';
+                  accountModal.style.display = 'block';
+               });
+
+               // Close the modal when the close button is clicked
+               var closeModalButton = accountModal.querySelector('.close-btn');
+               closeModalButton.addEventListener('click', function () {
+                  accountModal.style.display = 'none';
+                  modalBackground.style.display = 'none';
+               });
+
+               // Close the modal when clicking outside the modal
+               modalBackground.addEventListener('click', function (event) {
+                  accountModal.style.display = 'none';
+                  modalBackground.style.display = 'none';
+               });
+            });
          </script>
-   </body>
+</body>
+
 </html>

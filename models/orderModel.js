@@ -34,6 +34,12 @@ const mongoose = require('mongoose')
             },
             orderStatusUpdatedAt: {
               type: Date
+            },
+            statusReason:{
+              type:String
+            },
+            priceAfterDiscount:{
+              type:Number
             }
         }],
         address:{

@@ -52,7 +52,11 @@ function formValidation() {
       document.getElementById('confirmPasswordError').innerHTML = 'Passwords doesnt match';
       return false;
     }
-     
+    document.getElementById('loaderOverlay').style.display = 'flex';
     return true;
  
     }
+
+    document.getElementById('google-signin-button').addEventListener('click',function(){
+      document.getElementById('loaderOverlay').style.display = 'flex';
+     });

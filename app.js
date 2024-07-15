@@ -39,7 +39,17 @@ app.use(session({
   cookie: { secure: false } // Set secure to true if using HTTPS
 }));
 
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
+// Access your API key as an environment variable (see "Set up your API key" above)
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+
+
+
+
+// ...
 // app.use(session({
 //   secret: 'your_secret_key',
 //   resave: false,
@@ -89,6 +99,22 @@ app.use(passport.session());
  app.use("/admin",coupons); 
  app.use("/admin",orderManagement);
 
+ app.put("/aiChat",(req,res,next)=>{
+
+  async function run() {
+    // The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+    let details='nutromax is a gym suppliment store that sells protein powders and suppliments and you are its AI .According to the before sentence answer the next question  =>';
+    const prompt =details + req.body.prompt
+  
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    res.json({reply:text});
+  }
+  
+  run();
+ })
 
  
 app.use('/',errorHandler.handlerNotFound);

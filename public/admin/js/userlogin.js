@@ -16,7 +16,12 @@ function formValidation() {
       document.getElementById('passwordError').innerHTML = "please enter a password";
       return false;
     }
-    
+    document.getElementById('loaderOverlay').style.display = 'flex';
     return true;
 
    }
+
+
+   document.getElementById('google-signin-button').addEventListener('click',function(){
+    document.getElementById('loaderOverlay').style.display = 'flex';
+   });

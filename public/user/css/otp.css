@@ -1,87 +1,142 @@
-body{
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-  background: #000000;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+html {
+  height: 100%;
+}
+
+body {
+  background-color: #F1F3F6;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-style: italic;
+  color: #333;
+  text-align: center;
+  margin: 100px;
   
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 450px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: #FFFFFF;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.container h1 {
+  margin: 0 0 30px;
+  color: #373737;
+  font-family: 'Montserrat', sans-serif;
+  font-style: italic;
+}
+
+.userInput {
+  margin-bottom: 30px;
+}
+
+.userInput input {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  text-align: center;
+  margin: 0 5px;
+  border: 2px solid #5f5e5e;
+  border-radius: 5px;
+  outline: none;
+  background: transparent;
+}
+
+.userInput input:focus {
+  border-color: #ff7f50;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #ff7f50;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+button:hover {
+  background-color: #ff5722;
+}
+
+button:active {
+  background-color: #03e9f4;
+}
+
+.error-message {
+  color: rgb(239, 76, 76);
+  font-size: 14px;
+  display: block;
+  position: absolute;
+  bottom: calc(18%);
+}
+
+.register {
+  color: #333;
+  margin-top: 20px;
+}
+
+.register p {
+  margin: 10px 0;
+}
+
+.register a {
+  color: #ff7f50;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.register a:hover {
+  color: #ff5722;
+}
+
+/* Full-page overlay */
+.loader-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 249, 249);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Loader spinner */
+.loader {
+  border: 8px solid #ff5722;
+  border-top: 8px solid #FFFFFF;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
   }
-  
-  .container{
-    display: flex;
-    flex-flow: column;
-    height: 100%;
-    align-items: space-around;
-    justify-content: center;
+
+  100% {
+      transform: rotate(360deg);
   }
-  
-  .userInput{
-    display: flex;
-    justify-content: center;
-  }
-  
-  input{
-    margin: 10px;
-    height: 35px;
-    width: 65px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    font-family: arimo;
-    font-size: 1.2rem;
-    background: #eef2f3;
-  
-  }
-  
-  h1{
-    text-align: center;
-    font-family: arimo;
-    color: honeydew;
-  }
-  
-  
-  button{
-    width: 150px;
-    height: 40px;
-    margin: 25px auto 0px auto;
-    font-family: arimo;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 5px;
-    letter-spacing: 2px;
-    cursor: pointer;
-    background: #616161;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #9bc5c3, #616161);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #9bc5c3, #616161); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  
-  }
-  #timer {
-    font-size: 25px;
-    font-weight: bold;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    margin-left: 620px;
-    margin-top: 30px;
-  }
-  #resendOtp {
-    background-color: #f41414;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: none;
-  }
-  
-  #resendOtp:hover {
-    background-color: #d10b0b;
-  }
-  
-  #resendOtp:active {
-    transform: translateY(1px);
-  }
-  
+}

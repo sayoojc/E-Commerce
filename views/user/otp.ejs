@@ -14,6 +14,7 @@
   </script>
 </head>
 <body>
+  <h2>NUTROMAX</h2>
   <div class="container">
     <h1>ENTER OTP</h1>
     <div class="userInput">
@@ -33,13 +34,18 @@
       
     </div>
     
-      <button>CONFIRM</button>
+      <button id="confirm">CONFIRM</button>
     </form>
     <div id="timer"></div>
     <form action="/resendOtp" method="post">
     <button id="resendOtp" type="submit">Resend OTP</button>
   </form>
   </div>
+
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader"></div>
+  </div>
+
   <script src="/admin/js/otp.js"></script>
 </body>
 </html>

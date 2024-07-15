@@ -68,6 +68,44 @@
       flex: 1;
       margin-right: 20px;
     }
+    .status-reason {
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: #ff0000; /* Red color for visibility */
+}
+/* Styles for the confirm-action-button */
+.confirm-action-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #f44336; /* Red for cancellation */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-action-button[data-action="return"] {
+  background-color: #d32f2f; /* Green for return */
+}
+
+.confirm-action-button:hover {
+  background-color: #d32f2f; /* Darker red for hover */
+}
+
+.confirm-action-button[data-action="return"]:hover {
+  background-color: #388E3C; /* Darker green for hover */
+}
+
+.confirm-action-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
+}
+
+
   </style>
 
 </head>
@@ -161,54 +199,71 @@
                 <th>Date</th>
                 <th>Order ID</th>
                 <th>Username</th>
-                <th>Product Name & Status</th>
+                <th>Product Name</th>
+                <th>Status</th>
                 <th>Address</th>
                 <th>Price</th>
               </tr>
             </thead>
             <tbody>
               <% orders1.forEach(order => { %>
-              <tr>
-                <td>
-                  <div>
-                    <%= order.orderDate.toLocaleDateString() %>
-                  </div>
-                </td>
-                <td>
-                  <%= order._id %>
-                </td>
-                <td>
-                  <%= order.user.name %>
-                </td>
-                <td>
-                  <% order.products.forEach((product, index) => { %>
-                  <div class="product-row">
+                <% order.products.forEach((product, index) => { %>
+                <tr>
+                  <% if (index === 0) { %>
+                  <td rowspan="<%= order.products.length %>">
+                    <div>
+                      <%= order.orderDate.toLocaleDateString() %>
+                    </div>
+                  </td>
+                  <td rowspan="<%= order.products.length %>">
+                    <%= order._id %>
+                  </td>
+                  <td rowspan="<%= order.products.length %>">
+                    <%= order.user.name %>
+                  </td>
+                  <% } %>
+                  <td>
                     <div class="product-info">
-                      <%= (index + 1) %>. <%= product.productName %>
+                      <%= product.productName %>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
                       <select name="orderStatus" data-order-id="<%= order._id %>" data-product-id="<%= product.productId %>" class="order-status-select">
                         <option value="confirmed" <%= product.orderStatus === 'confirmed' ? 'selected' : '' %>>Confirmed</option>
                         <option value="shipped" <%= product.orderStatus === 'shipped' ? 'selected' : '' %>>Shipped</option>
+                        <option value="Order Pending" <%= product.orderStatus === 'Order Pending' ? 'selected' : '' %>>Pending</option>
+                        <option value="return request send" <%= product.orderStatus === 'return request send' ? 'selected' : '' %>>return request send</option>
+                        <option value="cancel request sent" <%= product.orderStatus === 'cancel request sent' ? 'selected' : '' %>>cancel request sent</option>
                         <option value="delivered" <%= product.orderStatus === 'delivered' ? 'selected' : '' %>>Delivered</option>
                         <option value="Cancelled" <%= product.orderStatus === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+                        <option value="returned" <%= product.orderStatus === 'returned' ? 'selected' : '' %>>returned</option>
                       </select>
+                      <% if (product.orderStatus === 'cancel request sent' || product.orderStatus === 'return request send') { %>
+                      <div class="status-reason">
+                        <strong>Reason:</strong> <%= product.statusReason %>
+                      </div>
+                      <button class="confirm-action-button" data-order-id="<%= order._id %>" data-product-id="<%= product.productId %>" data-action="<%= product.orderStatus === 'cancel request sent' ? 'cancel' : 'return' %>">
+                        Confirm 
+                      </button>
+                      <% } %>
                     </div>
-                  </div>
-                  <% }) %>
-                </td>
-                <td>
-                  <div>
-                    <%= order.address.address1 %>,<%= order.address.address2 %>,<br>
-                    <%= order.address.locality %>,<%= order.address.city %>,<%= order.address.state %>,<%= order.address.pincode %>
-                  </div>
-                </td>
-                <td>
-                  <% order.products.forEach(product => { %>
-                  <div style="margin-bottom: 15px;">
-                    <%= product.price %>
-                  </div>
-                  <% }) %>
-                </td>
-              </tr>
+                  </td>
+                  <% if (index === 0) { %>
+                  <td rowspan="<%= order.products.length %>">
+                    <div>
+                      <%= order.address.address1 %>,<%= order.address.address2 %>,<br>
+                      <%= order.address.locality %>,<%= order.address.city %>,<%= order.address.state %>,<%= order.address.pincode %>
+                    </div>
+                  </td>
+                  <% } %>
+                  <td>
+                    <div style="margin-bottom: 15px;">
+                      <%= product.price %>
+                    </div>
+                  </td>
+                </tr>
+                <% }) %>
               <% }) %>
             </tbody>
           </table>
@@ -222,76 +277,109 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script>
-    $(document).ready(function () {
-      $('#orderTable').DataTable();
+   
 
-      const statusSelects = document.querySelectorAll('.order-status-select');
-      statusSelects.forEach(select => {
-        select.addEventListener('change', function (event) {
-          const orderId = this.dataset.orderId;
-          const productId = this.dataset.productId;
-          const newStatus = this.value;
+   document.addEventListener('DOMContentLoaded', function() {
+ 
+  const statusSelects = document.querySelectorAll('.order-status-select');
+  statusSelects.forEach(select => {
+    select.addEventListener('change', function (event) {
+      const orderId = this.dataset.orderId;
+      const productId = this.dataset.productId;
+      const newStatus = this.value;
 
-          Swal.fire({
-            title: 'Are you sure?',
-            text: `Do you want to change the status to ${newStatus}?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, change it!',
-            cancelButtonText: 'No, keep it'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              updateOrderStatus(orderId, productId, newStatus);
-            }
-          });
-        });
+      Swal.fire({
+        title: 'Are you sure?',
+        text: `Do you want to change the status to ${newStatus}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, change it!',
+        cancelButtonText: 'No, keep it'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          updateOrderStatus(orderId, productId, newStatus);
+        }
+      });
+    });
+  });
+
+  async function updateOrderStatus(orderId, productId, newStatus) {
+    try {
+      const response = await fetch('/admin/updateOrderStatus', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          orderId,
+          productId,
+          newStatus
+        })
       });
 
-      async function updateOrderStatus(orderId, productId, newStatus) {
-        try {
-          const response = await fetch('/admin/updateOrderStatus', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              orderId,
-              productId,
-              newStatus
-            })
-          });
-
-          const result = await response.json();
-          if (result.success) {
-            Swal.fire({
-              title: 'Success',
-              text: 'Status updated successfully.',
-              icon: 'success',
-              confirmButtonText: 'OK'
-            });
-          } else {
-            Swal.fire({
-              title: 'Failed',
-              text: 'Status update failed.',
-              icon: 'error',
-              confirmButtonText: 'OK'
-            });
+      const result = await response.json();
+      if (result.success) {
+        Swal.fire({
+          title: 'Success',
+          text: 'Status updated successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Reload the page
+            location.reload();
           }
-        } catch (error) {
-          console.error('Error updating order status:', error);
-          Swal.fire({
-            title: 'Error',
-            text: 'An error occurred while updating order status.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-        }
+        });
+      } else {
+        Swal.fire({
+          title: 'Failed',
+          text: 'Status update failed.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
+    } catch (error) {
+      console.error('Error updating order status:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'An error occurred while updating order status.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    }
+  }
+
+  const confirmActionButtons = document.querySelectorAll('.confirm-action-button');
+  confirmActionButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const orderId = this.dataset.orderId;
+      const productId = this.dataset.productId;
+      const action = this.dataset.action;
+      const newStatus = action === 'cancel' ? 'Cancelled' : 'returned';
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: `Do you want to confirm this ${action}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, confirm it!',
+        cancelButtonText: 'No, keep it'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          updateOrderStatus(orderId, productId, newStatus);
+        }
+      });
     });
+  });
+});
+
+   
   </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+ 
 </body>
 
 </html>

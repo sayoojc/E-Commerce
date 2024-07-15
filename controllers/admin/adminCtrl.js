@@ -85,7 +85,7 @@ exports.getAdminDashboard = async (req, res, next) => {
 
               // Process categories data
               const category = product.category.categoryName;
-              console.log('The category from the backend',category);
+              
               if (!categoriesData.yearly[category]) categoriesData.yearly[category] = 0;
               categoriesData.yearly[category] += item.count;
 
@@ -103,8 +103,6 @@ exports.getAdminDashboard = async (req, res, next) => {
                 if (!categoriesData.daily[category]) categoriesData.daily[category] = 0;
                 categoriesData.daily[category] += item.count;
               }
-            } else {
-              console.log(`Product with ID ${item.productId} not found.`);
             }
           } catch (error) {
             console.error(`Error fetching product with ID ${item.productId}: ${error.message}`);
@@ -212,7 +210,7 @@ exports.postAdminLogout = (req,res,next) => {
   try {
     req.session.destroy((err) => {
       if(err){
-        console.log('error loging out admin');
+        
         res.send('Error');
       }else{
         res.redirect("adminLogin");

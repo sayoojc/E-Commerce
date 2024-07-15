@@ -8,6 +8,7 @@
     
 </head>
 <body>
+  <h2>NUTROMAX</h2>
   <div class="login-box">
     <h2>SignUp</h2>
     <form method="post" action="/postSignup" name="signupForm" onsubmit="return formValidation()">
@@ -41,23 +42,27 @@
             <span id="confirmPasswordError" class="error-message"></span>
         </div>
 
-          <button type="submit">
+          <button type="submit" class="submit" id="submitBtn">
           
             Submit
         </button>
      
     </form>
-    
+    <div class="or-divider">or</div>
+    <a href="/auth/google" id="google-signin-button">
+      <button class="google-signin-button">
+        <span class="google-icon"></span><span class="signIN">Sign in with Google</span>
+      </button>
+    </a>
     <div class="register">
       <p>Already have an account? <a href="/getLogin">Login</a></p>
   </div>
+
+       
 </div>
-<script>
-
-  
-
-  
-</script>
+<div id="loaderOverlay" class="loader-overlay">
+  <div class="loader"></div>
+</div>
 <script src="/admin/js/signup.js"></script>
 </body>
 </html>

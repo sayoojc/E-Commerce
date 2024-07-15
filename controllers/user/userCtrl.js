@@ -5,6 +5,7 @@ const wishlistModel = require('../../models/wishlistModel');
 const cartModel = require('../../models/cartModel');
 const otpModel = require('../../models/otpModel');
 const walletModel = require('../../models/walletModel');
+const orderModel = require('../../models/orderModel');
 const nodemailer = require("nodemailer");
 const { render } = require('ejs');
 const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
@@ -16,7 +17,7 @@ const bcrypt = require('bcrypt');
 const e = require("connect-flash");
 
 
-const ITEMS_PER_PAGE  = 5;
+const ITEMS_PER_PAGE  = 8;
 
 
 
@@ -26,11 +27,50 @@ const ITEMS_PER_PAGE  = 5;
 
 exports.getHome = async(req, res) => {
   try {
-    const products = await  productModel.find();
-    const category = await categoryModel.find();
-    const productNumber = 0;
-  res.render("user/index",{products,category,productNumber});
-  
+    const products = await  productModel.find({isBlocked:false}).limit(18);
+    const latestProducts = await productModel.find({ isBlocked: false }).sort({ addedDate: -1 }).limit(6);
+    const category = await categoryModel.find({isBlocked:false});
+   
+    const mostSoldProducts = await orderModel.aggregate([
+      { $unwind: "$products" },
+      {
+        $group: {
+          _id: "$products.productId",
+          totalSold: { $sum: "$products.count" },
+        },
+      },
+      { $sort: { totalSold: -1 } },
+      { $limit: 6 },
+    ]);
+    
+    // Extract productIds from mostSoldProducts
+    const productIds = mostSoldProducts.map(item => item._id);
+    
+    // Fetch detailed product information
+    const productsData = await productModel.find({ _id: { $in: productIds } });
+    
+    // Combine totalSold with product details
+    const mostSoldProductsDetails = mostSoldProducts.map(item => {
+      const productDetail = productsData.find(product => product._id.toString() === item._id.toString());
+      return {
+        _id: item._id,
+        productName: productDetail ? productDetail.productName : "Unknown",
+        description: productDetail ? productDetail.description : "",
+        price: productDetail ? productDetail.price : "",
+        productImage: productDetail ? (productDetail.image.length > 0 ? productDetail.image[0] : "") : "",
+        totalSold: item.totalSold,
+      };
+    });
+    
+
+    
+    
+    
+    let productNumber = 0;
+    
+     
+    
+    res.render('user/index',{products,category,productNumber,latestProducts,mostSoldProductsDetails});
   } catch (error) {
     console.error('Error in getHome:', error);
     res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
@@ -39,12 +79,48 @@ exports.getHome = async(req, res) => {
 };
 exports.getHomeAfterLogin = async(req,res,next) => {
   try {
-    const products = await  productModel.find({isBlocked:false});
+    const products = await  productModel.find({isBlocked:false}).limit(18);
+    const latestProducts = await productModel.find({ isBlocked: false }).sort({ addedDate: -1 }).limit(6);
     const category = await categoryModel.find({isBlocked:false});
     const email = req.session.user;
     const user = await userModel.findOne({ email });
     const userId = user._id;
     const cart = await cartModel.findOne({userId}).populate('items.productId');
+    const mostSoldProducts = await orderModel.aggregate([
+      { $unwind: "$products" },
+      {
+        $group: {
+          _id: "$products.productId",
+          totalSold: { $sum: "$products.count" },
+        },
+      },
+      { $sort: { totalSold: -1 } },
+      { $limit: 6 },
+    ]);
+    
+    // Extract productIds from mostSoldProducts
+    const productIds = mostSoldProducts.map(item => item._id);
+    
+    // Fetch detailed product information
+    const productsData = await productModel.find({ _id: { $in: productIds } });
+    
+    // Combine totalSold with product details
+    const mostSoldProductsDetails = mostSoldProducts.map(item => {
+      const productDetail = productsData.find(product => product._id.toString() === item._id.toString());
+      return {
+        _id: item._id,
+        productName: productDetail ? productDetail.productName : "Unknown",
+        description: productDetail ? productDetail.description : "",
+        price: productDetail ? productDetail.price : "",
+        productImage: productDetail ? (productDetail.image.length > 0 ? productDetail.image[0] : "") : "",
+        totalSold: item.totalSold,
+      };
+    });
+    
+
+    
+    
+    
     let productNumber
     if(cart){
      productNumber= cart.items.length;
@@ -53,7 +129,7 @@ exports.getHomeAfterLogin = async(req,res,next) => {
     }
      
     
-    res.render('user/home',{products,category,productNumber});
+    res.render('user/home',{products,category,productNumber,latestProducts,mostSoldProductsDetails});
   } catch (error) {
     console.error('Error in getHomeAfterLogin:', error);
     res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
@@ -97,41 +173,41 @@ exports.postSignup = async (req, res,next) => {
   try {
     if (!name || !email || !password) {
       req.flash("error", "All fields are required");
-      return res.redirect("/getSignUp");
+      return res.redirect("/getSignUp/referralCode");
     }
 
     if (name.trim() !== name) {
       req.flash("error", "White space before the name is not allowed");
-      return res.redirect("/getSignUp");
+      return res.redirect("/getSignUp/referralCode");
     }
 
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(email)) {
       req.flash("error", "Email is required");
-      return res.redirect("/getSignUp");
+      return res.redirect("/getSignUp/referralCode");
     }
      const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if(!strongPasswordRegex.test(password)) {
       req.flash('error','password should contain At least one lowercase letter,one uppercase letter,one digit,one special character and Minimum length of 8 characters');
-      return res.redirect("/getSignUp");
+      return res.redirect("/getSignUp/referralCode");
     }
 
     if (password !== confirmPassword) {
       req.flash("error", "Password doesn't match");
-      return res.redirect("/getSignUp");
+      return res.redirect("/getSignUp/referralCode");
     }
 
     const specialCharsRegex = /[!@#$%^&*(),.?":{}|<>]/;
     if (specialCharsRegex.test(name)) {
       req.flash("error", "The name should not contain any special characters");
-      return res.redirect("/getSignUp");
+      return res.redirect("/getSignUp/referralCode");
     }
 
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
       req.flash("error", "The user already exists");
-      return res.redirect("/getSignUp");
+      return res.redirect("/getSignUp/referralCode");
     }
 
     // Generate OTP
@@ -240,9 +316,6 @@ exports.postOtp = async (req, res,next) => {
         });
         await newUser.save();
       }
-// delete app.locals.email;
-// delete app.locals.name;  //////////if cleared these fields the functionality of the resend otp may be interrupted///////
-// delete app.locals.password;
       res.redirect("/getLogin");
     } else {
       req.flash("error", 'Enter the correct OTP');
@@ -291,8 +364,7 @@ console.log('The resend otp is :',token);
     // Send OTP via email
     const mailBody = `Your OTP for registration is ${token}`;
     await mailSender(email, 'Registration OTP', mailBody);
-
-    // return res.status(200).json({ message: 'OTP resent successfully' });
+res.redirect('/getOtp');
   } catch (error) {
     console.error('Error in resendOtp:', error);
     res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
@@ -339,13 +411,13 @@ exports.postForgotPassword = async(req,res) =>{
   }
   const user = await userModel.findOne({email});
   if(!user){
-    console.log('the user is not found');
+    
     req.flash("error",'User not found!');
    return res.redirect('/forgotPassword')
   }
 if(user.email===email){
   const token = totp.generate(secret);
-  console.log('The otp generated for the resett password',token);
+  
  
 const mailBody = `Your otp for resetting the password is ${token}`;
   await mailSender(email,'Forgot Password OTP',mailBody);
@@ -369,15 +441,15 @@ const mailBody = `Your otp for resetting the password is ${token}`;
 
 exports.ChangePasswordOtp = async(req,res) => {
   try {
-    console.log('The change passwor otp confirmation hits');
+    
     const { first, sec, third, fourth, fifth, sixth } = req.body;
     const enteredOtp = `${first}${sec}${third}${fourth}${fifth}${sixth}`;
-    console.log('entered otp',enteredOtp);
+    
     const email = app.locals.forgotEmail;
     const otp  = await otpModel.findOne({email});
 
     if(otp.otp===enteredOtp){
-      console.log('The otp and  the entered otp is  the same');
+      
             const user = await userModel.findOne({email});
             if(!user){
               req.flash("error",'Failed to fetch user Data!');
@@ -395,14 +467,13 @@ exports.ChangePasswordOtp = async(req,res) => {
 
 exports.putForgotPassword = async (req, res) => {
   try {
-    console.log('The put password function hits');
+    
     const email = app.locals.forgotEmail;
-    console.log(req.body);
+    
     const  password = req.body.password;
     const confirmPassword  = req.body.confirmPassword;
     
-    console.log('The password:', password);
-    console.log('The confirm password',confirmPassword);
+    
 
     if (!password) {
       return res.status(400).json({ error: 'Password is required' });
@@ -465,7 +536,7 @@ exports.postLogin = async (req, res) => {
 
     if (user.isBlocked) {
       req.flash("error", "The user is blocked");
-      console.log('The user is blocked');
+      
       return res.redirect("/getLogin");
     }
 
@@ -476,9 +547,9 @@ exports.postLogin = async (req, res) => {
       return res.redirect("/getLogin");
     }
 
-    console.log(`The user details retrieved from the database: ${user}`);
+    
     req.session.user =data.email; // Storing the email in the session
-    console.log(`The req.session.user in the post login is ${JSON.stringify(req.session.user)}`);
+    
 
     res.redirect('/getHome');
   } catch (error) {
@@ -521,7 +592,7 @@ exports.postLogout = (req,res,next) => {
       res.status(500).json({error:"Internal server error"});
     }else{
       res.redirect("/");
-      console.log(`The session after logout is : ${req.session}`)
+      
     }
    });
  } catch (error) {
@@ -542,9 +613,9 @@ exports.postLogout = (req,res,next) => {
 
 
 exports.getProductList=async (req,res,next)=>{   
-  console.log('the get products function hits');
+  
   const category=req.query.category;
-  console.log({category})
+  
   let action=req.params.action;
   const page=+req.query.page||1;
   const search=req.query.search;
@@ -577,7 +648,7 @@ exports.getProductList=async (req,res,next)=>{
       }else{
           product_count=await productModel.find({isBlocked:false}).countDocuments();
       }
-    console.log(product_count)
+    
       res.render("user/product",{
           products,
           currentPage: page,

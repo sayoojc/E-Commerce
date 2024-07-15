@@ -16,7 +16,7 @@ exports.getSalesReport = async (req, res, next) => {
         let start, end;
         if (startDate && endDate) {
             start = new Date(startDate);
-            end = new Date(endDate);
+            end = new Date(new Date(endDate).setHours(23, 59, 59, 999)); // Include the entire end date
         }
         else if (filterOption === 'weekly') {
             start = moment().startOf('week').toDate();
@@ -24,10 +24,10 @@ exports.getSalesReport = async (req, res, next) => {
         } else if (filterOption === 'monthly') {
             start = moment().startOf('month').toDate();
             end = moment().endOf('month').toDate();
-        } else  if (filterOption === 'daily') {
+        } else if (filterOption === 'daily') {
             start = moment().startOf('day').toDate();
             end = moment().endOf('day').toDate();
-        }  else {
+        } else {
             start = new Date(0);  // default to epoch start if no dates are provided
             end = new Date();     // default to now if no dates are provided
         }
@@ -41,28 +41,31 @@ exports.getSalesReport = async (req, res, next) => {
         };
 
         // Fetch all orders within the date range
-       
-        // Fetch non-cancelled orders within the date range
         const orders = await orderModel.find({
             ...query,
             'orders.orderStatus': { $ne: 'Cancelled' }
-        })    .populate('user')
-       
-        console.log('orders',orders);
+        }).populate('user');
+        
+
+
         // Step 2: Extract unique user IDs
         const uniqueUserIds = new Set(orders
             .filter(order => order.user !== null) // Ensure user is not null
             .map(order => order.user.toString())
         );
-const orders1 = orders.sort((a,b) => b.orderDate-a.orderDate);
+
+        const orders1 = orders.sort((a, b) => b.orderDate - a.orderDate);
+
         // Step 3: Get the unique user count
         const uniqueUserCount = uniqueUserIds.size;
 
         // Calculate total order amount
         const totalOrderAmount = orders.reduce((acc, curr) => acc + curr.payment.amount, 0);
-        console.log('the total order amount:',totalOrderAmount);
+        const totalCartAmount = orders.reduce((acc,curr) =>acc+curr.cartValue,0);
+        console.log('fdfddf',totalCartAmount);
+        let totalDiscountGiven = totalCartAmount-totalOrderAmount;
 
-        res.render('user/salesReport', { orders1, totalOrderAmount, uniqueUserCount,start,end });
+        res.render('user/salesReport', { orders1, totalOrderAmount, uniqueUserCount, start, end,totalDiscountGiven });
 
     } catch (error) {
         console.error('Error in getSalesReport:', error);
@@ -74,86 +77,87 @@ const orders1 = orders.sort((a,b) => b.orderDate-a.orderDate);
 
 const PDFDocument2=require('pdfkit-table');
 
-exports.getSalesReportPdf=async (req,res,next)=>{
 
-    try{
-        let { startDate, endDate, filterOption } = req.query;
+
+exports.getSalesReportPdf = async (req, res, next) => {
+    try {
+        let { start, end, filterOption } = req.params;
         let ordersQuery = {};
-        let sum=0;
-        if (startDate && endDate) {
-            ordersQuery.orderDate = { 
-                $gte: new Date(startDate), 
-                $lte: new Date(endDate) 
+        let sum = 0;
+console.log('data from the getSalesRepotPdf',start,end,filterOption);
+        if (start && end) {
+            ordersQuery.orderDate = {
+                $gte: new Date(start),
+                $lte: new Date(new Date(end).setHours(23, 59, 59, 999))
+               
             };
         } else if (filterOption) {
-                const today = moment().startOf('day');
-                switch (filterOption) {
-                    case 'daily':
-                        startDate = today;
-                        endDate = moment(today).endOf('day');
-                        break;
-                    case 'weekly':
-                        startDate = moment(today).startOf('isoWeek');
-                        endDate = moment(today).endOf('isoWeek');
-                        break;
-                    case 'monthly':
-                        startDate = moment(today).startOf('month');
-                        endDate = moment(today).endOf('month');
-                        break;
-                }
-                ordersQuery.orderDate = { 
-                    $gte: startDate.toDate(), 
-                    $lte: endDate.toDate() 
-                };
+            const today = moment().startOf('day');
+            switch (filterOption) {
+                case 'daily':
+                    startDate = today;
+                    endDate = moment(today).endOf('day');
+                    break;
+                case 'weekly':
+                    startDate = moment(today).startOf('isoWeek');
+                    endDate = moment(today).endOf('isoWeek');
+                    break;
+                case 'monthly':
+                    startDate = moment(today).startOf('month');
+                    endDate = moment(today).endOf('month');
+                    break;
             }
+            ordersQuery.orderDate = {
+                $gte: start.toDate(),
+                $lte: end.toDate()
+            };
+        }
+
         const orders = await orderModel.find(ordersQuery).populate("user").sort({ orderDate: -1 });
         const totalCount = await orderModel.countDocuments(ordersQuery);
         let totalAmount = await orderModel.aggregate([
             {
-            $match: ordersQuery,
+                $match: ordersQuery,
             },
             {
-            $group: {
-                _id: null,
-                totalAmount: { $sum: "$payment.amount" },
-            },
+                $group: {
+                    _id: null,
+                    totalAmount: { $sum: "$payment.amount" },
+                },
             },
             {
-                $project:{
-                    _id:0
+                $project: {
+                    _id: 0
                 }
             }
         ]);
+
         let totalUser = await orderModel.aggregate([
             {
-              $match: ordersQuery
+                $match: ordersQuery
             },
             {
-              $group: { _id: "$user" }
+                $group: { _id: "$user" }
             },
             {
-              $count: "uniqueUsers"
+                $count: "uniqueUsers"
             }
-          ]);
-          
-          const uniqueUserCount = totalUser.length > 0 ? totalUser[0].uniqueUsers : 0;
-        console.log('total user',totalUser);
+        ]);
 
+        const uniqueUserCount = totalUser.length > 0 ? totalUser[0].uniqueUsers : 0;
 
-        totalAmount= (totalAmount.length>0) ? totalAmount[0].totalAmount : 0
-        totalUser=totalUser.length>0 ? totalUser[0].count : 0
- 
-        const doc = new PDFDocument2;
-        const salesReportPdfName='salesReport-'+Date.now()+'.pdf';
-        const salesReportPdfPath=path.join('data','salesReportPdf',salesReportPdfName)
-       
-        res.setHeader('Content-Type','application/pdf')
-        res.setHeader('Content-Disposition','inline;filename="'+salesReportPdfName+'"') //change 'inline' to attatchment to download directly
-        
-        doc.pipe(fs.createWriteStream(salesReportPdfPath))
+        totalAmount = (totalAmount.length > 0) ? totalAmount[0].totalAmount : 0;
 
-        doc.pipe(res)
-    
+        const doc = new PDFDocument2();
+        const salesReportPdfName = 'salesReport-' + Date.now() + '.pdf';
+        const salesReportPdfPath = path.join('data', 'salesReportPdf', salesReportPdfName);
+
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'inline; filename="' + salesReportPdfName + '"');
+
+        doc.pipe(fs.createWriteStream(salesReportPdfPath));
+        doc.pipe(res);
+
         // Add content to PDF
         doc.fontSize(20).text('Sales Report', { align: 'center' });
         doc.moveDown();
@@ -173,32 +177,31 @@ exports.getSalesReportPdf=async (req,res,next)=>{
                 'Order ID', 'Name', 'Products', 'Total Quantity', 'Total Price', 'Address', 'Payment Method', 'Order Date'
             ],
             rows: orders.map(order => {
-                sum=0;
+                sum = 0;
                 let totalQuantity = 0;
                 const products = order.products.map(item => {
-                    totalQuantity+=item.count;
-                    if(item.orderStatus==="cancelled"){
-                        return `${item.productName}(cancelled) - ${item.count}`
-                    }else if(item.orderStatus==="returned"){
-                        return `${item.productName}(returned) - ${item.count}`
-                    }else{
-                        sum+=item.discountPrice
-                        return `${item.productName} - ${item.count}`
+                    totalQuantity += item.count;
+                    if (item.orderStatus === "cancelled") {
+                        return `${item.productName}(cancelled) - ${item.count}`;
+                    } else if (item.orderStatus === "returned") {
+                        return `${item.productName}(returned) - ${item.count}`;
+                    } else {
+                        sum += item.discountPrice;
+                        return `${item.productName} - ${item.count}`;
                     }
-                    
                 }).join(', ');
                 const address = `${order.address.address1}, ${order.address.address2}, ${order.address.phone}, ${order.address.locality}, ${order.address.city}, ${order.address.state} - ${order.address.pincode}`;
-                if(order.coupon.discount){
-                    sum=(sum*(1-order.coupon.discount/100)).toFixed(2);
-                }else{
-                    sum=sum.toFixed(2);
+                if (order.coupon.discount) {
+                    sum = (sum * (1 - order.coupon.discount / 100)).toFixed(2);
+                } else {
+                    sum = sum.toFixed(2);
                 }
                 return [
                     order._id,
                     order.user.name,
                     products,
                     totalQuantity,
-                    order.payment.amount,
+                    order.payment.amount.toFixed(2),
                     address,
                     order.payment.paymentType,
                     order.orderDate.toISOString().split('T')[0] // Format as YYYY-MM-DD
@@ -209,19 +212,17 @@ exports.getSalesReportPdf=async (req,res,next)=>{
         // Add table to PDF
         doc.table(table, {
             prepareHeader: () => doc.font('Helvetica-Bold').fontSize(10),
-            prepareRow: (row, i) => doc.font('Helvetica').fontSize(10)
+            prepareRow: (row, i) => doc.font('Helvetica').fontSize(10),
+            options: { header: { repeat: false } } // Disable repeating headers on new pages
         });
 
         // Finalize the PDF and end the stream
         doc.end();
 
-
-    }catch (error) {
-        
-        console.log(error)
+    } catch (error) {
+        console.log(error);
     }
-
-}
+};
 
 
 
@@ -229,6 +230,7 @@ exports.getSalesReportPdf=async (req,res,next)=>{
 
 
 const ExcelJS = require('exceljs');
+const { Console } = require('console');
 
 
 exports.generateExcel = async (req, res, next) => {

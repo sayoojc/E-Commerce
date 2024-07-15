@@ -105,7 +105,7 @@ a:focus {
 /*header section*/
 .hero_area {
   position: relative;
-  min-height: 100vh;
+ 
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -137,9 +137,9 @@ a:focus {
 }
 .navbar-brand h4{
   font-size: 30px;
-  font-weight: 900;
+  font-weight: 800;
   font-style: normal;
-  color: #000000;
+  color: #f21515;
   
 }
 .navbar-brand h4:hover{
@@ -1137,8 +1137,8 @@ form input[type="submit"]:focus {
 .header_section {
   top: 0;
   z-index: 10;
-  background-color: #ffffffae;
-  padding: 15px 0;
+  background-color: #eeecec;
+  padding: 8px 0;
   position: sticky;
 }
 .custom-modal {

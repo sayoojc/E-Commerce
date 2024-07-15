@@ -20,9 +20,9 @@ exports.getProfile =  async(req,res,next) => {
       productNumber = 0;
     }
     
-    console.log('user from the getProfile',user);
+    
     const id = user._id;
-    console.log(id);
+    
     const addresses = await addressModel.find({user:id});
     res.render('user/profile',{data:addresses,user,category,productNumber,referralLink});
   } catch (error) {
@@ -40,7 +40,7 @@ exports.postAddress = async (req, res,next) => {
 
       const { name, address1, address2, phone, locality, city, pincode, state, } = req.body;
       const existingAddresses = await addressModel.find({user:user._id});
-      console.log('The existing addresses are:',existingAddresses);
+      
 
       if(existingAddresses.length>0){
         const newAddress = new addressModel({
@@ -86,10 +86,9 @@ exports.postAddress = async (req, res,next) => {
 exports.editAdress = async(req,res,next) => {
 try {
   const { name, address1, address2, phone, locality, city, pincode, state,addressId } = req.body;
-  console.log(req.body);
-  console.log('The id of the address to be edited',addressId);
+ 
 const address = await addressModel.findById(addressId);
-console.log('The address from the edit address backend function',address);
+
 address.name = name;
 address.address1 = address1;
 address.address2 = address2;
@@ -134,14 +133,14 @@ exports.changePassword = async(req,res,next) => {
    
    
     const passwordMatch = await bcrypt.compare(currentPassword, user.password);
-    console.log('change password match',passwordMatch);
+    
     if(passwordMatch){
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(newPassword, salt);
     
       user.password = hashedPassword;
       await user.save();
-      console.log(req.session.user);
+      
       return res.status(201).json({ message: 'Password changed successfully' });
     }
 

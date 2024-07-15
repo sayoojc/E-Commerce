@@ -107,12 +107,12 @@ exports.removeFromWishlist = async(req,res,next) => {
 
 exports.increaseProductNo = async (req, res) => {
     try {
-        console.log("The backend inc prod numb in the wishlist is hit");
+        
         const email = req.session.user;
         const user = await userModel.findOne({ email });
         const userId = user._id;
         const context = req.body.context;
-        console.log('context', context);
+        
         const productId = req.body.productId;
         
         // Find the user's wishlist
