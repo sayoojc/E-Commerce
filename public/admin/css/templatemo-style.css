@@ -580,9 +580,7 @@ input[type="checkbox"]:focus {
     padding-left: 28px;
     padding-right: 28px;
   }
-  .navbar-collapse {
-    height: 100%;
-  }
+ 
 }
 @media (min-width: 992px) {
   .navbar-expand-lg .navbar-nav .nav-link {

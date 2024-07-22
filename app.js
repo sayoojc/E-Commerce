@@ -23,8 +23,13 @@ const user=require("./routes/userRoutes/user.js");
  const flash=require("connect-flash");
  const passportSetup = require('./config/googleAuth.js');
  const passport = require('passport');
-const errorHandler = require('./Middleware/errorHandler.js'); 
-
+ const errorHandler = require('./Middleware/errorHandler.js'); 
+ const http = require('http');
+ const {Server} = require('socket.io');
+ const server = http.createServer(app);
+ const io = new Server(server,{
+  connectionStateRecovery: {}
+ });
 
 const PORT=process.env.PORT||8080
 const MONGO_URI="mongodb://localhost:27017/E-Commerce"
@@ -45,23 +50,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
-
-
-
-
-// ...
-// app.use(session({
-//   secret: 'your_secret_key',
-//   resave: false,
-//   saveUninitialized: true,
-//   store: new MemoryStore({
-//     checkPeriod: 86400000 // prune expired entries every 24h
-//   }),
-//   cookie: { maxAge: 60000 } // 60 seconds
-// }));
-
    
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(flash());
@@ -73,15 +62,6 @@ app.set("view engine", "ejs");
 app.set('views','./views')
 app.use(passport.initialize());
 app.use(passport.session());
-
-// // /* Development Details BEGIN */
-// app.use((req,res,next)=>{
-//   req.session.user="sayoojcpalad@gmail.com"
-//   req.session.admin="admin@gmail.com"
-//   next();
-// })
-// // /* Development Details END */
-
  app.use(nocache());
  app.use('/',user);
  app.use("/",profile);
@@ -108,7 +88,7 @@ app.use(passport.session());
     const prompt =details + req.body.prompt
   
     const result = await model.generateContent(prompt);
-    const response = await result.response;
+    const response = result.response;
     const text = response.text();
     res.json({reply:text});
   }
@@ -116,7 +96,21 @@ app.use(passport.session());
   run();
  })
 
- 
+
+
+ io.on('connection', (socket) => {
+  console.log('A user connected');
+  
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+    io.emit('chat message', msg);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
+});
+
 app.use('/',errorHandler.handlerNotFound);
 
 //  app.use(errorHandler.serverErrorHandler);
@@ -124,7 +118,7 @@ app.use('/',errorHandler.handlerNotFound);
 
 mongoose.connect(MONGO_URI)
   .then(() => {
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`Server is running on Port ${PORT}`);
       console.log('MongoDB is connected');
     });

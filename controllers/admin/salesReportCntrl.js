@@ -58,7 +58,7 @@ exports.getSalesReport = async (req, res, next) => {
 
         // Step 3: Get the unique user count
         const uniqueUserCount = uniqueUserIds.size;
-
+console.log('something');
         // Calculate total order amount
         const totalOrderAmount = orders.reduce((acc, curr) => acc + curr.payment.amount, 0);
         const totalCartAmount = orders.reduce((acc,curr) =>acc+curr.cartValue,0);
@@ -298,7 +298,7 @@ exports.generateExcel = async (req, res, next) => {
         worksheet.addRow(['Total Orders', orders.length]);
         worksheet.addRow(['Total Non-Cancelled Orders', orders1.length]);
         worksheet.addRow(['Unique Users', uniqueUserCount]);
-        worksheet.addRow(['Total Order Amount', `$${totalOrderAmount.toFixed(2)}`]);
+        worksheet.addRow(['Total Order Amount', `${totalOrderAmount.toFixed(2)}`]);
 
         worksheet.addRow([]);
 
@@ -308,7 +308,7 @@ exports.generateExcel = async (req, res, next) => {
 
         // Add order details
         orders1.forEach(order => {
-            const products = order.products.map(item => `${item.productName} (Count: ${item.count}, Price: $${item.price.toFixed(2)})`).join(', ');
+            const products = order.products.map(item => `${item.productName} (Count: ${item.count}, Price: ${item.price.toFixed(2)})`).join(', ');
             worksheet.addRow([
                 order._id.toString(),
                 order.user ? order.user.name : 'N/A',

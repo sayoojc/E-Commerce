@@ -15,6 +15,7 @@ const app = express();
 const mailSender = require('../../config/mailer'); // Adjust the path as needed
 const bcrypt = require('bcrypt');
 const e = require("connect-flash");
+const mongoose = require('mongoose');
 
 
 const ITEMS_PER_PAGE  = 8;
@@ -523,7 +524,7 @@ exports.postLogin = async (req, res) => {
       password: req.body.password
     };
     const user = await userModel.findOne({ email: data.email });
-    
+  
     if (!user) {
       req.flash("error", "User does not exist");
       return res.redirect("/getLogin");
@@ -540,7 +541,7 @@ exports.postLogin = async (req, res) => {
       return res.redirect("/getLogin");
     }
 
-    const isPasswordMatch = bcrypt.compare(data.password, user.password);
+    const isPasswordMatch = await bcrypt.compare(data.password, user.password);
 
     if (!isPasswordMatch) {
       req.flash("error", "Password does not match");
@@ -565,6 +566,9 @@ exports.getProductDetail = async(req,res,next) => {
   try {
    
       const productId = req.params.productId;
+      if (productId && !mongoose.Types.ObjectId.isValid(productId)) {
+        return res.redirect('/404');
+     }
       const product =  await productModel.findById({_id:productId}).populate('category');
       res.render("user/productdetail",{product});
    
@@ -615,7 +619,9 @@ exports.postLogout = (req,res,next) => {
 exports.getProductList=async (req,res,next)=>{   
   
   const category=req.query.category;
-  
+  if (category && !mongoose.Types.ObjectId.isValid(category)) {
+   return res.redirect('/404');
+}
   let action=req.params.action;
   const page=+req.query.page||1;
   const search=req.query.search;
@@ -638,7 +644,11 @@ exports.getProductList=async (req,res,next)=>{
       let product_count;
       const wishlist=await wishlistModel.findOne({userId});
       const categories=await categoryModel.find({isBlocked:false});
-      const products=await filterProducts(action,page,search,searchquery,category)
+      
+      const allProducts=await filterProducts(action,page,search,searchquery,category);
+      console.log('all products',allProducts);
+      let products = allProducts.filter(product =>!product.category.isBlocked);
+      console.log("products:",products);
       if(category&&searchquery){
           product_count=await productModel.find({isBlocked:false,productName: { $regex: search, $options: 'i' },category:category}).countDocuments();
       }else if(searchquery){

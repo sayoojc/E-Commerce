@@ -13,22 +13,35 @@ exports.getProducts = async (req, res, next) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 5;
+        const searchQuery = req.query.search || '';
         const skip = (page - 1) * limit;
 
-        const products = await productModel.find()
+        // Build the search filter
+        let searchFilter = {};
+        if (searchQuery) {
+            searchFilter = {
+                $or: [
+                    { productName: { $regex: searchQuery, $options: 'i' } },
+                    { description: { $regex: searchQuery, $options: 'i' } },
+                ]
+            };
+        }
+
+        const products = await productModel.find(searchFilter)
             .populate("category")
             .skip(skip)
             .limit(limit)
             .exec();
 
-        const totalProducts = await productModel.countDocuments();
+        const totalProducts = await productModel.countDocuments(searchFilter);
 
         res.render("user/adminProduct", {
             error: req.flash("error"),
             products,
             currentPage: page,
             totalPages: Math.ceil(totalProducts / limit),
-            limit
+            limit,
+            searchQuery
         });
 
     } catch (error) {
@@ -36,6 +49,7 @@ exports.getProducts = async (req, res, next) => {
         res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 };
+
 
 
 ////////////Get the Add product page/////////////

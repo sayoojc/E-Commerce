@@ -5,26 +5,47 @@ const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
 const productModel = require('../../models/productModel');
-////////Get the category page  /////
-exports.getCategory = async (req, res,next) => {
-    try {
 
-        if(req.session.admin){
-            
-            const categories = await categoryModel.find({});
-            res.render('user/adminCategory', {data: categories,error: req.flash("error")} );
+
+exports.getCategory = async (req, res, next) => {
+    try {
+        if (req.session.admin) {
+            // Get page, limit, and search query from query parameters
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 6;
+            const searchQuery = req.query.search || '';
+
+            let query = {};
+            if (searchQuery) {
+                query = { categoryName: { $regex: searchQuery, $options: 'i' } }; // Case-insensitive search
+            }
+
+            // Calculate the total number of categories and pages
+            const totalCategories = await categoryModel.countDocuments(query);
+            const totalPages = Math.ceil(totalCategories / limit);
+
+            // Fetch categories for the current page
+            const categories = await categoryModel.find(query)
+                .skip((page - 1) * limit)
+                .limit(limit);
+
+            res.render('user/adminCategory', {
+                data: categories,
+                error: req.flash("error"),
+                currentPage: page,
+                totalPages: totalPages,
+                searchQuery: searchQuery
+            });
+        } else {
+            res.redirect('/admin/adminLogin');
         }
-      else{
-        res.redirect('/admin/adminLogin');
-      }
-        
-       
-        
     } catch (error) {
         console.error('Error in getCategory:', error);
         res.status(error.status || 500).json({ error: error.message || 'Internal Server Error' });
     }
 };
+
+
 
 ///////////////Crop add category image/////////
 

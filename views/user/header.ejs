@@ -286,14 +286,25 @@
   justify-content: center;
   align-items: center;
 }
-
+@media screen and (max-width: 1200px) {
+  /* Styles for tablets (medium screens) and up */
+  #nutromaxLogo {
+    display: none;
+  }
+ 
+}
+@media screen and (max-width: 1200px) {
+  #accountModal {
+    left: 150px !important; /* Show and center the modal */
+  }
+}
 </style>
 
 <header class="header_section">
   <div id="modalBackground"></div> 
     <div class="container">
        <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" style="position: fixed;" href="/getHome"> <h4 class="bold-montserrat">NUTROMAX</h4></a>
+          <a class="navbar-brand " id="nutromaxLogo" style="position: fixed;" href="/getHome"> <h4 class="bold-montserrat">NUTROMAX</h4></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class=""> </span>
           </button>

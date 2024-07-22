@@ -23,6 +23,7 @@
 
 <body>
     <div class="card-wrapper">
+        <%if(product){%>
         <div class="card">
             <!-- card left -->
             <div class="product-imgs">
@@ -109,6 +110,9 @@
                 </div>
             </div>
         </div>
+        <%}else{%>
+            <div><h1>No product found!!!!!</h1></div>
+            <%}%>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -386,28 +386,37 @@
                      <li class="list-group-item list-group-item-dark">CATEGORIES</li>
                      <div class="dropdown mb-2">
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                           aria-expanded="false" data-bs-display="static">
-                           <% if (category) { %>
-                              <%= categories.find(cat=> cat._id.toString() === category.toString()).name %>
-                                 <% } else { %>
-                                    Select category
-                                    <% } %>
+                            aria-expanded="false" data-bs-display="static">
+                            <% 
+                                // Find the selected category safely
+                                let selectedCategory = categories.find(cat => cat._id.toString() === category.toString());
+                            %>
+                            <% if (selectedCategory) { %>
+                                <%= selectedCategory.categoryName %>
+                            <% } else { %>
+                                Select category
+                            <% } %>
                         </button>
                         <ul class="dropdown-menu category-list">
-                           <% categories.forEach(cat=> { %>
-                              <% if (cat._id.toString()===category) { %>
-                                 <li><span class="dropdown-item-text text-muted">
-                                       <%= cat.categoryName %>
-                                    </span></li>
-                                 <% } else { %>
-                                    <li><a class="dropdown-item"
-                                          href="/product-list/list?category=<%= cat._id %><% if(search){ %>&search=<%= search %><% } %>">
-                                          <%= cat.categoryName %>
-                                       </a></li>
-                                    <% } %>
-                                       <% }) %>
+                            <% categories.forEach(cat => { %>
+                                <% if (cat._id.toString() === category) { %>
+                                    <li>
+                                        <span class="dropdown-item-text text-muted">
+                                            <%= cat.categoryName %>
+                                        </span>
+                                    </li>
+                                <% } else { %>
+                                    <li>
+                                        <a class="dropdown-item"
+                                           href="/product-list/list?category=<%= cat._id %><% if (search) { %>&search=<%= search %><% } %>">
+                                            <%= cat.categoryName %>
+                                        </a>
+                                    </li>
+                                <% } %>
+                            <% }) %>
                         </ul>
-                     </div>
+                    </div>
+                    
 
                      <li class="list-group-item"><a
                            href="/product-list/lowToHigh<% if (category || search) { %>?<% } %><% if (category) { %>category=<%= category %><% } %><% if (category && search) { %>&<% } %><% if (search) { %>search=<%= search %><% } %>">Price:
